@@ -74,8 +74,8 @@ public class Cliente {
         System.out.println("ID: " + id);
         System.out.println("Nombre: " + nombre);
         System.out.println("Apellido: " + apellido);
-        System.out.println("Dirección: " + direccion);
-        System.out.println("Teléfono: " + telefono);
+        System.out.println("Direccion: " + direccion);
+        System.out.println("Telefono: " + telefono);
     }
 
     public static void main(String[] args) {
