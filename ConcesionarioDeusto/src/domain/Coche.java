@@ -8,10 +8,10 @@ public class Coche {
 	private String marca;
 	private Matricula matricula;
 	
-	public Coche(double precio, int año, String modelo, String marca, Matricula matricula) {
+	public Coche(double precio, int anyo, String modelo, String marca, Matricula matricula) {
 		super();
 		this.precio = precio;
-		this.anyo = año;
+		this.anyo = anyo;
 		this.modelo = modelo;
 		this.marca = marca;
 		this.matricula = matricula;
