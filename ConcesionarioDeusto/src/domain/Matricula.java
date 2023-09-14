@@ -56,7 +56,7 @@ public class Matricula {
     }
 	
 	public static void main(String[] args) {
-        Matricula matricula1 = new Matricula();
+        Matricula matricula1 = new Matricula("GHY", 1753, "España");
         matricula1.mostrarInformacion();
     }
 }

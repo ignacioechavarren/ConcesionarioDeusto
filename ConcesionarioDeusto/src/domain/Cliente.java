@@ -79,7 +79,7 @@ public class Cliente {
     }
 
     public static void main(String[] args) {
-        Cliente cliente1 = new Cliente(1, "Juan", "Perez", "123 Calle Principal", "555-1234");
+        Cliente cliente1 = new Cliente(1, "Juan", "Perez", "Parque de los Lirios", "678458377");
         cliente1.mostrarInformacion();
     }
 }
