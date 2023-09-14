@@ -81,7 +81,7 @@ public class Coche {
     }
 	
 	public static void main(String[] args) {
-        Coche coche1 = new Coche(1, 2000, "R8", "Audi", new Matricula());
+        Coche coche1 = new Coche(1, 2000, "R8", "AUD", new Matricula());
         coche1.mostrarInformacion();
     }
 	
