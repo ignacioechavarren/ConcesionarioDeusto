@@ -38,6 +38,7 @@ public enum Marca implements Serializable{
 	TES("Tesla"),
 	TOY("Toyota"),
 	VOL("Volkswagen");
+	//Acabado
 	private String nombre;
 	
 	Marca(String nombre) {
