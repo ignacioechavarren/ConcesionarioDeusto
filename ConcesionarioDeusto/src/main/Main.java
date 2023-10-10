@@ -7,7 +7,7 @@ import domain.Concesionario;
 public class Main {
 
 	public static void main(String[] args) {
-		/*No vamos a instanciar (crear objetos) la clase Tienda porque sus atributos y métodos van a ser static*/
+		
 		Coche c1 = new Coche(500, 1996, "Seat", "Ibiza","8828CU" );
 		Coche c2 = new Coche(800, 2000, "BMW", "E46","4777CHD" );
 		
