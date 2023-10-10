@@ -41,7 +41,7 @@ public class Coche implements Comparable<Coche>{
 	}
 	/**
 	 * 
-	 * @return
+	 * @return devolver precio
  */
 	public double getPrecio() {
 		return precio;
@@ -55,7 +55,7 @@ public class Coche implements Comparable<Coche>{
 	}
 	/**
 	 * 
-	 * @return
+	 * @return devolver año
 	 */
 	public int getAnyo() {
 		return anyo;
@@ -69,7 +69,7 @@ public class Coche implements Comparable<Coche>{
 	}
 	/**
 	 * 
-	 * @return
+	 * @return devolver modelo
 	 */
 	public String getModelo() {
 		return modelo;
@@ -83,7 +83,7 @@ public class Coche implements Comparable<Coche>{
 	}
 	/**
 	 * 
-	 * @return
+	 * @return devuelve marca
 	 */
 
 	public String getMarca() {
@@ -99,7 +99,7 @@ public class Coche implements Comparable<Coche>{
 	}
 	/**
 	 * 
-	 * @return
+	 * @return matricula
 	 */
 	public String getMatricula() {
 		return matricula;

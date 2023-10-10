@@ -7,7 +7,7 @@ import java.util.Date;
 public class Cliente implements Comparable<Cliente>{
     
 	/**
-	 * 
+	 * atributos 
 	 */
    
 	private String dni;
@@ -19,7 +19,7 @@ public class Cliente implements Comparable<Cliente>{
 	
 	
 	/**
-	 * 
+	 * constructor vacio cliente
 	 */
 	public Cliente() {
 		super();
@@ -61,7 +61,7 @@ public class Cliente implements Comparable<Cliente>{
 	
 	/**
 	 * 
-	 * @return
+	 * @return devolver contrasenia
 	 */
 	public String getContrasenia() {
 		return contrasenia;
@@ -76,7 +76,7 @@ public class Cliente implements Comparable<Cliente>{
 	
 	/**
 	 * 
-	 * @return
+	 * @return devolver dni
 	 */
 	public String getDni() {
 		return dni;
@@ -90,7 +90,7 @@ public class Cliente implements Comparable<Cliente>{
 	}
 	/**
 	 * 
-	 * @return
+	 * @return devolver nombre
 	 */
 	public String getNombre() {
 		return nombre;
@@ -106,7 +106,7 @@ public class Cliente implements Comparable<Cliente>{
 	
 	/**
 	 * 
-	 * @return
+	 * @return devolver fecha nacimiento
 	 */
 	public Date getfNac() {
 		return fNac;

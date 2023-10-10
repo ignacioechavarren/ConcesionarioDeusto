@@ -25,7 +25,7 @@ public class Concesionario {
 	
 	/**
 	 * 
-	 * @param co
+	 * @param metodo añadircoche
 	 */
 	public static void aniadirCoche(Coche co) {
 		coches.add(co);
@@ -42,7 +42,7 @@ public class Concesionario {
 	}
 	/**
 	 * 
-	 * @param c
+	 * @param meotodo añadir cliente
 	 */
 	public static void aniadirCliente(Cliente c) {
 		clientes.add(c);
