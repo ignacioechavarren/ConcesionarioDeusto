@@ -1,6 +1,6 @@
 package domain;
 
-public class Coche {
+public class Coche implements Comparable<Coche>{
 	/**
 	 * 
 	 */
@@ -8,7 +8,7 @@ public class Coche {
 	private int anyo;
 	private String modelo;
 	private String marca;
-	private Matricula matricula;
+	private String matricula;
 	
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class Coche {
 	 * @param matricula
 	 */
 	
-	public Coche(double precio, int anyo, String modelo, String marca, Matricula matricula) {
+	public Coche(double precio, int anyo, String modelo, String marca, String matricula) {
 		super();
 		this.precio = precio;
 		this.anyo = anyo;
@@ -38,7 +38,7 @@ public class Coche {
 		this.anyo = 0;
 		this.modelo = "";
 		this.marca = "";
-		this.matricula = new Matricula();
+		this.matricula = "";
 	}
 	/**
 	 * 
@@ -102,7 +102,7 @@ public class Coche {
 	 * 
 	 * @return
 	 */
-	public Matricula getMatricula() {
+	public String getMatricula() {
 		return matricula;
 	}
 	/**
@@ -110,7 +110,7 @@ public class Coche {
 	 * @param matricula
 	 */
 
-	public void setMatricula(Matricula matricula) {
+	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
 	/**
@@ -131,13 +131,13 @@ public class Coche {
         System.out.println("Marca: " + marca);
         System.out.println("Matricula: " + matricula);
     }
-	/**
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-        Coche coche1 = new Coche(1, 2000, "R8", "AUD", new Matricula());
-        coche1.mostrarInformacion();
-    }
+
+	@Override
+	public int compareTo(Coche o) {
+		// TODO Auto-generated method stub
+		return this.marca.compareTo(o.marca); //Ordenar ascendentemente por año
+	}
+	
+	
 	
 }

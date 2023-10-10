@@ -1,147 +1,92 @@
 package domain;
 
-public class Cliente {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Cliente implements Comparable<Cliente>{
     
 	/**
 	 * 
 	 */
-    private int id;
-    private String nombre;
-    private String apellido;
-    private String direccion;
-    private String telefono;
+   
+	private String dni;
+	private String nombre;
+	private Date fNac;
+	private String contrasenia;
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	
+	
 
-    
-   /**
-    * 
-    * @param id
-    * @param nombre
-    * @param apellido
-    * @param direccion
-    * @param telefono
-    */
-    public Cliente(int id, String nombre, String apellido, String direccion, String telefono) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.direccion = direccion;
-        this.telefono = telefono;
-    }
-    /**
-     * 
-     */
-    public Cliente() {
-        this.id = 0;
-        this.nombre = "";
-        this.apellido = "";
-        this.direccion = "";
-        this.telefono = "";
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * 
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    /**
-     * 
-     * @return
-     */
-    public String getNombre() {
-        return nombre;
-    }
-    /**
-     * 
-     * @param nombre
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    /**
-     * 
-     * @return
-     */
-    public String getApellido() {
-        return apellido;
-    }
-    
-    /**
-     * 
-     * @param apellido
-     */
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-    
-    /**
-     * 
-     * @return
-     */
-    public String getDireccion() {
-        return direccion;
-    }
-    
-    /**
-     * 
-     * @param direccion
-     */
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public String getTelefono() {
-        return telefono;
-    }
-    
-    /**
-     * 
-     * @param telefono
-     */
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    /**
-     * 
-     */
-    @Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", direccion=" + direccion
-				+ ", telefono=" + telefono + "]";
+	public Cliente() {
+		super();
 	}
-    /**
-     * 
-     */
+	public Cliente(String dni, String nombre, Date fNac, String c) {
+		super();
+		this.dni = dni;
+		this.nombre = nombre;
+		this.fNac = fNac;
+		this.contrasenia = c;
+	}
+   
+
+    public Cliente(String dni, String nombre, String fNac, String c) {
+		super();
+		this.dni = dni;
+		this.nombre = nombre;
+		try {
+			this.fNac = sdf.parse(fNac);
+		} catch (ParseException e) {
+			this.fNac = new Date(0);
+		}
+		this.contrasenia = c;
+	}
+	
+	
+	public String getContrasenia() {
+		return contrasenia;
+	}
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public Date getfNac() {
+		return fNac;
+	}
+	
+	public String getfNacStr() {
+		return sdf.format(fNac);
+	}
+	
+	public void setfNac(Date fNac) {
+		this.fNac = fNac;
+	}
+	
+	@Override
+	public String toString() {
+		return "Cliente [dni=" + dni + ", nombre=" + nombre + ", fNac=" + getfNacStr() + "]";
+	}
 	public void mostrarInformacion() {
-        System.out.println("ID: " + id);
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Apellido: " + apellido);
-        System.out.println("Direccion: " + direccion);
-        System.out.println("Telefono: " + telefono);
-    }
-	/**
-	 * 
-	 * @param args
- */
-    public static void main(String[] args) {
-        Cliente cliente1 = new Cliente(1, "Juan", "Perez", "Parque de los Lirios", "678458377");
-        cliente1.mostrarInformacion();
-    }
+		 System.out.println("Dni: " + dni);
+        System.out.println("fnac: " + fNac);
+        System.out.println("contrasena: " + contrasenia);
+           }
+	@Override
+	public int compareTo(Cliente o) {
+		return  this.dni.compareTo(o.dni);
+	}
+	
+    
 }
