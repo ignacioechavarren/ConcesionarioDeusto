@@ -1,6 +1,7 @@
 package domain;
 import java.io.Serializable;
 public enum Marca implements Serializable{
+	
 	FER("Ferrari"),
 	BMW("BMW"), 
 	AU("Audi"), 
@@ -39,12 +40,24 @@ public enum Marca implements Serializable{
 	TOY("Toyota"),
 	VOL("Volkswagen");
 	//Acabado
+	
+	/**
+	 * 
+	 */
 	private String nombre;
 	
+	/**
+	 * 
+	 * @param nombre
+	 */
 	Marca(String nombre) {
 		this.nombre = nombre;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getMarca() {
 		return this.nombre;
 	}

@@ -14,30 +14,50 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Concesionario {
+	
+	/**
+	 * 
+	 */
 	private static Set<Coche> coches = new TreeSet<>();
 	private static List<Cliente> clientes = new ArrayList<>();
 	private static Map<Cliente, List<Coche>> reservas = new TreeMap<>();//new HashMap<>();
 	
+	
+	/**
+	 * 
+	 * @param co
+	 */
 	public static void aniadirCoche(Coche co) {
 		coches.add(co);
 	}
 	
+	
+	/**
+	 * 
+	 */
 	public static void imprimirCoches() {
 		for(Coche co: coches) {
 			System.out.println(co);
 		}
 	}
-	
+	/**
+	 * 
+	 * @param c
+	 */
 	public static void aniadirCliente(Cliente c) {
 		clientes.add(c);
 	}
-	
+	/**
+	 * 
+	 */
 	public static void imprimirClientes() {
 		for(Cliente c: clientes) {
 			System.out.println(c);
 		}
 	}
-	
+	/**
+	 * 
+	 */
 	public static void ordenarListaClientes() {
 		Comparator<Cliente> c = new Comparator<Cliente>() {
 			@Override
@@ -51,10 +71,8 @@ public class Concesionario {
 	
 	/**
 	 * 
-	 * @param cl Cliente que ha realizado la compra
-	 * @param c coche comprado
-	 * 
-	 * Método que añade a la lista de artículos del cliente c el nuevo artículo comprado
+	 * @param c
+	 * @param co
 	 */
 	public static void aniadirReserva(Cliente c, Coche co) {
 	/*	if(!reservas.containsKey(c)) { //Si el cliente no está en el mapa
@@ -73,7 +91,7 @@ public class Concesionario {
 	
 	//Método que imprime por consola las compras de todos los clientes
 	/**
-	 * Método que imprime por consola las compras de todos los clientes
+	 * Método que imprime por consola las reservas de todos los clientes
 	 */
 	public static void imprimirReservas() {
 		//Recorremos las claves del mapa
@@ -91,8 +109,8 @@ public class Concesionario {
 	
 	/**
 	 * 
-	 * @param c Cliente del que se van a imprimir las Compras
-	 * Método que imprime por consola las compras del cliente recibido por parámetro
+	 * @param c Cliente del que se van a imprimir las reservas
+	 * Método que imprime por consola las reservas del cliente recibido por parámetro
 	 */
 	public static void imprimirReservasCliente(Cliente c) {
 		List<Coche> l = reservas.get(c);

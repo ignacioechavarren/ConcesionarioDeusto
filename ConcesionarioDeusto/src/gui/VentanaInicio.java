@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaInicio extends JFrame{
+	public class VentanaInicio extends JFrame{
 
 
 			
 				
-		  public static void main(String[] args) {
+		public static void main(String[] args) {
 		                
 		    }
 } 
