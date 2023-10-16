@@ -31,6 +31,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import domain.Coche;
+import domain.Marca;
 
 
 public class VentanaProductos extends JFrame{
@@ -64,11 +65,50 @@ public class VentanaProductos extends JFrame{
 
 	private void iniciarTabla() {
 
-		Vector<String> cabeceraCoches = new Vector<String>(Arrays.asList( "Precio", "Año", "Modelo", "Marca", "Matrícula"));
+		Vector<String> cabeceraCoches = new Vector<String>(Arrays.asList( "Precio", "Año", "Marca", "Modelo", "Matrícula"));
 		this.modeloDatosCoches = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraCoches);
 		this.tablaCoches = new JTable(this.modeloDatosCoches);
 		this.tablaCoches.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
+		TableCellRenderer cellRenderer = (table, value, isSelected, hasFocus, row, column) -> {
+			JLabel resultado = new JLabel(value.toString());
+			
+			if(value instanceof Marca) {
+				Marca m = (Marca) value;
+				
+				resultado.setText("");		
+				resultado.setToolTipText(m.toString());
+				resultado.setHorizontalAlignment(JLabel.CENTER);
+				
+				switch (m) { 
+					case SEA:
+						resultado.setIcon(new ImageIcon("imagenes/SEAT_logo_from_2017.png"));
+						break;
+					case BMW:
+						resultado.setIcon(new ImageIcon("imagenes/bmw_logo_PNG19712.png"));
+						break;
+					case OPE:
+						resultado.setIcon(new ImageIcon("imagenes/Opel-Logo_2017.png"));
+						break;
+					case TOY:
+						resultado.setIcon(new ImageIcon("imagenes/toyota.png"));
+						break;
+					case FOR:
+						resultado.setIcon(new ImageIcon("imagenes/Ford-Motor-Company-Logo.png"));
+						break;
+					case HON:
+						resultado.setIcon(new ImageIcon("imagenes/Logo_Honda_F1.png"));
+						break;
+					case VOL:
+						resultado.setIcon(new ImageIcon("imagenes/Volkswagen_Logo_till_1995.svg.png"));
+						break;
+					default:
+			}
+				
+			}
+			resultado.setOpaque(true);
+			return resultado;
+		};
 	}
 	
 	private void cargarCoches() {

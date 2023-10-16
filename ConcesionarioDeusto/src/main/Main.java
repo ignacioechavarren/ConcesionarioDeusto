@@ -18,6 +18,11 @@ public class Main {
 		
 		Coche c1 = new Coche(500, 1996, "Seat", "Ibiza","8828CUP" );
 		Coche c2 = new Coche(800, 2000, "BMW", "E46","4777CHD" );
+		Coche c3 = new Coche(650, 1996, "Opel", "Corsa", "8408KLP");
+	    Coche c4 = new Coche(1300, 2005, "Toyota", "Corolla", "1234ABC");
+	    Coche c5 = new Coche(1900, 2010, "Ford", "Focus", "5678XYZ");
+	    Coche c6 = new Coche(2800, 2015, "Honda", "Civic", "9876PQR");
+	    Coche c7 = new Coche(2500, 2020, "Volkswagen", "Golf", "5432LMN");
 		
 		Cliente cli1 = new Cliente("16102892V", "Jon", "14-10-1999", "A");
 		Cliente cli2 = new Cliente("16122842V", "Alex", "04-10-2009", "B");
@@ -44,7 +49,7 @@ public class Main {
 		System.out.println("Reservas del cliente: "+cli1.getDni());
 		Concesionario.imprimirReservasCliente(cli1);
 		
-		List<Coche> coches = new ArrayList<>(Arrays.asList(c1, c2)); 
+		List<Coche> coches = new ArrayList<>(Arrays.asList(c1, c2, c3, c4, c5, c6, c7)); 
 		
 		SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
 
