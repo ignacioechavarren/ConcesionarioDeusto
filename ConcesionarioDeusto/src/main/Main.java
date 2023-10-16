@@ -3,6 +3,14 @@ package main;
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
+import gui.VentanaProductos;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.swing.SwingUtilities;
+
 
 public class Main {
 
@@ -36,7 +44,10 @@ public class Main {
 		System.out.println("Reservas del cliente: "+cli1.getDni());
 		Concesionario.imprimirReservasCliente(cli1);
 		
+		List<Coche> coches = new ArrayList<>(Arrays.asList(c1, c2)); 
 		
+		SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
+
 	}
 
 
