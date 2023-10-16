@@ -16,7 +16,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Coche c1 = new Coche(500, 1996, "Seat", "Ibiza","8828CU" );
+		Coche c1 = new Coche(500, 1996, "Seat", "Ibiza","8828CUP" );
 		Coche c2 = new Coche(800, 2000, "BMW", "E46","4777CHD" );
 		
 		Cliente cli1 = new Cliente("16102892V", "Jon", "14-10-1999", "A");

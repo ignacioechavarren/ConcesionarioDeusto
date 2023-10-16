@@ -45,11 +45,20 @@ public class VentanaProductos extends JFrame{
 		this.coches = coches;
 		this.iniciarTabla();
 		this.cargarCoches();
-		JScrollPane scrollPaneComics = new JScrollPane(this.tablaCoches);
-		scrollPaneComics.setBorder(new TitledBorder("Comics"));
-		this.tablaCoches.setFillsViewportHeight(true);
+		
+		JScrollPane panelCoches = new JScrollPane(this.tablaCoches);
+		panelCoches.setBorder(new TitledBorder("Coches disponibles"));
 		
 		
+		this.getContentPane().setLayout(new GridLayout(2, 1));
+		this.getContentPane().add(panelCoches);
+		
+		this.setTitle("Ventana principal de Coches");		
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+		this.setSize(800, 600);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);	
 		
 	}
 
@@ -57,19 +66,9 @@ public class VentanaProductos extends JFrame{
 
 		Vector<String> cabeceraCoches = new Vector<String>(Arrays.asList( "Precio", "Año", "Modelo", "Marca", "Matrícula"));
 		this.modeloDatosCoches = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraCoches);
-		this.tablaCoches = new JTable(this.modeloDatosCoches) {
-			private static final long serialVersionUID = 1L;
-
-		};
+		this.tablaCoches = new JTable(this.modeloDatosCoches);
+		this.tablaCoches.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		TableCellRenderer cellRenderer = (table, value, isSelected, hasFocus, row, column) -> {
-			JLabel result = new JLabel(value.toString());
-			
-			result.setBackground(table.getBackground());
-			result.setForeground(table.getForeground());
-			
-			return result;
-		};
 	}
 	
 	private void cargarCoches() {
