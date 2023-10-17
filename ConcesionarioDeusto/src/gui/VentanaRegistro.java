@@ -18,6 +18,7 @@ import domain.Coche;
 import domain.Concesionario;
 
 public class VentanaRegistro extends JFrame{
+	Concesionario conc = new Concesionario();
 	private JPanel pNorte,pCentro,pSur,pCentroIzquierda,pCentroDerecha;
 	private JLabel lblDniR,lblNomR,lblFNacR,lblConR, lblTituloIzquierda,lblTituloDerecha;
 	private JTextField txtDniR, txtNomR,txtFNacR;
@@ -91,7 +92,7 @@ public class VentanaRegistro extends JFrame{
 		
 		
 		/*CARGA DE LAS COLECCIONES*/
-		Concesionario.cargarClientesEnLista(nomfichClientes);
+		conc.cargarClientesEnLista(nomfichClientes);
 		
 		
 		/*EVENTOS*/
@@ -112,7 +113,7 @@ public class VentanaRegistro extends JFrame{
 		});
 		
 		btnSalir.addActionListener((e)->{
-			Concesionario.guardarClientesEnFichero(nomfichClientes);
+			conc.guardarClientesEnFichero(nomfichClientes);
 			System.exit(0);
 		});
 		
