@@ -58,7 +58,6 @@ public class Main {
 		VentanaRegistro v = new VentanaRegistro();
 		
 		
-		
 	}
 
 
