@@ -4,6 +4,7 @@ import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
 import gui.VentanaProductos;
+import gui.VentanaRegistro;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,9 +51,14 @@ public class Main {
 		Concesionario.imprimirReservasCliente(cli1);
 		
 		List<Coche> coches = new ArrayList<>(Arrays.asList(c1, c2, c3, c4, c5, c6, c7)); 
-		
+	
 		SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
 
+		
+		VentanaRegistro v = new VentanaRegistro();
+		
+		
+		
 	}
 
 
