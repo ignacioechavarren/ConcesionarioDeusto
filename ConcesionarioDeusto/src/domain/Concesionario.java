@@ -27,10 +27,28 @@ public class Concesionario {
 	 * 
 	 * @param metodo añadircoche
 	 */
+	public static String getPassword(String dni) {
+		String result = null;
+		for (Cliente c : clientes) {
+			if(c.getDni().equals(dni)) {
+				result=c.getContrasenia();
+			}
+		}
+		return result;
+	}
+	public static List<Cliente> getClientes(){
+		return clientes;
+	}
+	
+	public static Set<Coche> getCoches(){
+		return coches;
+	}
+	public static Map<Cliente, List<Coche>> getReservas(){
+		return reservas;
+	}
 	public static void aniadirCoche(Coche co) {
 		coches.add(co);
 	}
-	
 	
 	/**
 	 * 
