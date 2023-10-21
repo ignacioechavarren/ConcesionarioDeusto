@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,7 +19,7 @@ import domain.Coche;
 import domain.Concesionario;
 
 public class VentanaRegistro extends JFrame{
-	Concesionario conc = new Concesionario();
+	
 	private JPanel pNorte,pCentro,pSur,pCentroIzquierda,pCentroDerecha;
 	private JLabel lblDniR,lblNomR,lblFNacR,lblConR, lblTituloIzquierda,lblTituloDerecha;
 	private JTextField txtDniR, txtNomR,txtFNacR;
@@ -26,6 +27,7 @@ public class VentanaRegistro extends JFrame{
 	private JButton btnRegistro, btnSalir;
 	private static final String nomfichClientes = "Clientes.csv";
 	private JFrame vActual;
+	
 	
 	private static Cliente cliente;
 	private static List<Coche> carrito;
@@ -81,6 +83,7 @@ public class VentanaRegistro extends JFrame{
 		pCentroDerecha.add(txtConR);
 		
 		
+		
 		btnRegistro = new JButton("REGISTRO");
 		btnSalir = new JButton("SALIR");
 		pSur.add(btnRegistro);
@@ -92,7 +95,7 @@ public class VentanaRegistro extends JFrame{
 		
 		
 		/*CARGA DE LAS COLECCIONES*/
-		conc.cargarClientesEnLista(nomfichClientes);
+		Concesionario.cargarClientesEnLista(nomfichClientes);
 		
 		
 		/*EVENTOS*/
@@ -113,7 +116,7 @@ public class VentanaRegistro extends JFrame{
 		});
 		
 		btnSalir.addActionListener((e)->{
-			conc.guardarClientesEnFichero(nomfichClientes);
+			Concesionario.guardarClientesEnFichero(nomfichClientes);
 			System.exit(0);
 		});
 		
