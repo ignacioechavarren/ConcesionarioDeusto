@@ -45,7 +45,7 @@ public class VentanaRegistro extends JFrame{
 		super();
 		vActual = this;
 		setBounds(300, 100, 600, 400);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/*CREACIÓN DE PANELES Y COMPONENTES*/
 		pNorte = new JPanel(new GridLayout(1, 2));

@@ -3,6 +3,8 @@ package main;
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
+import gui.VentanaInicio;
+import gui.VentanaLogin;
 import gui.VentanaProductos;
 import gui.VentanaRegistro;
 
@@ -54,8 +56,9 @@ public class Main {
 	
 		SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
 
-		
+		Concesionario conc=new Concesionario();
 		VentanaRegistro v = new VentanaRegistro();
+		VentanaLogin b= new VentanaLogin(conc);
 		
 		
 	}
