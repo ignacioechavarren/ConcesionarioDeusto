@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import domain.Concesionario;
 
 public class VentanaLogin extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
-	private JPanel pNorte,pCentro,pSur,pCentroIzquierda,pCentroDerecha;;
+	private JPanel pNorte,pCentro,pCentro2,pCentro3,pCentro4,pSur,pTodo;
 	private JLabel inicio,dni,contrasena;
 	private JTextField textfield;
 	private JPasswordField password;
@@ -27,37 +29,40 @@ public class VentanaLogin extends JFrame{
 	public VentanaLogin(Concesionario conc) {
 		super();
 		setBounds(300, 100, 600, 400);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		pNorte = new JPanel(new GridLayout(1, 2));
-		pCentro = new JPanel(new GridLayout(1, 2));
+		pTodo=new JPanel(new GridLayout(0, 1));
+		pNorte=new JPanel();
+		pCentro = new JPanel();
+		pCentro2 = new JPanel();
+		pCentro3 = new JPanel();
+		pCentro4 = new JPanel();
 		pSur = new JPanel();
-		pCentroIzquierda = new JPanel(new GridLayout(2, 2));
-		pCentroDerecha = new JPanel(new GridLayout(4, 2));
-		
-		pCentro.add(pCentroIzquierda);
-		pCentro.add(pCentroDerecha);
-		
-		getContentPane().add(pNorte, BorderLayout.NORTH);
-		getContentPane().add(pCentro, BorderLayout.CENTER);
-		getContentPane().add(pSur, BorderLayout.SOUTH);
-		
+				
+				
 		inicio=new JLabel("INICIO DE SESIÓN");
 		dni=new JLabel("DNI: ");
 		contrasena=new JLabel("CONTRASEÑA: ");
 		
-		textfield=new JTextField();
-		password=new JPasswordField();
+		textfield=new JTextField(20);
+		
+
+		password=new JPasswordField(20);
 		
 		botonI=new JButton("INICIAR");
 		botonS=new JButton("VOLVER");
 		
+		
+		
 		pNorte.add(inicio);
 		
+		
 		pCentro.add(dni);
-		pCentro.add(textfield);
-		pCentro.add(contrasena);
-		pCentro.add(password);
+		pCentro2.add(textfield);
+		pCentro3.add(contrasena);
+		pCentro4.add(password);
+		
+		pTodo.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		pSur.add(botonI);
 		pSur.add(botonS);
@@ -69,15 +74,23 @@ public class VentanaLogin extends JFrame{
 			
 			if(Concesionario.buscarCliente(textfield.getText())!=null&&Concesionario.getPassword(textfield.getText())==password.getText()) {
 				//abrir siguiente ventana
+				setVisible(false);
 			}
 			else{
 				JOptionPane.showMessageDialog(null, "Los datos no son correctos","ERROR",JOptionPane.ERROR_MESSAGE);
 			}
 			});
 		botonS.addActionListener((e)->{
-			System.exit(0);
+			setVisible(false);
 			conc.guardarClientesEnFichero(nomfichClientes);
 		});
+		pTodo.add(pNorte);
+		pTodo.add(pCentro);
+		pTodo.add(pCentro2);
+		pTodo.add(pCentro3);
+		pTodo.add(pCentro4);
+		pTodo.add(pSur);
+		getContentPane().add(pTodo);
 		
 		setVisible(true);
 	}
