@@ -14,6 +14,7 @@ import java.util.Vector;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -40,12 +41,19 @@ public class VentanaProductos extends JFrame{
 	private List<Coche> coches;
 	private JTable tablaCoches;
 	private DefaultTableModel modeloDatosCoches;
+	private JPanel pSur;
+	private JButton btnReservar;
 	
 	public VentanaProductos(List<Coche> coches) {
 		
 		this.coches = coches;
 		this.iniciarTabla();
 		this.cargarCoches();
+		
+		pSur = new JPanel();
+		btnReservar = new JButton("AÑADIR ARTICULO AL CARRITO");
+		pSur.add(btnReservar);
+		
 		
 		JScrollPane panelCoches = new JScrollPane(this.tablaCoches);
 		panelCoches.setBorder(new TitledBorder("Coches disponibles"));
@@ -60,6 +68,11 @@ public class VentanaProductos extends JFrame{
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
+		
+	
+		btnReservar.addActionListener((e)->{
+		
+		});
 		
 	}
 
@@ -119,5 +132,7 @@ public class VentanaProductos extends JFrame{
 		);
 		
 	}
+	
+	
 	
 }
