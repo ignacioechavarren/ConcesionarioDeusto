@@ -55,7 +55,7 @@ public class VentanaProductos extends JFrame{
 		this.getContentPane().add(panelCoches);
 		
 		this.setTitle("Ventana principal de Coches");		
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
