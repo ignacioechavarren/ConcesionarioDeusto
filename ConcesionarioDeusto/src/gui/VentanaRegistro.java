@@ -45,7 +45,7 @@ public class VentanaRegistro extends JFrame{
 		super();
 		vActual = this;
 		setBounds(300, 100, 600, 400);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		/*CREACIÓN DE PANELES Y COMPONENTES*/
 		pNorte = new JPanel(new GridLayout(1, 2));
@@ -114,7 +114,7 @@ public class VentanaRegistro extends JFrame{
 		
 		btnSalir.addActionListener((e)->{
 			conc.guardarClientesEnFichero(nomfichClientes);
-			System.exit(0);
+			setVisible(false);
 		});
 		
 		setVisible(true);

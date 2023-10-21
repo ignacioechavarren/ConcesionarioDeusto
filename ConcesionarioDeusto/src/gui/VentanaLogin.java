@@ -29,7 +29,7 @@ public class VentanaLogin extends JFrame{
 	public VentanaLogin(Concesionario conc) {
 		super();
 		setBounds(300, 100, 600, 400);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		pTodo=new JPanel(new GridLayout(0, 1));
 		pNorte=new JPanel();
@@ -74,13 +74,14 @@ public class VentanaLogin extends JFrame{
 			
 			if(Concesionario.buscarCliente(textfield.getText())!=null&&Concesionario.getPassword(textfield.getText())==password.getText()) {
 				//abrir siguiente ventana
+				setVisible(false);
 			}
 			else{
 				JOptionPane.showMessageDialog(null, "Los datos no son correctos","ERROR",JOptionPane.ERROR_MESSAGE);
 			}
 			});
 		botonS.addActionListener((e)->{
-			System.exit(0);
+			setVisible(false);
 			conc.guardarClientesEnFichero(nomfichClientes);
 		});
 		pTodo.add(pNorte);
