@@ -29,7 +29,7 @@ public class VentanaLogin extends JFrame{
 	public VentanaLogin(Concesionario conc) {
 		super();
 		setBounds(300, 100, 600, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		pTodo=new JPanel(new GridLayout(0, 1));
 		pNorte=new JPanel();

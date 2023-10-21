@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 public class Main {
 
 	public static void main(String[] args) {
-		
+		Concesionario conc=new Concesionario();
 		Coche c1 = new Coche(500, 1996, "Seat", "Ibiza","8828CUP" );
 		Coche c2 = new Coche(800, 2000, "BMW", "E46","4777CHD" );
 		Coche c3 = new Coche(650, 1996, "Opel", "Corsa", "8408KLP");
@@ -27,6 +27,7 @@ public class Main {
 	    Coche c6 = new Coche(2800, 2015, "Honda", "Civic", "9876PQR");
 	    Coche c7 = new Coche(2500, 2020, "Volkswagen", "Golf", "5432LMN");
 		
+	    
 		Cliente cli1 = new Cliente("16102892V", "Jon", "14-10-1999", "A");
 		Cliente cli2 = new Cliente("16122842V", "Alex", "04-10-2009", "B");
 		
@@ -56,7 +57,7 @@ public class Main {
 	
 		SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
 
-		Concesionario conc=new Concesionario();
+		
 		VentanaRegistro v = new VentanaRegistro();
 		VentanaLogin b= new VentanaLogin(conc);
 		
