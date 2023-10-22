@@ -40,9 +40,9 @@ public class VentanaLogin extends JFrame{
 		pSur = new JPanel();
 				
 				
-		inicio=new JLabel("INICIO DE SESIÓN");
+		inicio=new JLabel("INICIO DE SESIï¿½N");
 		dni=new JLabel("DNI: ");
-		contrasena=new JLabel("CONTRASEÑA: ");
+		contrasena=new JLabel("CONTRASEï¿½A: ");
 		
 		textfield=new JTextField(20);
 		
@@ -68,11 +68,10 @@ public class VentanaLogin extends JFrame{
 		pSur.add(botonS);
 		
 		conc.cargarClientesEnLista(nomfichClientes);
-		conc.cargarClientesEnLista(nomfichClientes);
 		
 		botonI.addActionListener((e)->{
 			
-			if(Concesionario.buscarCliente(textfield.getText())!=null&&Concesionario.getPassword(textfield.getText())==password.getText()) {
+			if(conc.buscarCliente(textfield.getText())!=null&&conc.getPassword(textfield.getText())==password.getText()) {
 				//abrir siguiente ventana
 				setVisible(false);
 			}
