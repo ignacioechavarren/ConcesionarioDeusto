@@ -40,9 +40,9 @@ public class VentanaLogin extends JFrame{
 		pSur = new JPanel();
 				
 				
-		inicio=new JLabel("INICIO DE SESI�N");
+		inicio=new JLabel("INICIO DE SESION");
 		dni=new JLabel("DNI: ");
-		contrasena=new JLabel("CONTRASE�A: ");
+		contrasena=new JLabel("CONTRASENA: ");
 		
 		textfield=new JTextField(20);
 		

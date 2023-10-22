@@ -57,9 +57,8 @@ public class Main {
 	
 		SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
 
+		VentanaInicio vi=new VentanaInicio(conc);
 		
-		VentanaRegistro v = new VentanaRegistro();
-		VentanaLogin b= new VentanaLogin(conc);
 		
 		
 	}
