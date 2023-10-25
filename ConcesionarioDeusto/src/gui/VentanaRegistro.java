@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
+import java.awt.Color;
 
 public class VentanaRegistro extends JFrame{
 	Concesionario conc = new Concesionario();
@@ -24,7 +25,7 @@ public class VentanaRegistro extends JFrame{
 	private JLabel lblDniR,lblNomR,lblFNacR,lblConR, lblTitulo;
 	private JTextField txtDniR, txtNomR,txtFNacR;
 	private JPasswordField txtConR;
-	private JButton btnRegistro, btnSalir;
+	private JButton btnRegistro, btnVolver;
 	private static final String nomfichClientes = "Clientes.csv";
 	private JFrame vActual;
 	
@@ -51,15 +52,25 @@ public class VentanaRegistro extends JFrame{
 		/*CREACIÓN DE PANELES Y COMPONENTES*/
 		pTotal=new JPanel(new GridLayout(0,1));
 		pNorte = new JPanel();
+		pNorte.setBackground(new Color(0, 128, 255));
 		pCentro = new JPanel();
+		pCentro.setBackground(new Color(0, 128, 255));
 		pSur = new JPanel();
+		pSur.setBackground(new Color(0, 128, 255));
 		pCentro2 = new JPanel();
+		pCentro2.setBackground(new Color(0, 128, 255));
 		pCentro3 = new JPanel();
+		pCentro3.setBackground(new Color(0, 128, 255));
 		pCentro4 = new JPanel();
+		pCentro4.setBackground(new Color(0, 128, 255));
 		pCentro5 = new JPanel();
+		pCentro5.setBackground(new Color(0, 128, 255));
 		pCentro6 = new JPanel();
+		pCentro6.setBackground(new Color(0, 128, 255));
 		pCentro7 = new JPanel();
+		pCentro7.setBackground(new Color(0, 128, 255));
 		pCentro8 = new JPanel();
+		pCentro8.setBackground(new Color(0, 128, 255));
 						
 		lblTitulo=new JLabel("REGISTRO DE USUARIO");
 		lblDniR = new JLabel("DNI: ");
@@ -75,9 +86,9 @@ public class VentanaRegistro extends JFrame{
 		txtConR = new JPasswordField(20);
 		
 		btnRegistro = new JButton("REGISTRO");
-		btnSalir = new JButton("SALIR");
+		btnVolver = new JButton("VOLVER");
 		pSur.add(btnRegistro);
-		pSur.add(btnSalir);
+		pSur.add(btnVolver);
 				
 		pNorte.add(lblTitulo);
 		
@@ -93,7 +104,9 @@ public class VentanaRegistro extends JFrame{
 		pCentro7.add(lblConR);
 		pCentro8.add(txtConR);
 		
-		pTotal.setAlignmentX(Component.CENTER_ALIGNMENT);				
+		pTotal.setAlignmentX(Component.CENTER_ALIGNMENT);	
+		
+		
 		/*CARGA DE LAS COLECCIONES*/
 		conc.cargarClientesEnLista(nomfichClientes);
 		
@@ -116,9 +129,10 @@ public class VentanaRegistro extends JFrame{
 			}
 		});
 		
-		btnSalir.addActionListener((e)->{
+		btnVolver.addActionListener((e)->{
 			conc.guardarClientesEnFichero(nomfichClientes);
 			setVisible(false);
+			VentanaInicio vi = new VentanaInicio(conc);
 		});
 		pTotal.add(pNorte);
 		pTotal.add(pCentro);

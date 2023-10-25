@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
+import java.awt.Color;
 
 public class VentanaLogin extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
@@ -33,11 +34,17 @@ public class VentanaLogin extends JFrame{
 		
 		pTodo=new JPanel(new GridLayout(0, 1));
 		pNorte=new JPanel();
+		pNorte.setBackground(new Color(0, 128, 255));
 		pCentro = new JPanel();
+		pCentro.setBackground(new Color(0, 128, 255));
 		pCentro2 = new JPanel();
+		pCentro2.setBackground(new Color(0, 128, 255));
 		pCentro3 = new JPanel();
+		pCentro3.setBackground(new Color(0, 128, 255));
 		pCentro4 = new JPanel();
+		pCentro4.setBackground(new Color(0, 128, 255));
 		pSur = new JPanel();
+		pSur.setBackground(new Color(0, 128, 255));
 				
 				
 		inicio=new JLabel("INICIO DE SESION");
@@ -82,6 +89,8 @@ public class VentanaLogin extends JFrame{
 		botonS.addActionListener((e)->{
 			setVisible(false);
 			conc.guardarClientesEnFichero(nomfichClientes);
+			VentanaInicio vi= new VentanaInicio(conc);
+			setVisible(false);
 		});
 		pTodo.add(pNorte);
 		pTodo.add(pCentro);

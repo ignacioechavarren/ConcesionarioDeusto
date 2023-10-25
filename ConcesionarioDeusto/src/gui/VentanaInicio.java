@@ -27,9 +27,13 @@ import domain.Concesionario;
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			pTodo=new JPanel(new GridLayout(0, 1));
 			pNorte=new JPanel();
+			pNorte.setBackground(new Color(0, 128, 255));
 			pCentro = new JPanel();
+			pCentro.setBackground(new Color(0, 128, 255));
 			pCentro2 = new JPanel();
+			pCentro2.setBackground(new Color(0, 128, 255));
 			pSur = new JPanel();
+			pSur.setBackground(new Color(0, 128, 255));
 			
 			inicio=new JLabel("CONCESIONARIO DEUSTO");
 			
