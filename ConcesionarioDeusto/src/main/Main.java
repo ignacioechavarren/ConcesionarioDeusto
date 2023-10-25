@@ -55,7 +55,7 @@ public class Main {
 		
 		List<Coche> coches = new ArrayList<>(Arrays.asList(c1, c2, c3, c4, c5, c6, c7)); 
 	
-		SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
+		//SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
 
 		VentanaInicio vi=new VentanaInicio(conc);
 		
