@@ -81,6 +81,7 @@ public class VentanaLogin extends JFrame{
 			if(conc.buscarCliente(textfield.getText())!=null&&conc.getPassword(textfield.getText())==password.getText()) {
 				//abrir siguiente ventana
 				setVisible(false);
+				VentanaProductos vp = new VentanaProductos(null);
 			}
 			else{
 				JOptionPane.showMessageDialog(null, "Los datos no son correctos","ERROR",JOptionPane.ERROR_MESSAGE);
