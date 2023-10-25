@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -80,8 +81,8 @@ public class VentanaLogin extends JFrame{
 			
 			if(conc.buscarCliente(textfield.getText())!=null&&conc.getPassword(textfield.getText())==password.getText()) {
 				//abrir siguiente ventana
-				setVisible(false);
-				VentanaProductos vp = new VentanaProductos(null);
+				VentanaProductos vp = new VentanaProductos(conc);
+				dispose();
 			}
 			else{
 				JOptionPane.showMessageDialog(null, "Los datos no son correctos","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -91,7 +92,7 @@ public class VentanaLogin extends JFrame{
 			setVisible(false);
 			conc.guardarClientesEnFichero(nomfichClientes);
 			VentanaInicio vi= new VentanaInicio(conc);
-			setVisible(false);
+			dispose();
 		});
 		pTodo.add(pNorte);
 		pTodo.add(pCentro);

@@ -52,12 +52,12 @@ import domain.Concesionario;
 			
 			botonR.addActionListener(e -> {
 				VentanaRegistro v = new VentanaRegistro();
-				setVisible(false);
+				dispose();
 			});
 			
 			botonI.addActionListener(e -> {
 				VentanaLogin b= new VentanaLogin(conc);
-				setVisible(false);
+				dispose();
 			});
 			
 			botonS.addActionListener(e -> {

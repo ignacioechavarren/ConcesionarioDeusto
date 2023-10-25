@@ -32,6 +32,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import domain.Coche;
+import domain.Concesionario;
 import domain.Marca;
 
 
@@ -44,9 +45,9 @@ public class VentanaProductos extends JFrame{
 	private JPanel pSur;
 	private JButton btnReservar;
 	
-	public VentanaProductos(List<Coche> coches) {
+	public VentanaProductos(Concesionario conc) {
 		
-		this.coches = coches;
+		this.coches = new ArrayList<Coche>(conc.getCoches());
 		this.iniciarTabla();
 		this.cargarCoches();
 		

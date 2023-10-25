@@ -35,6 +35,11 @@ public class Main {
 		
 		Concesionario.aniadirCoche(c1);
 		Concesionario.aniadirCoche(c2);
+		Concesionario.aniadirCoche(c3);
+		Concesionario.aniadirCoche(c4);
+		Concesionario.aniadirCoche(c5);
+		Concesionario.aniadirCoche(c6);
+		Concesionario.aniadirCoche(c7);
 		Concesionario.imprimirCoches();
 		
 		Concesionario.aniadirCliente(cli1);
@@ -53,9 +58,9 @@ public class Main {
 		System.out.println("Reservas del cliente: "+cli1.getDni());
 		Concesionario.imprimirReservasCliente(cli1);
 		
-		List<Coche> coches = new ArrayList<>(Arrays.asList(c1, c2, c3, c4, c5, c6, c7)); 
+		
 	
-		//SwingUtilities.invokeLater(() -> new VentanaProductos(coches));
+		//SwingUtilities.invokeLater(() -> new VentanaProductos(conc));
 
 		VentanaInicio vi=new VentanaInicio(conc);
 		

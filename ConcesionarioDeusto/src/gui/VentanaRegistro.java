@@ -126,13 +126,15 @@ public class VentanaRegistro extends JFrame{
 				Concesionario.aniadirCliente(c);
 				JOptionPane.showMessageDialog(null, "Cliente registrado con éxito","REGISTRADO",JOptionPane.INFORMATION_MESSAGE);
 				conc.guardarClientesEnFichero(nomfichClientes);
+				VentanaProductos vi=new VentanaProductos(conc);
+				dispose();
 			}
 		});
 		
 		btnVolver.addActionListener((e)->{
 			conc.guardarClientesEnFichero(nomfichClientes);
-			setVisible(false);
 			VentanaInicio vi = new VentanaInicio(conc);
+			dispose();
 		});
 		pTotal.add(pNorte);
 		pTotal.add(pCentro);
