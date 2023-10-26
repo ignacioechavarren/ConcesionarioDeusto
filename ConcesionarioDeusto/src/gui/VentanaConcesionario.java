@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -90,7 +92,11 @@ public class VentanaConcesionario extends JFrame{
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		
 		
+		List<Coche>coches1=new ArrayList<>(conc.getCoches());
 		modeloListaCoches = new DefaultListModel<>();
+		for (Coche c : coches1) {
+			modeloListaCoches.addElement(c);
+		}
 		listaCoches = new JList<>(modeloListaCoches);
 		scrollListaCoches = new JScrollPane(listaCoches);
 		scrollListaCoches.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
