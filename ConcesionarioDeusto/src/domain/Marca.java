@@ -3,7 +3,7 @@ import java.io.Serializable;
 public enum Marca implements Serializable{
 	
 	FER("Ferrari"),
-	BMW("BMW"), 
+	BMW("Bmw"), 
 	AU("Audi"), 
 	REN("Renault"),
 	MER("Mercedes-Benz"), 
@@ -62,5 +62,15 @@ public enum Marca implements Serializable{
 		return this.nombre;
 	}
 	
+	 public static Marca getID(String texto) {
+		 Marca mar = null;
+	        for (Marca marca : Marca.values()) {
+	            if (marca.getMarca().equalsIgnoreCase(texto)) {
+	                mar=marca;
+	            }
+	            
+	        }
+		return mar;
+		}
 	
 }

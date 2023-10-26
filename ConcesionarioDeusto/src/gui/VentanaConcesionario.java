@@ -29,6 +29,7 @@ import javax.swing.event.DocumentListener;
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
+import domain.Marca;
 
 
 public class VentanaConcesionario extends JFrame{
@@ -98,12 +99,12 @@ public class VentanaConcesionario extends JFrame{
 		
 		comboBoxTipo.addItem("Todos");
 		comboBoxTipo.addItem("Honda");
-		comboBoxTipo.addItem("Bmw");
+		comboBoxTipo.addItem("BMW");
 		comboBoxTipo.addItem("Opel");
 		comboBoxTipo.addItem("Toyota");
 		comboBoxTipo.addItem("Ford");
 		comboBoxTipo.addItem("Toyota");
-		comboBoxTipo.addItem("Volswagen");
+		comboBoxTipo.addItem("Volkswagen");
 		comboBoxTipo.addItem("Seat");
 		
 		
@@ -142,8 +143,8 @@ public class VentanaConcesionario extends JFrame{
 			                modeloListaCoches.addElement(c);
 			            }
 			        } else {
-			            for (Coche c : coches1) {
-			                if (c.getMarca().equals(marcaSeleccionada)) {
+			            for (Coche c : coches1) {			            	
+			                if (c.getMarca().equals(Marca.getID(marcaSeleccionada))) {
 			                    modeloListaCoches.addElement(c);
 			                }
 			            }
