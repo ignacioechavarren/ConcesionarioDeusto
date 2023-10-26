@@ -114,8 +114,8 @@ public class VentanaLogin extends JFrame{
 					carrito = new ArrayList<>(); //Instancio (creo) un carrito vacío
 					
 					
-					new VentanaProductos(conc);
-					//new VentanaConcesionario(conc);
+					//new VentanaProductos(conc);
+					new VentanaConcesionario(conc);
 					
 				}else {
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta","ERROR",JOptionPane.WARNING_MESSAGE);

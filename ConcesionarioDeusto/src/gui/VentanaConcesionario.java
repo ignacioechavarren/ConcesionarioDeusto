@@ -52,6 +52,7 @@ public class VentanaConcesionario extends JFrame{
 		
 		setBounds(300, 200, 800, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
 		
 		pNorte = new JPanel();
 		lblBusqueda = new JLabel("Introduce el número mínimo de unidades: ");
