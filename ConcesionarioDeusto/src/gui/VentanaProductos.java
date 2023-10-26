@@ -31,6 +31,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
+import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
 import domain.Marca;
@@ -45,7 +47,7 @@ public class VentanaProductos extends JFrame{
 	private JPanel pSur;
 	private JButton btnVolver;
 	
-	public VentanaProductos(Concesionario conc) {
+	public VentanaProductos(Concesionario conc, Cliente cliente) {
 		getContentPane().setBackground(new Color(0, 128, 255));
 		
 		this.coches = new ArrayList<Coche>(conc.getCoches());
@@ -66,7 +68,7 @@ public class VentanaProductos extends JFrame{
 		pSur.add(btnVolver);
 		
 		this.setTitle("Ventana principal de Coches");		
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
@@ -75,7 +77,7 @@ public class VentanaProductos extends JFrame{
 		
 		btnVolver.addActionListener((e)->{
 			dispose();
-			new VentanaConcesionario(conc);
+			new VentanaConcesionario(conc,cliente);
 			
 		});
 		

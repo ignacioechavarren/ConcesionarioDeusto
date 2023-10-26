@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +17,9 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import domain.Cliente;
 import domain.Coche;
+import domain.Concesionario;
 
 
 
@@ -26,7 +29,7 @@ public class VentanaCarrito extends JFrame{
 	
 	private  ArrayList<Coche> carrito = new ArrayList<Coche>();
 	
-	public VentanaCarrito() {
+	public VentanaCarrito(Concesionario conc, Cliente cliente, List<Coche> reservas) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 200, 850, 500);
@@ -69,7 +72,7 @@ public class VentanaCarrito extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaConcesionario(null);
+				new VentanaConcesionario(conc , cliente);
 				dispose();
 			}
 		});

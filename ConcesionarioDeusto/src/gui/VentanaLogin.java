@@ -54,7 +54,7 @@ public class VentanaLogin extends JFrame{
 	public VentanaLogin(Concesionario conc) {
 		super();
 		setBounds(300, 100, 600, 400);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		pTodo=new JPanel(new GridLayout(0, 1));
 		pNorte=new JPanel();
@@ -118,7 +118,7 @@ public class VentanaLogin extends JFrame{
 					
 					
 					//new VentanaProductos(conc);
-					new VentanaConcesionario(conc);
+					new VentanaConcesionario(conc, cliente);
 					dispose();
 					
 				}else {

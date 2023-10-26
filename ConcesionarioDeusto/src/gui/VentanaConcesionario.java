@@ -55,7 +55,7 @@ public class VentanaConcesionario extends JFrame{
 	
 	
 	
-	public VentanaConcesionario(Concesionario conc) {
+	public VentanaConcesionario(Concesionario conc, Cliente cliente) {
 		super();
 		getContentPane().setBackground(new Color(0, 128, 255));
 		
@@ -113,6 +113,7 @@ public class VentanaConcesionario extends JFrame{
 		
 		
 		ArrayList<Coche> cocheTipo = new ArrayList<Coche>();
+		List<Coche>reservas=new ArrayList<Coche>();
 		
 		
 		List<Coche>coches1=new ArrayList<>(conc.getCoches());
@@ -162,22 +163,28 @@ public class VentanaConcesionario extends JFrame{
 		btnAniadirCocheAlaReserva.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Coche cocheRes=listaCoches.getSelectedValue();
+				reservas.add(cocheRes);
+				
+				
 				
 			}
 		});
 		
 		btnVerReservas.addActionListener((e)->{
-			new VentanaCarrito();
+			new VentanaCarrito(conc,cliente, reservas);
 			dispose();
 		});
 		
 		btnFinalizarReservas.addActionListener((e)->{
-			
-			
+			for (Coche c : reservas) {
+				Concesionario.aniadirReserva(cliente, c);
+			}
+					
 		});
 		
 		btnVerTodosLosCoches.addActionListener((e)->{
-		new VentanaProductos(null);
+		new VentanaProductos(conc,cliente);
 		dispose();
 	
 		

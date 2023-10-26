@@ -28,7 +28,7 @@ import domain.Concesionario;
 		public VentanaInicio(Concesionario conc){
 			super();
 			setBounds(300, 100, 600, 400);
-			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			pTodo=new JPanel(new GridLayout(0, 1));
 			pNorte=new JPanel();
 			pNorte.setBackground(new Color(0, 128, 255));
