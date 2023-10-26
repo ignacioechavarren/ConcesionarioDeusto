@@ -52,7 +52,7 @@ public class VentanaProductos extends JFrame{
 		this.cargarCoches();
 		
 		pSur = new JPanel();
-		btnReservar = new JButton("AÑADIR ARTICULO AL CARRITO");
+		btnReservar = new JButton("AÑADIR COCHE AL CARRITO");
 		pSur.add(btnReservar);
 		
 		
