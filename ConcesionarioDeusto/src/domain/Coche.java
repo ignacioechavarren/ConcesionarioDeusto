@@ -7,7 +7,7 @@ public class Coche implements Comparable<Coche>{
 	private double precio;
 	private int anyo;
 	private String modelo;
-	private String marca;
+	private Marca marca;
 	private String matricula;
 	
 	/**
@@ -18,7 +18,7 @@ public class Coche implements Comparable<Coche>{
 	 * @param marca
 	 * @param matricula
 	 */
-	public Coche(double precio, int anyo, String modelo, String marca, String matricula) {
+	public Coche(double precio, int anyo, Marca marca, String modelo, String matricula) {
 		super();
 		this.precio = precio;
 		this.anyo = anyo;
@@ -36,7 +36,7 @@ public class Coche implements Comparable<Coche>{
 		this.precio = 0.0;
 		this.anyo = 0;
 		this.modelo = "";
-		this.marca = "";
+		this.marca = null;
 		this.matricula = "";
 	}
 	/**
@@ -86,7 +86,7 @@ public class Coche implements Comparable<Coche>{
 	 * @return devuelve marca
 	 */
 
-	public String getMarca() {
+	public Marca getMarca() {
 		return marca;
 	}
 	/**
@@ -94,7 +94,7 @@ public class Coche implements Comparable<Coche>{
 	 * @param marca
 	 */
 
-	public void setMarca(String marca) {
+	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
 	/**
