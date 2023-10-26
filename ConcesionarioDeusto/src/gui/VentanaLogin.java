@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -107,7 +108,7 @@ public class VentanaLogin extends JFrame{
 					carrito = new ArrayList<>(); //Instancio (creo) un carrito vacío
 					
 					new VentanaProductos(conc);
-					ventana.setVisible(false);
+					
 				}else {
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta","ERROR",JOptionPane.WARNING_MESSAGE);
 				}
