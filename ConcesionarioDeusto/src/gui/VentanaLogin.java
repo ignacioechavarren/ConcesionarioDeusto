@@ -27,6 +27,22 @@ public class VentanaLogin extends JFrame{
 	private JTextField textfield;
 	private JPasswordField password;
 	private JButton botonI,botonS;	
+	private JFrame ventana;
+	
+	/*Declarar los atributos de inicio sesión*/
+	private static Cliente cliente; //c almacenará la información del cliente que ha iniciado sesión
+	private static List<Coche> carrito; //almacenará los artículo que ha añadido al carrito el cliente que ha iniciado sesión
+	
+	
+	public static Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public static List<Coche> getCarrito() {
+		return carrito;
+	}
+
 
 	public VentanaLogin(Concesionario conc) {
 		super();
@@ -79,15 +95,27 @@ public class VentanaLogin extends JFrame{
 		
 		botonI.addActionListener((e)->{
 			
-			if(conc.buscarCliente(textfield.getText())!=null&&conc.getPassword(textfield.getText())==password.getText()) {
-				//abrir siguiente ventana
-				VentanaProductos vp = new VentanaProductos(conc);
-				dispose();
+			String dni = textfield.getText();
+			String con = password.getText();
+			Cliente c = Concesionario.buscarCliente(dni);
+			if(c == null) {
+				JOptionPane.showMessageDialog(null, "Para poder iniciar sesión tienes que estar registrado","ERROR",JOptionPane.ERROR_MESSAGE);
+			}else {
+				if(c.getContrasenia().equals(con)) {
+					JOptionPane.showMessageDialog(null, "Bienvenido!","SESIÓN INICIADA",JOptionPane.INFORMATION_MESSAGE);
+					cliente = c; //Guardo en cliente los datos del cliente que ha iniciado sesión
+					carrito = new ArrayList<>(); //Instancio (creo) un carrito vacío
+					
+					new VentanaProductos(conc);
+					ventana.setVisible(false);
+				}else {
+					JOptionPane.showMessageDialog(null, "Contraseña incorrecta","ERROR",JOptionPane.WARNING_MESSAGE);
+				}
 			}
-			else{
-				JOptionPane.showMessageDialog(null, "Los datos no son correctos","ERROR",JOptionPane.ERROR_MESSAGE);
-			}
-			});
+		});
+		
+		
+			
 		botonS.addActionListener((e)->{
 			setVisible(false);
 			conc.guardarClientesEnFichero(nomfichClientes);
