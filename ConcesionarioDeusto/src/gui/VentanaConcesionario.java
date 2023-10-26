@@ -89,7 +89,7 @@ public class VentanaConcesionario extends JFrame{
 		pCentro.add(areaCarrito);
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		
-		/*CREACIÓN DE LA JLIST*/
+		
 		modeloListaCoches = new DefaultListModel<>();
 		listaCoches = new JList<>(modeloListaCoches);
 		scrollListaCoches = new JScrollPane(listaCoches);
@@ -98,7 +98,7 @@ public class VentanaConcesionario extends JFrame{
 		
 		pOeste.add(scrollListaCoches);
 		
-		/*EVENTOS*/
+		
 		btnVolver.addActionListener((e)->{
 			dispose();
 			new VentanaInicio(conc);
@@ -122,13 +122,8 @@ public class VentanaConcesionario extends JFrame{
 		});
 		
 		btnVerTodosLosCoches.addActionListener((e)->{
-<<<<<<< HEAD
-		new VentanaProductos(conc);
-		
-=======
 		new VentanaProductos(null);
 		dispose();
->>>>>>> branch 'main' of https://github.com/ignacioechavarren/ConcesionarioDeusto.git
 	
 		
 		});
@@ -138,5 +133,3 @@ public class VentanaConcesionario extends JFrame{
 	
 	}
 }
-
-

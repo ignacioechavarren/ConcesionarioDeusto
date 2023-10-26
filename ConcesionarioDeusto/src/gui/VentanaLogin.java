@@ -36,7 +36,7 @@ public class VentanaLogin extends JFrame{
 	private JButton botonI,botonS;	
 	private JFrame ventana;
 	
-	/*Declarar los atributos de inicio sesión*/
+	
 	private static Cliente cliente; //c almacenará la información del cliente que ha iniciado sesión
 	private static List<Coche> carrito; //almacenará los artículo que ha añadido al carrito el cliente que ha iniciado sesión
 	

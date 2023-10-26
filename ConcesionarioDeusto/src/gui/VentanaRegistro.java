@@ -49,7 +49,7 @@ public class VentanaRegistro extends JFrame{
 		setBounds(300, 100, 600, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		/*CREACIÓN DE PANELES Y COMPONENTES*/
+		
 		pTotal=new JPanel(new GridLayout(0,1));
 		pNorte = new JPanel();
 		pNorte.setBackground(new Color(0, 128, 255));
@@ -112,11 +112,11 @@ public class VentanaRegistro extends JFrame{
 		pTotal.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		
 		
-		/*CARGA DE LAS COLECCIONES*/
+		
 		conc.cargarClientesEnLista(nomfichClientes);
 		
 		
-		/*EVENTOS*/
+	
 		
 		
 		btnRegistro.addActionListener((e)->{
