@@ -117,7 +117,7 @@ public class VentanaConcesionario extends JFrame{
 		});
 		
 		btnVerTodosLosCoches.addActionListener((e)->{
-		new VentanaProductos(null);
+		new VentanaProductos(conc);
 		
 	
 		
