@@ -62,7 +62,7 @@ public enum Marca implements Serializable{
 		return this.nombre;
 	}
 	
-	 public static Marca getID(String texto) {
+	 public static Marca getPorID(String texto) {
 		 Marca mar = null;
 	        for (Marca marca : Marca.values()) {
 	            if (marca.getMarca().equalsIgnoreCase(texto)) {

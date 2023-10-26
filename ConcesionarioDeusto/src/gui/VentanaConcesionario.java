@@ -129,8 +129,6 @@ public class VentanaConcesionario extends JFrame{
 		pOeste.add(scrollListaCoches);
 		
 		
-		List<Coche>coches2=new ArrayList<>();
-		
 		comboBoxTipo.addActionListener(new ActionListener() {
 			
 			@Override
@@ -144,7 +142,7 @@ public class VentanaConcesionario extends JFrame{
 			            }
 			        } else {
 			            for (Coche c : coches1) {			            	
-			                if (c.getMarca().equals(Marca.getID(marcaSeleccionada))) {
+			                if (c.getMarca().equals(Marca.getPorID(marcaSeleccionada))) {
 			                    modeloListaCoches.addElement(c);
 			                }
 			            }
