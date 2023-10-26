@@ -56,6 +56,7 @@ public class VentanaConcesionario extends JFrame{
 	
 	public VentanaConcesionario(Concesionario conc) {
 		super();
+		getContentPane().setBackground(new Color(0, 128, 255));
 		
 		setBounds(300, 200, 800, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -90,11 +91,6 @@ public class VentanaConcesionario extends JFrame{
 		pOeste.setBackground(new Color(0, 128, 255));
 		getContentPane().add(pOeste, BorderLayout.WEST);
 		
-		pCentro = new JPanel();
-		pCentro.setBackground(new Color(0, 128, 255));
-		areaCarrito = new JTextArea(20, 30);
-		pCentro.add(areaCarrito);
-		getContentPane().add(pCentro, BorderLayout.CENTER);
 		
 		JComboBox<String> comboBoxTipo = new JComboBox<String>();
 		comboBoxTipo.setBounds(265, 296, 94, 22);
@@ -172,7 +168,8 @@ public class VentanaConcesionario extends JFrame{
 		});
 		
 		btnVerReservas.addActionListener((e)->{
-			
+			new VentanaCarrito();
+			dispose();
 		});
 		
 		btnFinalizarReservas.addActionListener((e)->{
