@@ -26,6 +26,10 @@ public class Main {
 	    Coche c5 = new Coche(1900, 2010, "Ford", "Focus", "5678XYZ");
 	    Coche c6 = new Coche(2800, 2015, "Honda", "Civic", "9876PQR");
 	    Coche c7 = new Coche(2500, 2020, "Volkswagen", "Golf", "5432LMN");
+	    Coche c8 = new Coche(500, 1996, "Seat", "Leon","8828CUX" );
+	    Coche c9 = new Coche(500, 1996, "BMW", "E36","8828XSU" );
+	    Coche c10 = new Coche(500, 1996, "Opel", "Astra","8824CHP" );
+	    
 		
 	    
 		Cliente cli1 = new Cliente("16102892V", "Jon", "14-10-1999", "A");

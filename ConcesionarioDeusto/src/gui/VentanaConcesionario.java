@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -24,9 +25,11 @@ import javax.swing.ListCellRenderer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
+
 
 public class VentanaConcesionario extends JFrame{
 	private JPanel pSur;
@@ -48,6 +51,8 @@ public class VentanaConcesionario extends JFrame{
 	
 	private JLabel lblBusqueda;
 	private JTextField txtBusqueda;
+	
+	
 	
 	public VentanaConcesionario(Concesionario conc) {
 		super();
@@ -91,6 +96,27 @@ public class VentanaConcesionario extends JFrame{
 		pCentro.add(areaCarrito);
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		
+		JComboBox<String> comboBoxTipo = new JComboBox<String>();
+		comboBoxTipo.setBounds(265, 296, 94, 22);
+		pOeste.add(comboBoxTipo);
+		
+		comboBoxTipo.addItem("Todos");
+		comboBoxTipo.addItem("Honda");
+		comboBoxTipo.addItem("Bmw");
+		comboBoxTipo.addItem("Opel");
+		comboBoxTipo.addItem("Toyota");
+		comboBoxTipo.addItem("Ford");
+		comboBoxTipo.addItem("Toyota");
+		comboBoxTipo.addItem("Volswagen");
+		comboBoxTipo.addItem("Seat");
+		
+		
+		
+		
+		
+		
+		ArrayList<Coche> cocheTipo = new ArrayList<Coche>();
+		
 		
 		List<Coche>coches1=new ArrayList<>(conc.getCoches());
 		modeloListaCoches = new DefaultListModel<>();
@@ -102,7 +128,34 @@ public class VentanaConcesionario extends JFrame{
 		scrollListaCoches.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollListaCoches.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
+		
 		pOeste.add(scrollListaCoches);
+		
+		
+		List<Coche>coches2=new ArrayList<>();
+		
+		comboBoxTipo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				   String marcaSeleccionada = comboBoxTipo.getSelectedItem().toString();
+			        modeloListaCoches.clear(); // Limpia el modelo de la lista de coches
+
+			        if (marcaSeleccionada.equals("Todos")) {
+			            for (Coche c : coches1) {
+			                modeloListaCoches.addElement(c);
+			            }
+			        } else {
+			            for (Coche c : coches1) {
+			                if (c.getMarca().equals(marcaSeleccionada)) {
+			                    modeloListaCoches.addElement(c);
+			                }
+			            }
+			        }
+			    }
+				
+		});
+	
 		
 		
 		btnVolver.addActionListener((e)->{
