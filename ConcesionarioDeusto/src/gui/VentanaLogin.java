@@ -23,7 +23,13 @@ import java.awt.Color;
 
 public class VentanaLogin extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
-	private JPanel pNorte,pCentro,pCentro2,pCentro3,pCentro4,pSur,pTodo;
+	private JPanel pNorte;
+	private JPanel pCentro;
+	private JPanel pCentro2;
+	private JPanel pCentro3;
+	private JPanel pCentro4;
+	private JPanel pSur;
+	private JPanel pTodo;
 	private JLabel inicio,dni,contrasena;
 	private JTextField textfield;
 	private JPasswordField password;

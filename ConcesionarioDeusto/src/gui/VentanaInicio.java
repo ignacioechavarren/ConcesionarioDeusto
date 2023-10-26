@@ -18,7 +18,11 @@ import domain.Concesionario;
 
 	public class VentanaInicio extends JFrame{
 		private static final String nomfichClientes = "Clientes.csv";
-		private JPanel pTodo,pNorte,pCentro,pCentro2,pSur;
+		private JPanel pTodo;
+		private JPanel pNorte;
+		private JPanel pCentro;
+		private JPanel pCentro2;
+		private JPanel pSur;
 		private JLabel inicio;
 		private JButton botonI,botonR,botonS;
 		public VentanaInicio(Concesionario conc){

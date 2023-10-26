@@ -27,8 +27,15 @@ import domain.Coche;
 import domain.Concesionario;
 
 public class VentanaConcesionario extends JFrame{
-	private JPanel pSur,pOeste,pCentro,pNorte;
-	private JButton btnVolver,btnAniadirCocheAlaReserva,btnVerReservas,btnFinalizarReservas, btnVerTodosLosCoches;
+	private JPanel pSur;
+	private JPanel pOeste;
+	private JPanel pCentro;
+	private JPanel pNorte;
+	private JButton btnVolver;
+	private JButton btnAniadirCocheAlaReserva;
+	private JButton btnVerReservas;
+	private JButton btnFinalizarReservas;
+	private JButton btnVerTodosLosCoches;
 	
 	
 	private JTextArea areaCarrito;
