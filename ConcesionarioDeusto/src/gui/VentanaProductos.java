@@ -127,6 +127,7 @@ public class VentanaProductos extends JFrame{
 			resultado.setOpaque(true);
 			return resultado;
 		};
+		this.tablaCoches.setDefaultRenderer(Object.class, cellRenderer);
 	}
 	
 	private void cargarCoches() {
