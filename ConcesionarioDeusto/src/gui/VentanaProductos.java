@@ -43,18 +43,14 @@ public class VentanaProductos extends JFrame{
 	private JTable tablaCoches;
 	private DefaultTableModel modeloDatosCoches;
 	private JPanel pSur;
-	private JButton btnReservar;
+	private JButton btnVolver;
 	
 	public VentanaProductos(Concesionario conc) {
+		getContentPane().setBackground(new Color(0, 128, 255));
 		
 		this.coches = new ArrayList<Coche>(conc.getCoches());
 		this.iniciarTabla();
 		this.cargarCoches();
-		
-		pSur = new JPanel();
-		btnReservar = new JButton("AÑADIR COCHE AL CARRITO");
-		pSur.add(btnReservar);
-		
 		
 		JScrollPane panelCoches = new JScrollPane(this.tablaCoches);
 		panelCoches.setBorder(new TitledBorder("Coches disponibles"));
@@ -63,6 +59,12 @@ public class VentanaProductos extends JFrame{
 		this.getContentPane().setLayout(new GridLayout(2, 1));
 		this.getContentPane().add(panelCoches);
 		
+		pSur = new JPanel();
+		pSur.setBackground(new Color(0, 128, 255));
+		btnVolver = new JButton("VOLVER");
+		getContentPane().add(pSur, BorderLayout.SOUTH);
+		pSur.add(btnVolver);
+		
 		this.setTitle("Ventana principal de Coches");		
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -70,9 +72,11 @@ public class VentanaProductos extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);	
 		
-	
-		btnReservar.addActionListener((e)->{
 		
+		btnVolver.addActionListener((e)->{
+			dispose();
+			new VentanaConcesionario(conc);
+			
 		});
 		
 	}

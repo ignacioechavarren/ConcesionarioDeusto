@@ -73,10 +73,15 @@ public class VentanaRegistro extends JFrame{
 		pCentro8.setBackground(new Color(0, 128, 255));
 						
 		lblTitulo=new JLabel("REGISTRO DE USUARIO");
+		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblDniR = new JLabel("DNI: ");
+		lblDniR.setForeground(new Color(255, 255, 255));
 		lblNomR = new JLabel("NOMBRE: ");
+		lblNomR.setForeground(new Color(255, 255, 255));
 		lblFNacR = new JLabel("FECHA DE NACIMIENTO: ");
+		lblFNacR.setForeground(new Color(255, 255, 255));
 		lblConR = new JLabel("CONTRASEÑA: ");
+		lblConR.setForeground(new Color(255, 255, 255));
 		
 		
 		

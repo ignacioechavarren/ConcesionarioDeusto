@@ -72,8 +72,11 @@ public class VentanaLogin extends JFrame{
 				
 				
 		inicio=new JLabel("INICIO DE SESION");
+		inicio.setForeground(new Color(255, 255, 255));
 		dni=new JLabel("DNI: ");
+		dni.setForeground(new Color(255, 255, 255));
 		contrasena=new JLabel("CONTRASENA: ");
+		contrasena.setForeground(new Color(255, 255, 255));
 		
 		textfield=new JTextField(20);
 		
@@ -116,6 +119,7 @@ public class VentanaLogin extends JFrame{
 					
 					//new VentanaProductos(conc);
 					new VentanaConcesionario(conc);
+					dispose();
 					
 				}else {
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta","ERROR",JOptionPane.WARNING_MESSAGE);
