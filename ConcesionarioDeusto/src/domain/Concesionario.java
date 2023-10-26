@@ -16,16 +16,15 @@ import java.util.TreeSet;
 public class Concesionario {
 	
 	/**
-	 * 
+	 * Atributos
 	 */
 	private static Set<Coche> coches = new TreeSet<>();
 	private static List<Cliente> clientes = new ArrayList<>();
 	private static Map<Cliente, List<Coche>> reservas = new TreeMap<>();//new HashMap<>();
-	
-	
 	/**
-	 * 
-	 * @param metodo añadircoche
+	 * Método para acceder a la contraseña de cada cliente de la lista
+	 * @param Recibe String dni de cada cliente de la lista
+	 * @return Devuelve String contrasenia del cliente
 	 */
 	public static String getPassword(String dni) {
 		String result = null;
@@ -36,37 +35,35 @@ public class Concesionario {
 		}
 		return result;
 	}
+	/**
+	 * Getters y setters de las colecciones
+	 */
 	public static List<Cliente> getClientes(){
 		return clientes;
 	}
-	
 	public static Set<Coche> getCoches(){
 		return coches;
 	}
 	public static Map<Cliente, List<Coche>> getReservas(){
 		return reservas;
 	}
+	
+	/**
+	 * Metodo para añadir un coche al TreeSet de coches
+	 * @param coche co
+	 */
 	public static void aniadirCoche(Coche co) {
 		coches.add(co);
 	}
-	
 	/**
-	 * 
-	 */
-	public static void imprimirCoches() {
-		for(Coche co: coches) {
-			System.out.println(co);
-		}
-	}
-	/**
-	 * 
-	 * @param meotodo añadir cliente
+	 * Método para añadir cliente a la lista clientes
+	 * @param cliente
 	 */
 	public static void aniadirCliente(Cliente c) {
 		clientes.add(c);
 	}
 	/**
-	 * 
+	 * Metodo que muestra por consola los clientes del ArrayList clientes
 	 */
 	public static void imprimirClientes() {
 		for(Cliente c: clientes) {
@@ -74,7 +71,15 @@ public class Concesionario {
 		}
 	}
 	/**
-	 * 
+	 * Método que muestra por consola los coches del TreeSet coches
+	 */
+	public static void imprimirCoches() {
+		for(Coche co: coches) {
+			System.out.println(co);
+		}
+	}
+	/**
+	 * Metodo que ordena la lista clientes por sus dni
 	 */
 	public static void ordenarListaClientes() {
 		Comparator<Cliente> c = new Comparator<Cliente>() {
@@ -86,9 +91,8 @@ public class Concesionario {
 		
 		Collections.sort(clientes, c);
 	}
-	
 	/**
-	 * 
+	 * Método para añadir una reserva de un cliente y un coche
 	 * @param c
 	 * @param co
 	 */
@@ -99,15 +103,12 @@ public class Concesionario {
 		}else {
 			reservas.get(c).add(a); //Accedemos a la lista del cliente c y le añadimos el coche a
 		}
-	*/
-		
+	*/	
 		if(!reservas.containsKey(c)) { //Si el cliente no está en el mapa
 			reservas.put(c, new ArrayList<>()); //Guardamos el cliente y le creamos la lista vacía
 		}
 		reservas.get(c).add(co); //Accedemos a la lista del cliente c y le añadimos el artículo a
 	}
-	
-	//Método que imprime por consola las compras de todos los clientes
 	/**
 	 * Método que imprime por consola las reservas de todos los clientes
 	 */
@@ -124,11 +125,9 @@ public class Concesionario {
 			System.out.println("************************************************************************");
 		}
 	}
-	
 	/**
-	 * 
-	 * @param c Cliente del que se van a imprimir las reservas
 	 * Método que imprime por consola las reservas del cliente recibido por parámetro
+	 * @param c Cliente del que se van a imprimir las reservas
 	 */
 	public static void imprimirReservasCliente(Cliente c) {
 		List<Coche> l = reservas.get(c);
@@ -136,7 +135,10 @@ public class Concesionario {
 			System.out.println(co);
 		}
 	}
-	
+	/**
+	 * Metodo que carga los clientes guardados en fichero
+	 * @param String nomfich , el nombre del fichero fuente
+	 */
 	public static void cargarClientesEnLista(String nomfich) {
 		//linea = dni;nom;fNac;con
 		try {
@@ -159,7 +161,11 @@ public class Concesionario {
 		}
 		
 	}
-	
+	/**
+	 * Método para buscar un cliente en lista clientes dado un String dni
+	 * @param String dni
+	 * @return Cliente c si existe, null si no existe en la lista clientes
+	 */
 	public static Cliente buscarCliente(String dni) {
 		boolean enc = false;
 		int pos = 0;
@@ -178,7 +184,10 @@ public class Concesionario {
 			return null;
 		}
 	}
-	
+	/**
+	 * Método para guardar clientes en fichero
+	 * @param nomfich
+	 */
 	public static void guardarClientesEnFichero(String nomfich) {
 		try {
 			PrintWriter pw = new PrintWriter(nomfich);
