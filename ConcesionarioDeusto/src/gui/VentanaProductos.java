@@ -86,6 +86,8 @@ public class VentanaProductos extends JFrame{
 		
 		TableCellRenderer cellRenderer = (table, value, isSelected, hasFocus, row, column) -> {
 			JLabel resultado = new JLabel(value.toString());
+	
+			
 			
 			if(value instanceof Marca) {
 				Marca m = (Marca) value;
