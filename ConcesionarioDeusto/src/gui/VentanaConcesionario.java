@@ -55,7 +55,9 @@ public class VentanaConcesionario extends JFrame{
 		setVisible(true);
 		
 		pNorte = new JPanel();
+		pNorte.setBackground(new Color(0, 128, 255));
 		lblBusqueda = new JLabel("Introduce el número mínimo de unidades: ");
+		lblBusqueda.setForeground(new Color(255, 255, 255));
 		txtBusqueda = new JTextField(20);
 		pNorte.add(lblBusqueda);
 		pNorte.add(txtBusqueda);
@@ -63,6 +65,7 @@ public class VentanaConcesionario extends JFrame{
 		
 		
 		pSur = new JPanel();
+		pSur.setBackground(new Color(0, 128, 255));
 		getContentPane().add(pSur,BorderLayout.SOUTH);
 		
 		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE A LA RESERVA");
@@ -77,9 +80,11 @@ public class VentanaConcesionario extends JFrame{
 		pSur.add(btnVolver);
 		
 		pOeste = new JPanel();
+		pOeste.setBackground(new Color(0, 128, 255));
 		getContentPane().add(pOeste, BorderLayout.WEST);
 		
 		pCentro = new JPanel();
+		pCentro.setBackground(new Color(0, 128, 255));
 		areaCarrito = new JTextArea(20, 30);
 		pCentro.add(areaCarrito);
 		getContentPane().add(pCentro, BorderLayout.CENTER);
@@ -118,7 +123,7 @@ public class VentanaConcesionario extends JFrame{
 		
 		btnVerTodosLosCoches.addActionListener((e)->{
 		new VentanaProductos(null);
-		
+		dispose();
 	
 		
 		});

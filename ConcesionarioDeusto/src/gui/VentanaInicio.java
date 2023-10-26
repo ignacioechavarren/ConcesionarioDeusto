@@ -40,6 +40,7 @@ import domain.Concesionario;
 			pSur.setBackground(new Color(0, 128, 255));
 			
 			inicio=new JLabel("CONCESIONARIO DEUSTO");
+			inicio.setForeground(new Color(255, 255, 255));
 			
 			botonI=new JButton("INICIAR");
 			botonR=new JButton("REGISTRARSE");
