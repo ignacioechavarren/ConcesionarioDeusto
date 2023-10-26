@@ -107,7 +107,9 @@ public class VentanaLogin extends JFrame{
 					cliente = c; //Guardo en cliente los datos del cliente que ha iniciado sesión
 					carrito = new ArrayList<>(); //Instancio (creo) un carrito vacío
 					
+					
 					new VentanaProductos(conc);
+					//new VentanaConcesionario(conc);
 					
 				}else {
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta","ERROR",JOptionPane.WARNING_MESSAGE);
