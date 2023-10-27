@@ -43,8 +43,11 @@ import domain.Concesionario;
 			inicio.setForeground(new Color(255, 255, 255));
 			
 			botonI=new JButton("INICIAR");
+			botonI.setFont(new Font("Tahoma", Font.BOLD, 10));
 			botonR=new JButton("REGISTRARSE");
+			botonR.setFont(new Font("Tahoma", Font.BOLD, 10));
 			botonS=new JButton("SALIR");
+			botonS.setFont(new Font("Tahoma", Font.BOLD, 10));
 			
 			pNorte.add(inicio);
 			pCentro2.add(botonR);

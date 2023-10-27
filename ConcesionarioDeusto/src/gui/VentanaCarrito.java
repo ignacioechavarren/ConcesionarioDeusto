@@ -43,28 +43,29 @@ public class VentanaCarrito extends JFrame{
 		
 		JLabel lblNewLabel = new JLabel("CARRITO");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 40));
-		lblNewLabel.setForeground(new Color(192, 192, 192));
-		lblNewLabel.setBounds(311, 11, 293, 40);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(315, 20, 186, 40);
 		contentPane.add(lblNewLabel);
 		
 		JTable tablaReservas = new JTable();
 		contentPane.add(tablaReservas);
 		tablaReservas.setFont(new Font("Arial", Font.PLAIN, 14));
 		tablaReservas.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		tablaReservas.setBounds(137, 70, 546, 247);
+		tablaReservas.setBounds(147, 99, 546, 247);
 		
 		JButton btnEliminarReservas = new JButton("ELIMINAR RESERVA");
 		btnEliminarReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnEliminarReservas.setBounds(60, 408, 178, 30);
 		contentPane.add(btnEliminarReservas);
 		
-		JButton btnVolver = new JButton("Volver");
+		JButton btnVolver = new JButton("VOLVER");
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnVolver.setBounds(700, 412, 89, 22);
+		btnVolver.setBounds(584, 408, 154, 30);
 		contentPane.add(btnVolver);
 		
-		JButton btnCrearFactura = new JButton("Crear Factura");
-		btnCrearFactura.setBounds(294, 344, 149, 40);
+		JButton btnCrearFactura = new JButton("CREAR FACTURA");
+		btnCrearFactura.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnCrearFactura.setBounds(332, 408, 154, 30);
 		contentPane.add(btnCrearFactura);
 		
 		

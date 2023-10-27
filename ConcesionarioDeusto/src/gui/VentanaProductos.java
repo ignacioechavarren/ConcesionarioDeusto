@@ -36,6 +36,7 @@ import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
 import domain.Marca;
+import java.awt.Font;
 
 
 public class VentanaProductos extends JFrame{
@@ -64,6 +65,7 @@ public class VentanaProductos extends JFrame{
 		pSur = new JPanel();
 		pSur.setBackground(new Color(0, 128, 255));
 		btnVolver = new JButton("VOLVER");
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
 		getContentPane().add(pSur, BorderLayout.SOUTH);
 		pSur.add(btnVolver);
 		

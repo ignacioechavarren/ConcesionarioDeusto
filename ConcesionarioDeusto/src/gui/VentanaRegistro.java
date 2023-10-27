@@ -18,6 +18,7 @@ import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
 import java.awt.Color;
+import java.awt.Font;
 
 public class VentanaRegistro extends JFrame{
 	Concesionario conc = new Concesionario();
@@ -91,7 +92,9 @@ public class VentanaRegistro extends JFrame{
 		txtConR = new JPasswordField(20);
 		
 		btnRegistro = new JButton("REGISTRO");
+		btnRegistro.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnVolver = new JButton("VOLVER");
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnRegistro);
 		pSur.add(btnVolver);
 				

@@ -20,6 +20,7 @@ import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
 import java.awt.Color;
+import java.awt.Font;
 
 public class VentanaLogin extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
@@ -84,7 +85,9 @@ public class VentanaLogin extends JFrame{
 		password=new JPasswordField(20);
 		
 		botonI=new JButton("INICIAR");
+		botonI.setFont(new Font("Tahoma", Font.BOLD, 10));
 		botonS=new JButton("VOLVER");
+		botonS.setFont(new Font("Tahoma", Font.BOLD, 10));
 		
 		
 		

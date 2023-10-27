@@ -78,14 +78,19 @@ public class VentanaConcesionario extends JFrame{
 		getContentPane().add(pSur,BorderLayout.SOUTH);
 		
 		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE A LA RESERVA");
+		btnAniadirCocheAlaReserva.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnAniadirCocheAlaReserva);
-		btnVerReservas = new JButton("VER RESERVA");
+		btnVerReservas = new JButton("VER CARRITO");
+		btnVerReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnVerReservas);
-		btnFinalizarReservas = new JButton("FINALIZAR COMPRA");
+		btnFinalizarReservas = new JButton("FINALIZAR RESERVA");
+		btnFinalizarReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnFinalizarReservas);
 		btnVerTodosLosCoches = new JButton("VER TODOS LOS COCHES");
+		btnVerTodosLosCoches.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnVerTodosLosCoches);
 		btnVolver = new JButton("VOLVER");
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnVolver);
 		
 		pOeste = new JPanel();
