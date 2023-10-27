@@ -103,15 +103,13 @@ public class VentanaConcesionario extends JFrame{
 		pOeste.add(comboBoxTipo);
 		
 		comboBoxTipo.addItem("Todos");
-		comboBoxTipo.addItem("Honda");
-		comboBoxTipo.addItem("BMW");
-		comboBoxTipo.addItem("Opel");
-		comboBoxTipo.addItem("Toyota");
-		comboBoxTipo.addItem("Ford");
-		comboBoxTipo.addItem("Toyota");
-		comboBoxTipo.addItem("Volkswagen");
-		comboBoxTipo.addItem("Seat");
 		
+		
+		for (Marca m : Marca.values()) {
+			comboBoxTipo.addItem(m.getMarca());
+		}
+		
+				
 		
 		
 		

@@ -1,10 +1,10 @@
 package domain;
 import java.io.Serializable;
-public enum Marca implements Serializable{
+public enum Marca implements Serializable, Comparable<Marca>{
 	
 	FER("Ferrari"),
 	BMW("Bmw"), 
-	AU("Audi"), 
+	AUD("Audi"), 
 	REN("Renault"),
 	MER("Mercedes-Benz"), 
 	BUG("Bugatti"),
@@ -73,4 +73,7 @@ public enum Marca implements Serializable{
 		return mar;
 		}
 	
+	 public static String getIdFromValue(Marca marca) {
+	        return marca.getMarca();
+	    }
 }
