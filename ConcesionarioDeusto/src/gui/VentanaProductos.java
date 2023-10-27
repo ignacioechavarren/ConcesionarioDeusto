@@ -7,11 +7,15 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,6 +35,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView.TableRow;
 
 import domain.Cliente;
 import domain.Coche;
@@ -90,44 +96,82 @@ public class VentanaProductos extends JFrame{
 		Vector<String> cabeceraCoches = new Vector<String>(Arrays.asList( "Precio", "Año", "Marca", "Modelo", "Matrícula"));
 		this.modeloDatosCoches = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraCoches);
 		this.tablaCoches = new JTable(this.modeloDatosCoches);
+//		for (TableRow c : Collections.list (this.tablaCoches.getRowModel().getRows()))
+//			c.setHeight(100);
+		this.tablaCoches.setRowHeight(60);
 		this.tablaCoches.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		TableCellRenderer cellRenderer = (table, value, isSelected, hasFocus, row, column) -> {
-			JLabel resultado = new JLabel(value.toString());
-			
 			if(value instanceof Marca) {
-				Marca m = (Marca) value;
+				ImageDisplayer id = new ImageDisplayer ();
 				
-				resultado.setText("");		
-				resultado.setToolTipText(m.toString());
-				resultado.setHorizontalAlignment(JLabel.CENTER);
+				Marca m = (Marca) value;
 				
 				switch (m) { 
 					case SEA:
-						resultado.setIcon(new ImageIcon("imagenes/SEAT_logo_from_2017.png"));
+					try {
+						id.setImage (ImageIO.read (new File ("imagenes/SEAT_logo_from_2017.png")));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 						break;
 					case BMW:
-						resultado.setIcon(new ImageIcon("imagenes/bmw_logo_PNG19712.png"));
+					try {
+						id.setImage (ImageIO.read (new File ("imagenes/bmw_logo_PNG19712.png")));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 						break;
 					case OPE:
-						resultado.setIcon(new ImageIcon("imagenes/Opel-Logo_2017.png"));
+					try {
+						id.setImage (ImageIO.read (new File ("imagenes/Opel-Logo_2017.png")));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 						break;
 					case TOY:
-						resultado.setIcon(new ImageIcon("imagenes/toyota.png"));
+					try {
+						id.setImage (ImageIO.read (new File ("imagenes/toyota.png")));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 						break;
 					case FOR:
-						resultado.setIcon(new ImageIcon("imagenes/Ford-Motor-Company-Logo.png"));
+					try {
+						id.setImage (ImageIO.read (new File ("imagenes/Ford-Motor-Company-Logo.png")));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 						break;
 					case HON:
-						resultado.setIcon(new ImageIcon("imagenes/Logo_Honda_F1.png"));
+					try {
+						id.setImage (ImageIO.read (new File ("imagenes/Logo_Honda_F1.png")));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 						break;
 					case VOL:
-						resultado.setIcon(new ImageIcon("imagenes/Volkswagen_Logo_till_1995.svg.png"));
+					try {
+						id.setImage (ImageIO.read (new File ("imagenes/Volkswagen_Logo_till_1995.svg.png")));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 						break;
 					default:
-			}
+				}
 				
+				return id;
 			}
+			
+			JLabel resultado = new JLabel(value.toString());
+			
 			resultado.setOpaque(true);
 			return resultado;
 		};
