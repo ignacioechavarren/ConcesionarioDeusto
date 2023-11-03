@@ -185,6 +185,15 @@ public class VentanaConcesionario extends JFrame{
 				        } else {
 				            System.out.println("Por favor, selecciona un coche antes de añadirlo a la reserva.");
 				        }
+				        
+				        Cliente c = VentanaRegistro.getCliente();
+						String texto = "CLIENTE: "+c.getDni() +" "+c.getNombre()+"\n\n";
+						texto = texto + "COCHES EN EL CARRITO: \n";
+						//Recorremos el carrito para añadir los articulos al texto
+						for(Coche co: VentanaRegistro.getCarrito()) {
+							texto = texto + co.toString() + "\n";
+						}
+						areaCarrito.setText(texto);
 				    }
 		});
 		

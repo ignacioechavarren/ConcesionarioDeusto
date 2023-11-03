@@ -15,7 +15,6 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import classes.Producto;
 
 
 public class Main {

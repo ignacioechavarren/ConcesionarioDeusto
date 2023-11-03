@@ -30,8 +30,9 @@ public class VentanaRegistro extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
 	private JFrame vActual;
 	
-	private static Cliente cliente;
-	private static List<Coche> carrito;
+	private static Cliente cliente = new Cliente();
+	private static List<Coche> carrito = new ArrayList<>();
+
 	
 	
 	public static Cliente getCliente() {
