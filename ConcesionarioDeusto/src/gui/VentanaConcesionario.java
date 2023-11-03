@@ -2,34 +2,30 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
+import javax.swing.table.DefaultTableModel;
 
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
 import domain.Marca;
+import main.Main;
 
 
 public class VentanaConcesionario extends JFrame{
@@ -43,13 +39,12 @@ public class VentanaConcesionario extends JFrame{
 	private JButton btnFinalizarReservas;
 	private JButton btnVerTodosLosCoches;
 	
-	
 	private JTextArea areaCarrito;
 	
 	private DefaultListModel<Coche> modeloListaCoches; //El modelo guarda la información, los artículos
 	private JList<Coche> listaCoches; //La JList presenta/visualiza esos artículos
 	private JScrollPane scrollListaCoches;
-	
+	private DefaultTableModel modeloDatosCoches;
 	private JLabel lblBusqueda;
 	private JTextField txtBusqueda;
 	
@@ -63,14 +58,7 @@ public class VentanaConcesionario extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
-		pNorte = new JPanel();
-		pNorte.setBackground(new Color(0, 128, 255));
-		lblBusqueda = new JLabel("Introduce el número mínimo de unidades: ");
-		lblBusqueda.setForeground(new Color(255, 255, 255));
-		txtBusqueda = new JTextField(20);
-		pNorte.add(lblBusqueda);
-		pNorte.add(txtBusqueda);
-		getContentPane().add(pNorte, BorderLayout.NORTH);
+		
 		
 		
 		pSur = new JPanel();
@@ -96,6 +84,24 @@ public class VentanaConcesionario extends JFrame{
 		pOeste = new JPanel();
 		pOeste.setBackground(new Color(0, 128, 255));
 		getContentPane().add(pOeste, BorderLayout.WEST);
+		
+		pCentro = new JPanel();
+		pCentro.setBackground(new Color(0, 128, 255));
+		areaCarrito = new JTextArea(20, 30);
+		pCentro.add(areaCarrito);
+		getContentPane().add(pCentro, BorderLayout.CENTER);
+		
+		
+		
+		pNorte = new JPanel();
+		pNorte.setBackground(new Color(0, 128, 255));
+		JLabel lblCantidadReservas = new JLabel("AÑADIDOS A LA RESERVA: " );
+		lblCantidadReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblCantidadReservas.setForeground(new Color(255, 255, 255));
+		lblCantidadReservas.setBounds(369, 285, 332, 40);
+		pNorte.add(lblCantidadReservas);
+		getContentPane().add(pNorte, BorderLayout.NORTH);
+		
 		
 		
 		JComboBox<String> comboBoxTipo = new JComboBox<String>();
@@ -128,6 +134,9 @@ public class VentanaConcesionario extends JFrame{
 		scrollListaCoches = new JScrollPane(listaCoches);
 		scrollListaCoches.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollListaCoches.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		
+		
 		
 		
 		pOeste.add(scrollListaCoches);
@@ -164,14 +173,19 @@ public class VentanaConcesionario extends JFrame{
 		});
 		
 		btnAniadirCocheAlaReserva.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Coche cocheRes=listaCoches.getSelectedValue();
-				reservas.add(cocheRes);
-				
-				
-				
-			}
+			
+			
+			   @Override
+               public void actionPerformed(ActionEvent e) {
+				        if (listaCoches.getSelectedValue() != null) {
+				            Coche cocheSeleccionado = (Coche) listaCoches.getSelectedValue();
+				            Main.carrito.add(cocheSeleccionado);
+				            lblCantidadReservas.setText("AÑADIDOS AL PEDIDO: " + Main.carrito.size());
+				            
+				        } else {
+				            System.out.println("Por favor, selecciona un coche antes de añadirlo a la reserva.");
+				        }
+				    }
 		});
 		
 		btnVerReservas.addActionListener((e)->{
@@ -197,4 +211,7 @@ public class VentanaConcesionario extends JFrame{
 	
 	
 	}
+
+
+
 }

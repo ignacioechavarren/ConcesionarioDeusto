@@ -15,8 +15,12 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import classes.Producto;
+
 
 public class Main {
+	
+  public static ArrayList<Coche> carrito = new ArrayList<Coche>();
 
 	public static void main(String[] args) {
 		Concesionario conc=new Concesionario();
