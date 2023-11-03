@@ -190,7 +190,7 @@ public class VentanaConcesionario extends JFrame{
 						String texto = "CLIENTE: "+c.getDni() +" "+c.getNombre()+"\n\n";
 						texto = texto + "COCHES EN EL CARRITO: \n";
 						//Recorremos el carrito para añadir los articulos al texto
-						for(Coche co: VentanaRegistro.getCarrito()) {
+						for(Coche co: VentanaLogin.getCarrito()) {
 							texto = texto + co.toString() + "\n";
 						}
 						areaCarrito.setText(texto);
