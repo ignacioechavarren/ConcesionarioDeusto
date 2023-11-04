@@ -176,7 +176,7 @@ public class VentanaProductos extends JFrame{
 			return resultado;
 		};
 		this.tablaCoches.setDefaultRenderer(Object.class, cellRenderer);
-	}
+		this.tablaCoches.setRowHeight(100);	}
 	
 	private void cargarCoches() {
 		
