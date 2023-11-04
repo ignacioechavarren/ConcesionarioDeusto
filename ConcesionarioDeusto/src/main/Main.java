@@ -66,6 +66,7 @@ public class Main {
 		Concesionario.imprimirReservas();
 		System.out.println("Reservas del cliente: "+cli1.getDni());
 		Concesionario.imprimirReservasCliente(cli1);
+		System.out.println("************************************************************************");
 		
 		
 	

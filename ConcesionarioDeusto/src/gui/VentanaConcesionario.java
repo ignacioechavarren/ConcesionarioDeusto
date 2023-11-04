@@ -28,6 +28,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -57,6 +59,7 @@ public class VentanaConcesionario extends JFrame{
 	private DefaultTableModel modeloDatosCoches;
 	private List<Coche> coches;
 	private JTable tablaCoches;
+	private Coche cocheSel;
 
 	
 	public VentanaConcesionario(Concesionario conc, Cliente cliente) {
@@ -66,7 +69,7 @@ public class VentanaConcesionario extends JFrame{
 		this.coches = new ArrayList<Coche>(conc.getCoches());
 		this.iniciarTabla();
 		this.cargarCoches();
-		
+				
 		JScrollPane panelCoches = new JScrollPane(this.tablaCoches);
 		panelCoches.setBorder(new TitledBorder("Coches disponibles"));
 		
@@ -158,6 +161,28 @@ public class VentanaConcesionario extends JFrame{
 			   		   panelCoches.setBorder(new TitledBorder("Coches disponibles"));
 			   		   pCentro.add(panelCoches);
 			   		   panelCoches.setPreferredSize(new Dimension(800, 650));
+			   		   tablaCoches.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			   			   int filaAnt = -1;
+			   			   @Override
+			   			   public void valueChanged(ListSelectionEvent e) {
+			   				   if (!e.getValueIsAdjusting()) {
+			   					   if (!tablaCoches.getSelectionModel().isSelectionEmpty()) {
+			   						   int filaSeleccionada = tablaCoches.getSelectedRow();
+			   						   if (filaSeleccionada != -1&&filaSeleccionada!=filaAnt) {
+			   							   Double precio=(Double)tablaCoches.getValueAt(filaSeleccionada,0);
+			   							   Integer anyo=Integer.parseInt(tablaCoches.getValueAt(filaSeleccionada,1).toString());
+			   							   String modelo=tablaCoches.getValueAt(filaSeleccionada,2).toString();
+			   							   Marca marca=Marca.getPorID(tablaCoches.getValueAt(filaSeleccionada,3).toString());
+			   							   String matricula=tablaCoches.getValueAt(filaSeleccionada,4).toString();
+			   							   cocheSel=new Coche(precio,anyo,marca,modelo,matricula);
+			   							   filaAnt=filaSeleccionada;
+			   							   }
+			   						   System.out.println("Fila seleccionada: " + filaSeleccionada);
+			   						   System.out.println(cocheSel);
+			   						   }
+			   					   }
+			   				   }
+			   			   });
 			        } else {
 			        	coches=new ArrayList<Coche>();
 			            for (Coche c : coches1) {			            	
@@ -174,6 +199,28 @@ public class VentanaConcesionario extends JFrame{
 			    		panelCoches.setBorder(new TitledBorder("Coches disponibles"));
 			    		pCentro.add(panelCoches);
 				   		panelCoches.setPreferredSize(new Dimension(800, 650));
+				   		tablaCoches.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				   			   int filaAnt = -1;
+				   			   @Override
+				   			   public void valueChanged(ListSelectionEvent e) {
+				   				   if (!e.getValueIsAdjusting()) {
+				   					   if (!tablaCoches.getSelectionModel().isSelectionEmpty()) {
+				   						   int filaSeleccionada = tablaCoches.getSelectedRow();
+				   						   if (filaSeleccionada != -1&&filaSeleccionada!=filaAnt) {
+				   							   Double precio=(Double)tablaCoches.getValueAt(filaSeleccionada,0);
+				   							   Integer anyo=Integer.parseInt(tablaCoches.getValueAt(filaSeleccionada,1).toString());
+				   							   String modelo=tablaCoches.getValueAt(filaSeleccionada,2).toString();
+				   							   Marca marca=Marca.getPorID(tablaCoches.getValueAt(filaSeleccionada,3).toString());
+				   							   String matricula=tablaCoches.getValueAt(filaSeleccionada,4).toString();
+				   							   cocheSel=new Coche(precio,anyo,marca,modelo,matricula);
+				   							   filaAnt=filaSeleccionada;
+				   							   }
+				   						   System.out.println("Fila seleccionada: " + filaSeleccionada);
+				   						   System.out.println(cocheSel);
+				   						   }
+				   					   }
+				   				   }
+				   			   });
 			        }
 			    }
 				
@@ -184,15 +231,15 @@ public class VentanaConcesionario extends JFrame{
 			new VentanaInicio(conc);
 			
 		});
-		
+		List<Coche>cochesCarrito=new ArrayList<Coche>();
 		btnAniadirCocheAlaReserva.addActionListener(new ActionListener() {
 			
 			
 			   @Override
                public void actionPerformed(ActionEvent e) {
-				        if (listaCoches.getSelectedValue() != null) {
-				            Coche cocheSeleccionado = (Coche) listaCoches.getSelectedValue();
-				            Main.carrito.add(cocheSeleccionado);
+				        if (cocheSel != null) {		
+				        	cochesCarrito.add(cocheSel);
+				            Main.carrito.add(cocheSel);
 				            lblCantidadReservas.setText("AÑADIDOS AL PEDIDO: " + Main.carrito.size());
 				            
 				        } else {
@@ -203,7 +250,7 @@ public class VentanaConcesionario extends JFrame{
 						String texto = "CLIENTE: "+c.getDni() +" "+c.getNombre()+"\n\n";
 						texto = texto + "COCHES EN EL CARRITO: \n";
 						//Recorremos el carrito para añadir los articulos al texto
-						for(Coche co: VentanaLogin.getCarrito()) {
+						for(Coche co: cochesCarrito) {
 							texto = texto + co.toString() + "\n";
 						}
 						areaCarrito.setText(texto);
@@ -223,12 +270,34 @@ public class VentanaConcesionario extends JFrame{
 		});
 		
 		btnVerTodosLosCoches.addActionListener((e)->{
-		new VentanaProductos(conc,cliente);
+			new VentanaProductos(conc,cliente);
 		dispose();
 	
-		
 		});
 		
+		tablaCoches.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			int filaAnt = -1;
+		    @Override
+		    public void valueChanged(ListSelectionEvent e) {
+		    	if (!e.getValueIsAdjusting()) {
+		    		if (!tablaCoches.getSelectionModel().isSelectionEmpty()) {
+		    		int filaSeleccionada = tablaCoches.getSelectedRow();
+		            if (filaSeleccionada != -1&&filaSeleccionada!=filaAnt) {
+		                
+		                Double precio=(Double)tablaCoches.getValueAt(filaSeleccionada,0);
+		                Integer anyo=Integer.parseInt(tablaCoches.getValueAt(filaSeleccionada,1).toString());
+		                String modelo=tablaCoches.getValueAt(filaSeleccionada,2).toString();
+		                Marca marca=Marca.getPorID(tablaCoches.getValueAt(filaSeleccionada,3).toString());
+		                String matricula=tablaCoches.getValueAt(filaSeleccionada,4).toString();
+		                cocheSel=new Coche(precio,anyo,marca,modelo,matricula);
+		                filaAnt=filaSeleccionada;
+		                }
+		            System.out.println("Fila seleccionada: " + filaSeleccionada);
+		            System.out.println(cocheSel);
+		            }
+		    		}
+		    	}
+		});
 	
 	
 	
@@ -318,8 +387,10 @@ public class VentanaConcesionario extends JFrame{
 			resultado.setOpaque(true);
 			return resultado;
 		};
+		
 		this.tablaCoches.setDefaultRenderer(Object.class, cellRenderer);
-		this.tablaCoches.setRowHeight(100);	}
+		this.tablaCoches.setRowHeight(100);	
+		}
 	
 	private void cargarCoches() {
 		
