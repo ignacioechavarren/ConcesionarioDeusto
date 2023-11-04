@@ -290,7 +290,7 @@ public class VentanaConcesionario extends JFrame{
 		                Double precio=(Double)tablaCoches.getValueAt(filaSeleccionada,0);
 		                Integer anyo=Integer.parseInt(tablaCoches.getValueAt(filaSeleccionada,1).toString());
 		                String modelo=tablaCoches.getValueAt(filaSeleccionada,2).toString();
-		                Marca marca=Marca.getPorID(tablaCoches.getValueAt(filaSeleccionada,3).toString());
+		                Marca marca=Marca.valueOf(tablaCoches.getValueAt(filaSeleccionada,3).toString());
 		                String matricula=tablaCoches.getValueAt(filaSeleccionada,4).toString();
 		                cocheSel=new Coche(precio,anyo,marca,modelo,matricula);
 		                filaAnt=filaSeleccionada;
