@@ -41,32 +41,32 @@ import domain.Concesionario;
 			
 			inicio=new JLabel("CONCESIONARIO DEUSTO");
 			inicio.setForeground(new Color(255, 255, 255));
-			botonR=new JButton("REGISTRARSE");
-			botonR.setFont(new Font("Tahoma", Font.BOLD, 10));
 			botonS=new JButton("SALIR");
 			botonS.setFont(new Font("Tahoma", Font.BOLD, 10));
 			
 			pNorte.add(inicio);
 			
 			botonI=new JButton("INICIAR");
-			pCentro2.add(botonI);
+			pSur.add(botonI);
 			botonI.setFont(new Font("Tahoma", Font.BOLD, 10));
 			
 			botonI.addActionListener(e -> {
 				VentanaLogin b= new VentanaLogin(conc);
 				dispose();
 			});
-			pCentro2.add(botonR);
-			pSur.add(botonS);
-			
-			pTodo.setAlignmentX(Component.CENTER_ALIGNMENT);
-			
-			conc.cargarClientesEnLista(nomfichClientes);
+			botonR=new JButton("REGISTRARSE");
+			pSur.add(botonR);
+			botonR.setFont(new Font("Tahoma", Font.BOLD, 10));
 			
 			botonR.addActionListener(e -> {
 				VentanaRegistro v = new VentanaRegistro();
 				dispose();
 			});
+			pSur.add(botonS);
+			
+			pTodo.setAlignmentX(Component.CENTER_ALIGNMENT);
+			
+			conc.cargarClientesEnLista(nomfichClientes);
 			
 			botonS.addActionListener(e -> {
 				System.exit(0);
