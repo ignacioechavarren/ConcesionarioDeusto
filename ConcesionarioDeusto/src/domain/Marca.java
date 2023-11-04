@@ -2,20 +2,15 @@ package domain;
 import java.io.Serializable;
 public enum Marca implements Serializable, Comparable<Marca>{
 	
-	FER("Ferrari"),
-	BMW("Bmw"), 
-	AUD("Audi"), 
-	REN("Renault"),
-	MER("Mercedes-Benz"), 
-	BUG("Bugatti"),
-	BEN("Bentley"),
 	ALF("Alfa Romeo"),
-	MUS("Mustang"),
+	AUD("Audi"), 
+	BEN("Bentley"),
+	BMW("Bmw"), 
+	BUG("Bugatti"),
 	CIT("Citroen"),
 	DAC("Dacia"),
 	FIA("Fiat"),
 	FOR("Ford"),
-	SEA("Seat"),
 	HON("Honda"),
 	HYU("Hyundai"),
 	JAG("Jaguar"),
@@ -26,19 +21,24 @@ public enum Marca implements Serializable, Comparable<Marca>{
 	LEX("Lexus"),
 	MAS("Maserati"),
 	MAZ("Mazda"),
+	MER("Mercedes-Benz"), 
 	MIN("Mini"),
 	MIT("Mitsubishi"),
+	MUS("Mustang"),
 	NIS("Nissan"),
 	OPE("Opel"),
 	PEU("Peugeot"),
 	POR("Porsche"),
+	REN("Renault"),
+	SEA("Seat"),
 	SKO("Skoda"),
 	SMA("Smart"),
 	SUB("Subaru"),
 	SUZ("Suzuki"),
 	TES("Tesla"),
 	TOY("Toyota"),
-	VOL("Volkswagen");
+	VOL("Volkswagen"),
+	FER("Ferrari");
 	//Acabado
 	
 	/**

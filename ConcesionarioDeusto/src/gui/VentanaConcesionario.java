@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -40,6 +41,7 @@ import main.Main;
 public class VentanaConcesionario extends JFrame{
 	private JPanel pSur;
 	private JPanel pOeste;
+	private JPanel pEste;
 	private JPanel pCentro;
 	private JPanel pNorte;
 	private JButton btnVolver;
@@ -50,9 +52,9 @@ public class VentanaConcesionario extends JFrame{
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; //El modelo guarda la información, los artículos
 	private JList<Coche> listaCoches; //La JList presenta/visualiza esos artículos
-	private DefaultTableModel modeloDatosCoches;
 	private JLabel lblBusqueda;
 	private JTextField txtBusqueda;
+	private DefaultTableModel modeloDatosCoches;
 	private List<Coche> coches;
 	private JTable tablaCoches;
 
@@ -69,6 +71,7 @@ public class VentanaConcesionario extends JFrame{
 		panelCoches.setBorder(new TitledBorder("Coches disponibles"));
 		
 		setBounds(300, 200, 800, 400);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
@@ -95,13 +98,20 @@ public class VentanaConcesionario extends JFrame{
 		pOeste = new JPanel();
 		pOeste.setBackground(new Color(0, 128, 255));
 		getContentPane().add(pOeste, BorderLayout.WEST);
-		pOeste.add(panelCoches);
 		
+		
+				
 		pCentro = new JPanel();
 		pCentro.setBackground(new Color(0, 128, 255));
 		areaCarrito = new JTextArea(20, 30);
-		pCentro.add(areaCarrito);
+		pCentro.add(panelCoches);
+		panelCoches.setPreferredSize(new Dimension(800, 650));
 		getContentPane().add(pCentro, BorderLayout.CENTER);
+		
+		pEste=new JPanel();
+		pEste.setBackground(new Color(0, 128, 255));
+		getContentPane().add(pEste, BorderLayout.EAST);
+		pEste.add(areaCarrito);
 		
 		pNorte = new JPanel();
 		pNorte.setBackground(new Color(0, 128, 255));
@@ -128,27 +138,42 @@ public class VentanaConcesionario extends JFrame{
 		
 		List<Coche>coches1=new ArrayList<>(conc.getCoches());
 		modeloListaCoches = new DefaultListModel<>();
-		for (Coche c : coches1) {
-			modeloListaCoches.addElement(c);
-		}
+		
 
 		comboBoxTipo.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				   String marcaSeleccionada = comboBoxTipo.getSelectedItem().toString();
-			        modeloListaCoches.clear(); // Limpia el modelo de la lista de coches
+			        // Limpia el modelo de la lista de coches
 
 			        if (marcaSeleccionada.equals("Todos")) {
-			            for (Coche c : coches1) {
-			                modeloListaCoches.addElement(c);
-			            }
+			           coches=new ArrayList<>(conc.getCoches());
+			           pCentro.removeAll();
+			           pCentro.revalidate();
+			           pCentro.repaint();
+			           iniciarTabla();
+			           cargarCoches();
+			           JScrollPane panelCoches = new JScrollPane(tablaCoches);
+			   		   panelCoches.setBorder(new TitledBorder("Coches disponibles"));
+			   		   pCentro.add(panelCoches);
+			   		   panelCoches.setPreferredSize(new Dimension(800, 650));
 			        } else {
+			        	coches=new ArrayList<Coche>();
 			            for (Coche c : coches1) {			            	
 			                if (c.getMarca().equals(Marca.getPorID(marcaSeleccionada))) {
-			                    modeloListaCoches.addElement(c);
-			                }
+			                    coches.add(c);
+			                    }
 			            }
+			            pCentro.removeAll();
+			            pCentro.revalidate();
+			            pCentro.repaint();
+			            iniciarTabla();
+			            cargarCoches();
+			            JScrollPane panelCoches = new JScrollPane(tablaCoches);
+			    		panelCoches.setBorder(new TitledBorder("Coches disponibles"));
+			    		pCentro.add(panelCoches);
+				   		panelCoches.setPreferredSize(new Dimension(800, 650));
 			        }
 			    }
 				
