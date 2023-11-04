@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,6 +63,7 @@ public class VentanaConcesionario extends JFrame{
 	private List<Coche> coches;
 	private JTable tablaCoches;
 	private Coche cocheSel;
+	private int mouseRowPersonajes = -1;
 
 	
 	public VentanaConcesionario(Concesionario conc, Cliente cliente) {
@@ -108,7 +112,7 @@ public class VentanaConcesionario extends JFrame{
 		pCentro.setBackground(new Color(0, 128, 255));
 		areaCarrito = new JTextArea(20, 30);
 		pCentro.add(panelCoches);
-		panelCoches.setPreferredSize(new Dimension(800, 650));
+		panelCoches.setPreferredSize(new Dimension(850, 750));
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		
 		pEste=new JPanel();
@@ -299,8 +303,24 @@ public class VentanaConcesionario extends JFrame{
 		    	}
 		});
 	
-	
-	
+		this.tablaCoches.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				//Se resetea la fila/columna sobre la que está el ratón				
+				mouseRowPersonajes = -1;
+			}
+		});
+		
+		this.tablaCoches.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				//Se actualiza la fila/columna sobre la que está el ratón
+				mouseRowPersonajes = tablaCoches.rowAtPoint(e.getPoint());
+				
+				//Se provoca el redibujado de la tabla
+				tablaCoches.repaint();
+			}			
+		});
 	}
 
 	private void iniciarTabla() {
@@ -383,6 +403,19 @@ public class VentanaConcesionario extends JFrame{
 			}
 			
 			JLabel resultado = new JLabel(value.toString());
+			
+			if (table.equals(tablaCoches)) {
+				if (row % 2 == 0) {
+					resultado.setBackground(new Color(250, 249, 249));
+				} else {
+					resultado.setBackground(new Color(255, 250, 240));
+				}
+			}	
+			
+			if (isSelected || (table.equals(tablaCoches) && row == mouseRowPersonajes)) {
+				resultado.setBackground(table.getSelectionBackground());
+				resultado.setForeground(table.getSelectionForeground());			
+			}		
 			
 			resultado.setOpaque(true);
 			return resultado;

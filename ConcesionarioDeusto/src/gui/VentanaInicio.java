@@ -41,17 +41,22 @@ import domain.Concesionario;
 			
 			inicio=new JLabel("CONCESIONARIO DEUSTO");
 			inicio.setForeground(new Color(255, 255, 255));
-			
-			botonI=new JButton("INICIAR");
-			botonI.setFont(new Font("Tahoma", Font.BOLD, 10));
 			botonR=new JButton("REGISTRARSE");
 			botonR.setFont(new Font("Tahoma", Font.BOLD, 10));
 			botonS=new JButton("SALIR");
 			botonS.setFont(new Font("Tahoma", Font.BOLD, 10));
 			
 			pNorte.add(inicio);
+			
+			botonI=new JButton("INICIAR");
+			pCentro2.add(botonI);
+			botonI.setFont(new Font("Tahoma", Font.BOLD, 10));
+			
+			botonI.addActionListener(e -> {
+				VentanaLogin b= new VentanaLogin(conc);
+				dispose();
+			});
 			pCentro2.add(botonR);
-			pCentro.add(botonI);
 			pSur.add(botonS);
 			
 			pTodo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -60,11 +65,6 @@ import domain.Concesionario;
 			
 			botonR.addActionListener(e -> {
 				VentanaRegistro v = new VentanaRegistro();
-				dispose();
-			});
-			
-			botonI.addActionListener(e -> {
-				VentanaLogin b= new VentanaLogin(conc);
 				dispose();
 			});
 			
