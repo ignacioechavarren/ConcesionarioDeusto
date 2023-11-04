@@ -250,8 +250,7 @@ public class VentanaConcesionario extends JFrame{
 				            System.out.println("Por favor, selecciona un coche antes de añadirlo a la reserva.");
 				        }
 				        
-				        Cliente c = VentanaRegistro.getCliente();
-						String texto = "CLIENTE: "+c.getDni() +" "+c.getNombre()+"\n\n";
+				        String texto = "CLIENTE: "+cliente.getNombre() +"\n"+"DNI:"+cliente.getDni()+"\n"+"F.N:"+cliente.getfNac()+"\n\n";
 						texto = texto + "COCHES EN EL CARRITO: \n";
 						//Recorremos el carrito para añadir los articulos al texto
 						for(Coche co: cochesCarrito) {
