@@ -9,6 +9,7 @@ public enum Marca implements Serializable, Comparable<Marca>{
 	BUG("Bugatti"),
 	CIT("Citroen"),
 	DAC("Dacia"),
+	FER("Ferrari"),
 	FIA("Fiat"),
 	FOR("Ford"),
 	HON("Honda"),
@@ -37,8 +38,7 @@ public enum Marca implements Serializable, Comparable<Marca>{
 	SUZ("Suzuki"),
 	TES("Tesla"),
 	TOY("Toyota"),
-	VOL("Volkswagen"),
-	FER("Ferrari");
+	VOL("Volkswagen");
 	//Acabado
 	
 	/**
