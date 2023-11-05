@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -45,6 +46,7 @@ import domain.Concesionario;
 			botonS.setFont(new Font("Tahoma", Font.BOLD, 10));
 			
 			pNorte.add(inicio);
+			
 			
 			botonI=new JButton("INICIAR");
 			pSur.add(botonI);

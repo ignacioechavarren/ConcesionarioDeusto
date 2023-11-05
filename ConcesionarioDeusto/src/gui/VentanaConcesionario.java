@@ -24,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -269,7 +270,7 @@ public class VentanaConcesionario extends JFrame{
 			for (Coche c : reservas) {
 				Concesionario.aniadirReserva(cliente, c);
 			}
-					
+			JOptionPane.showMessageDialog(null, "Enhorabuena, ha realizado la reserva correctamente","RESERVA FINALIZADA",JOptionPane.INFORMATION_MESSAGE);
 		});
 		
 		btnVerTodosLosCoches.addActionListener((e)->{
