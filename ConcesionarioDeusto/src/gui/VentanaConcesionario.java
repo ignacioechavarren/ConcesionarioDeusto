@@ -342,7 +342,7 @@ public class VentanaConcesionario extends JFrame{
 				switch (m) { 
 					case SEA:
 					try {
-						id.setImage (ImageIO.read (new File ("imagenes/SEAT_logo_from_2017.png")));
+						id.setImage (ImageIO.read (new File ("imagenes/SEAT_Logo_from_2017.png")));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
