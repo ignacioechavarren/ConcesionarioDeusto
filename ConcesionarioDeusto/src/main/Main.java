@@ -6,7 +6,6 @@ import domain.Concesionario;
 import domain.Marca;
 import gui.VentanaInicio;
 import gui.VentanaLogin;
-import gui.VentanaProductos;
 import gui.VentanaRegistro;
 
 import java.util.ArrayList;

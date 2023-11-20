@@ -54,7 +54,6 @@ public class VentanaConcesionario extends JFrame{
 	private JButton btnAniadirCocheAlaReserva;
 	private JButton btnVerReservas;
 	private JButton btnFinalizarReservas;
-	private JButton btnVerTodosLosCoches;
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; //El modelo guarda la información, los artículos
 	private JList<Coche> listaCoches; //La JList presenta/visualiza esos artículos
@@ -96,9 +95,6 @@ public class VentanaConcesionario extends JFrame{
 		btnFinalizarReservas = new JButton("FINALIZAR RESERVA");
 		btnFinalizarReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnFinalizarReservas);
-		btnVerTodosLosCoches = new JButton("VER TODOS LOS COCHES");
-		btnVerTodosLosCoches.setFont(new Font("Tahoma", Font.BOLD, 10));
-		pSur.add(btnVerTodosLosCoches);
 		btnVolver = new JButton("VOLVER");
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnVolver);
@@ -113,7 +109,7 @@ public class VentanaConcesionario extends JFrame{
 		pCentro.setBackground(new Color(0, 128, 255));
 		areaCarrito = new JTextArea(20, 30);
 		pCentro.add(panelCoches);
-		panelCoches.setPreferredSize(new Dimension(850, 750));
+		panelCoches.setPreferredSize(new Dimension(900, 800));
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		
 		pEste=new JPanel();
@@ -273,11 +269,8 @@ public class VentanaConcesionario extends JFrame{
 			JOptionPane.showMessageDialog(null, "Enhorabuena, ha realizado la reserva correctamente","RESERVA FINALIZADA",JOptionPane.INFORMATION_MESSAGE);
 		});
 		
-		btnVerTodosLosCoches.addActionListener((e)->{
-			new VentanaProductos(conc,cliente);
-		dispose();
 	
-		});
+		
 		
 		tablaCoches.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			int filaAnt = -1;

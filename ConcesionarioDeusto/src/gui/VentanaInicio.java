@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -22,7 +23,6 @@ import domain.Concesionario;
 		private JPanel pTodo;
 		private JPanel pNorte;
 		private JPanel pCentro;
-		private JPanel pCentro2;
 		private JPanel pSur;
 		private JLabel inicio;
 		private JButton botonI,botonR,botonS;
@@ -35,8 +35,12 @@ import domain.Concesionario;
 			pNorte.setBackground(new Color(0, 128, 255));
 			pCentro = new JPanel();
 			pCentro.setBackground(new Color(0, 128, 255));
-			pCentro2 = new JPanel();
-			pCentro2.setBackground(new Color(0, 128, 255));
+			pCentro.setLayout(new BorderLayout());
+			ImageIcon icono = new ImageIcon("imagenes/1366_2000.jpg");
+			JLabel etiquetaImagen = new JLabel(icono);
+			pCentro.add(etiquetaImagen, BorderLayout.CENTER);
+			add(pCentro);
+			setVisible(true);
 			pSur = new JPanel();
 			pSur.setBackground(new Color(0, 128, 255));
 			
@@ -77,7 +81,6 @@ import domain.Concesionario;
 			
 			pTodo.add(pNorte);
 			pTodo.add(pCentro);
-			pTodo.add(pCentro2);
 			pTodo.add(pSur);
 			getContentPane().add(pTodo);
 			
