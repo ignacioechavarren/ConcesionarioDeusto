@@ -3,8 +3,11 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -20,37 +23,48 @@ import domain.Concesionario;
 
 	public class VentanaInicio extends JFrame{
 		private static final String nomfichClientes = "Clientes.csv";
+		private JFrame frame = new JFrame ("CONCESIONARIO DEUSTO");
 		private JPanel pTodo;
-		private JPanel pNorte;
+		private JPanel pNorte;		
 		private JPanel pCentro;
 		private JPanel pSur;
 		private JLabel inicio;
+		private JLabel inicio2;
 		private JButton botonI,botonR,botonS;
 		public VentanaInicio(Concesionario conc){
 			super();
-			setBounds(300, 100, 600, 400);
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setExtendedState(JFrame.MAXIMIZED_BOTH);
-			setResizable(false);
+			frame.setBounds(300, 100, 600, 400);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			frame.setResizable(false);
 			pTodo=new JPanel(new GridLayout(0, 1));
-			pNorte=new JPanel();
-			pNorte.setBackground(new Color(0, 128, 255));
+			pNorte=new JPanel(new GridLayout(2, 1));
+			pNorte.setBackground(new Color(40, 40, 40));
+			pNorte.setBorder(new EmptyBorder(90,0,0,0));
+			pNorte.setLayout((LayoutManager) new FlowLayout(FlowLayout.CENTER));
 			pCentro = new JPanel();
-			pCentro.setBackground(new Color(0, 128, 255));
+			pCentro.setBackground(new Color(40, 40, 40));
 			pCentro.setLayout(new BorderLayout());
 			ImageIcon icono = new ImageIcon("imagenes/1366_2000.jpg");
 			JLabel etiquetaImagen = new JLabel(icono);
 			pCentro.add(etiquetaImagen, BorderLayout.CENTER);
-			setVisible(true);
-			pSur = new JPanel();
-			pSur.setBackground(new Color(0, 128, 255));
 			
+			pSur = new JPanel();
+			pSur.setBackground(new Color(40, 40, 40));
+			
+			ImageIcon icon=new ImageIcon("imagenes/logo.png");	
+			Image imagen=icon.getImage();
+			Image im2=imagen.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
 			inicio=new JLabel("CONCESIONARIO DEUSTO");
-			inicio.setForeground(new Color(255, 255, 255));
+			inicio.setForeground(new Color(255, 165, 0));
+			inicio.setFont(new Font("Impact", Font.BOLD, 50));
+			inicio2=new JLabel(new ImageIcon(im2));
+			inicio2.setForeground(new Color(255, 255, 255));			
 			botonS=new JButton("SALIR");
 			botonS.setFont(new Font("Tahoma", Font.BOLD, 10));
-			
+						
 			pNorte.add(inicio);
+			pNorte.add(inicio2);
 			
 			
 			botonI=new JButton("INICIAR");
@@ -83,8 +97,8 @@ import domain.Concesionario;
 			pTodo.add(pNorte);
 			pTodo.add(pCentro);
 			pTodo.add(pSur);
-			getContentPane().add(pTodo);
+			frame.getContentPane().add(pTodo);
 			
-			setVisible(true);
+			frame.setVisible(true);
 			}
 		}
