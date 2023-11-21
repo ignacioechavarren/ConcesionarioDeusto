@@ -109,7 +109,7 @@ public class VentanaConcesionario extends JFrame{
 		pCentro.setBackground(new Color(0, 128, 255));
 		areaCarrito = new JTextArea(20, 30);
 		pCentro.add(panelCoches);
-		panelCoches.setPreferredSize(new Dimension(900, 800));
+		panelCoches.setPreferredSize(new Dimension(800, 700));
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		
 		pEste=new JPanel();

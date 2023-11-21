@@ -39,7 +39,6 @@ import domain.Concesionario;
 			ImageIcon icono = new ImageIcon("imagenes/1366_2000.jpg");
 			JLabel etiquetaImagen = new JLabel(icono);
 			pCentro.add(etiquetaImagen, BorderLayout.CENTER);
-			add(pCentro);
 			setVisible(true);
 			pSur = new JPanel();
 			pSur.setBackground(new Color(0, 128, 255));
