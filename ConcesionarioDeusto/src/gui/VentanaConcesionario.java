@@ -70,6 +70,7 @@ public class VentanaConcesionario extends JFrame{
 		
 		super();
 		getContentPane().setBackground(new Color(0, 128, 255));
+		setResizable(false);
 		this.coches = new ArrayList<Coche>(conc.getCoches());
 		this.iniciarTabla();
 		this.cargarCoches();
