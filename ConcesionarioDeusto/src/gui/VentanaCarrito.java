@@ -27,9 +27,11 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
+
 
 
 
@@ -69,6 +71,13 @@ public class VentanaCarrito extends JFrame{
 		pSur = new JPanel();
 		pSur.setBackground(new Color(40, 40, 40));
 		
+
+		JButton btnEliminarpedidos = new JButton("ELIMINAR PEDIDO");
+		btnEliminarpedidos.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnEliminarpedidos.setBounds(60, 408, 178, 30);
+		pSur.add(btnEliminarpedidos);
+		
+		
 		JLabel lblCarrito = new JLabel("TU CARRITO" );
 		lblCarrito.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblCarrito.setForeground(new Color(255, 255, 255));
@@ -78,6 +87,16 @@ public class VentanaCarrito extends JFrame{
 		btnVolver=new JButton("VOLVER");
 		pSur.add(btnVolver);
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		btnEliminarpedidos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+              
+				
+			}
+		});	
+		
 		
 		btnVolver.addActionListener(e -> {
 			VentanaConcesionario b= new VentanaConcesionario(conc, cliente);
