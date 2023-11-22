@@ -61,7 +61,7 @@ import domain.Concesionario;
 			inicio2=new JLabel(new ImageIcon(im2));
 			inicio2.setForeground(new Color(255, 255, 255));			
 			botonS=new JButton("SALIR");
-			botonS.setFont(new Font("Tahoma", Font.BOLD, 10));
+			botonS.setFont(new Font("Tahoma", Font.BOLD, 20));
 						
 			pNorte.add(inicio);
 			pNorte.add(inicio2);
@@ -69,29 +69,30 @@ import domain.Concesionario;
 			
 			botonI=new JButton("INICIAR");
 			pSur.add(botonI);
-			botonI.setFont(new Font("Tahoma", Font.BOLD, 10));
+			botonI.setFont(new Font("Tahoma", Font.BOLD, 20));
 			
 			botonI.addActionListener(e -> {
 				VentanaLogin b= new VentanaLogin(conc);
-				dispose();
+				frame.dispose();
 			});
 			botonR=new JButton("REGISTRARSE");
 			pSur.add(botonR);
-			botonR.setFont(new Font("Tahoma", Font.BOLD, 10));
+			botonR.setFont(new Font("Tahoma", Font.BOLD, 20));
 			
 			botonR.addActionListener(e -> {
 				VentanaRegistro v = new VentanaRegistro();
-				dispose();
+				frame.dispose();
 			});
 			pSur.add(botonS);
+			pSur.setBorder(new EmptyBorder(110,0,0,0));
 			
 			pTodo.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
 			conc.cargarClientesEnLista(nomfichClientes);
 			
 			botonS.addActionListener(e -> {
-				System.exit(0);
 				conc.guardarClientesEnFichero(nomfichClientes);
+				System.exit(0);				
 			});
 			
 			pTodo.add(pNorte);

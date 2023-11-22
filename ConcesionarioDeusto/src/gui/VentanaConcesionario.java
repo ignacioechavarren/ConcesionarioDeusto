@@ -3,8 +3,11 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -19,6 +22,7 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -31,6 +35,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -47,13 +53,13 @@ import main.Main;
 public class VentanaConcesionario extends JFrame{
 	private JPanel pSur;
 	private JPanel pOeste;
-	private JPanel pEste;
+	private JPanel pEste,pViewProfile,pAreaCarrito,pEsteTop,pEsteTop1,pEsteTop2,pBtnVerReservas;
 	private JPanel pCentro;
 	private JPanel pNorte;
 	private JButton btnVolver;
 	private JButton btnAniadirCocheAlaReserva;
 	private JButton btnVerReservas;
-	private JButton btnFinalizarReservas;
+	private JButton btnFinalizarReservas, viewProfile;
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; //El modelo guarda la información, los artículos
 	private JList<Coche> listaCoches; //La JList presenta/visualiza esos artículos
@@ -88,11 +94,20 @@ public class VentanaConcesionario extends JFrame{
 		getContentPane().add(pSur,BorderLayout.SOUTH);
 		
 		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE A LA RESERVA");
+		
+		ImageIcon icon=new ImageIcon("imagenes/perfil.png");	
+		Image imagen=icon.getImage();
+		Image im2=imagen.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+		ImageIcon icon2=new ImageIcon("imagenes/carrito.png");	
+		Image imagen2=icon2.getImage();
+		Image im3=imagen2.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+		
+		viewProfile=new JButton(new ImageIcon(im2));
+		viewProfile.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnAniadirCocheAlaReserva.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnAniadirCocheAlaReserva);
-		btnVerReservas = new JButton("VER CARRITO");
-		btnVerReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
-		pSur.add(btnVerReservas);
+		btnVerReservas = new JButton(new ImageIcon(im3));
+		btnVerReservas.setFont(new Font("Tahoma", Font.BOLD, 10));		
 		btnFinalizarReservas = new JButton("FINALIZAR RESERVA");
 		btnFinalizarReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
 		pSur.add(btnFinalizarReservas);
@@ -113,10 +128,33 @@ public class VentanaConcesionario extends JFrame{
 		panelCoches.setPreferredSize(new Dimension(800, 700));
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		
-		pEste=new JPanel();
-		pEste.setBackground(new Color(0, 128, 255));
+		pEste=new JPanel(new GridLayout(0,1));
+		pEsteTop=new JPanel(new GridLayout(0,1));
+		pEsteTop1=new JPanel(new GridLayout(0,1));
+		pEsteTop2=new JPanel();
+		pEsteTop2.setBackground(new Color(0, 128, 255));
+		
+		
+		
+		pViewProfile=new JPanel();
+		pBtnVerReservas=new JPanel();
+		pBtnVerReservas.setBorder(new EmptyBorder(0,250,0,0));
+		pBtnVerReservas.setBackground(new Color(0, 128, 255));
+		pViewProfile.setBorder(new EmptyBorder(0,250,0,0));
+		pViewProfile.setBackground(new Color(0, 128, 255));
+		pAreaCarrito=new JPanel();
+		pAreaCarrito.setBackground(new Color(0, 128, 255));
+		pEste.setBackground(new Color(0, 128, 255));		
 		getContentPane().add(pEste, BorderLayout.EAST);
-		pEste.add(areaCarrito);
+		pViewProfile.add(viewProfile);
+		pBtnVerReservas.add(btnVerReservas);
+		pAreaCarrito.add(areaCarrito);
+		pEsteTop1.add(pViewProfile);
+		pEsteTop1.add(pBtnVerReservas);
+		pEsteTop.add(pEsteTop1);
+		pEsteTop.add(pEsteTop2);		
+		pEste.add(pEsteTop);
+		pEste.add(pAreaCarrito);
 		
 		pNorte = new JPanel();
 		pNorte.setBackground(new Color(0, 128, 255));
@@ -256,6 +294,15 @@ public class VentanaConcesionario extends JFrame{
 						}
 						areaCarrito.setText(texto);
 				    }
+		});
+		viewProfile.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaProfile(cliente);
+				dispose();
+				
+			}
 		});
 		
 		btnVerReservas.addActionListener((e)->{
