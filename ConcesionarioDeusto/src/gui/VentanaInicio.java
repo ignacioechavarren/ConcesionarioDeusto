@@ -31,6 +31,7 @@ import domain.Concesionario;
 		private JLabel inicio;
 		private JLabel inicio2;
 		private JButton botonI,botonR,botonS;
+		
 		public VentanaInicio(Concesionario conc){
 			super();
 			frame.setBounds(300, 100, 600, 400);

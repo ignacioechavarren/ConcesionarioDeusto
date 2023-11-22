@@ -2,17 +2,27 @@ package gui;
 
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
@@ -24,49 +34,74 @@ import domain.Concesionario;
 
 
 public class VentanaCarrito extends JFrame{
-
+	private JFrame frame = new JFrame ("CONCESIONARIO DEUSTO");
 	private JPanel contentPane;
-	
+	private JPanel pNorte;		
+	private JPanel pCentro;
+	private JPanel pSur;
+	private JButton btnEliminarReservas, btnVolver, btnCrearFactura;
+	private JLabel lblNewLabel;
+	private JLabel inicio;
+	private JList productos;
+	private DefaultListModel modelo;
 	private  ArrayList<Coche> carrito = new ArrayList<Coche>();
 	
 	public VentanaCarrito(Concesionario conc, Cliente cliente, List<Coche> reservas) {
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 200, 850, 500);
-		setVisible(true); 
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 128, 255));
-		contentPane.setForeground(new Color(0, 0, 128));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("CARRITO");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 40));
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(315, 20, 186, 40);
-		contentPane.add(lblNewLabel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setResizable(false);
+		contentPane=new JPanel(new GridLayout(0, 1));
+		pNorte=new JPanel(new GridLayout(2, 1));
+		pNorte.setBackground(new Color(40, 40, 40));
+		pNorte.setBorder(new EmptyBorder(90,0,0,0));
+		pNorte.setLayout((LayoutManager) new FlowLayout(FlowLayout.CENTER));
+		pCentro = new JPanel();
+		pCentro.setBackground(new Color(40, 40, 40));
+		pCentro.setLayout(new BorderLayout());
 		
-		JTable tablaReservas = new JTable();
-		contentPane.add(tablaReservas);
-		tablaReservas.setFont(new Font("Arial", Font.PLAIN, 14));
-		tablaReservas.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		tablaReservas.setBounds(147, 99, 546, 247);
+		productos = new JList();
+		modelo = new DefaultListModel();
+		JScrollPane scroll = new JScrollPane(productos);
+		scroll.setSize(new Dimension(20,25));
+		pCentro.add(scroll);
 		
-		JButton btnEliminarReservas = new JButton("ELIMINAR RESERVA");
-		btnEliminarReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnEliminarReservas.setBounds(60, 408, 178, 30);
-		contentPane.add(btnEliminarReservas);
+		pSur = new JPanel();
+		pSur.setBackground(new Color(40, 40, 40));
 		
-		JButton btnVolver = new JButton("VOLVER");
-		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnVolver.setBounds(584, 408, 154, 30);
-		contentPane.add(btnVolver);
+		JLabel lblCarrito = new JLabel("TU CARRITO" );
+		lblCarrito.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblCarrito.setForeground(new Color(255, 255, 255));
+		lblCarrito.setBounds(369, 285, 332, 40);
+		pNorte.add(lblCarrito);
+				
+		btnVolver=new JButton("VOLVER");
+		pSur.add(btnVolver);
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
-		JButton btnCrearFactura = new JButton("CREAR FACTURA");
-		btnCrearFactura.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnCrearFactura.setBounds(332, 408, 154, 30);
-		contentPane.add(btnCrearFactura);
+		btnVolver.addActionListener(e -> {
+			VentanaConcesionario b= new VentanaConcesionario(conc, cliente);
+			frame.dispose();
+		});
+		
+		btnEliminarReservas =new JButton("ELIMINAR RESERVAS");
+		pSur.add(btnEliminarReservas);
+		btnEliminarReservas.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		btnEliminarReservas.addActionListener(e -> {
+			
+			frame.dispose();
+		});
+		
+		btnCrearFactura =new JButton("CREAR FACTURA");
+		pSur.add(btnCrearFactura);
+		btnCrearFactura.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		btnCrearFactura.addActionListener(e -> {
+			
+			frame.dispose();
+		});
+		
 		
 		
 		btnVolver.addActionListener(new ActionListener() {
@@ -78,16 +113,14 @@ public class VentanaCarrito extends JFrame{
 			}
 		});
 		
-
-			btnCrearFactura.addActionListener((ActionListener) new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-			}
+			
+		contentPane.add(pNorte);
+		contentPane.add(pCentro);
+		contentPane.add(pSur);
+		frame.getContentPane().add(contentPane);
+			
+		frame.setVisible(true);
+	}
 		
 	
 	 

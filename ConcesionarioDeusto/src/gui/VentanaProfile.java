@@ -4,6 +4,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 
 import domain.Cliente;
 import domain.Concesionario;
+import java.awt.Color;
+import java.awt.Font;
 
 public class VentanaProfile extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
@@ -28,6 +33,7 @@ public class VentanaProfile extends JFrame{
 	private JPanel pContent=new JPanel(new GridLayout(0,1));
 	private JPanel pContent1,pContent2,pContent3,pContent4,pContent5,pContent6,pContent7,pContent8;
 	private JPanel pBtn,pBtn2,pBtn3=new JPanel();
+	private JPanel pBotonAtras=new JPanel();
 	private JPanel pNorte;
 	
 	private JLabel userIcon;
@@ -39,8 +45,8 @@ public class VentanaProfile extends JFrame{
 	private JTextArea userFech;
 	private JLabel userPsswLabel= new JLabel("Contraseña");
 	private JTextArea userPssw;
-	private JButton botonAtras;
 	private JButton btnAtras;
+	private JButton btnConfirmarCambios;
 	public VentanaProfile(Cliente cliente, Concesionario conc ) {
 		super();
 		frame.setBounds(300, 100, 600, 400);
@@ -49,13 +55,21 @@ public class VentanaProfile extends JFrame{
 		frame.setResizable(false);
 		
 		pContent1=new JPanel();
+		pContent1.setBackground(new Color(40, 40, 40));
 		pContent2=new JPanel();
+		pContent2.setBackground(new Color(40, 40, 40));
 		pContent3=new JPanel();
+		pContent3.setBackground(new Color(40, 40, 40));
 		pContent4=new JPanel();
+		pContent4.setBackground(new Color(40, 40, 40));
 		pContent5=new JPanel();
+		pContent5.setBackground(new Color(40, 40, 40));
 		pContent6=new JPanel();
+		pContent6.setBackground(new Color(40, 40, 40));
 		pContent7=new JPanel();
+		pContent7.setBackground(new Color(40, 40, 40));
 		pContent8=new JPanel();
+		pContent8.setBackground(new Color(40, 40, 40));
 		
 		ImageIcon icon=new ImageIcon("imagenes/perfil.png");	
 		Image imagen=icon.getImage();
@@ -66,18 +80,23 @@ public class VentanaProfile extends JFrame{
 		userDni=new JTextArea(cliente.getDni());
 		userFech=new JTextArea(cliente.getfNacStr());
 		userPssw=new JTextArea(cliente.getContrasenia());
+		pIcon.setBackground(new Color(40, 40, 40));
 		
 		
 		
 
 
 		pIcon.add(userIcon);
+		userNameLabel.setForeground(new Color(255, 255, 255));
 		pContent1.add(userNameLabel);
 		pContent1.add(userName);
+		userDniLabel.setForeground(new Color(255, 255, 255));
 		pContent2.add(userDniLabel);
 		pContent2.add(userDni);
+		userFechLabel.setForeground(new Color(255, 255, 255));
 		pContent3.add(userFechLabel);
 		pContent3.add(userFech);
+		userPsswLabel.setForeground(new Color(255, 255, 255));
 		pContent4.add(userPsswLabel);
 		pContent4.add(userPssw);
 		pContent.add(pContent1);
@@ -88,9 +107,11 @@ public class VentanaProfile extends JFrame{
 		pContent.add(pContent6);
 		pContent.add(pContent7);
 		pContent.add(pContent8);
-		
+		pBotonAtras.setBackground(new Color(40, 40, 40));
+		pContent.add(pBotonAtras);
 		
 		pTodoLeft.add(pIcon);
+		pIcon2.setBackground(new Color(40, 40, 40));
 		pTodoLeft.add(pIcon2);		
 		pTodoMid.add(pContent);	
 		
@@ -100,10 +121,12 @@ public class VentanaProfile extends JFrame{
 		
 		pTodo.add(pTodoLeft);
 		pTodo.add(pTodoMid);
+		pTodoRight.setBackground(new Color(40, 40, 40));
 		pTodo.add(pTodoRight);
 		
 		btnAtras = new JButton("Volver");
-		pTodoRight.add(btnAtras);
+		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pBotonAtras.add(btnAtras);
 		frame.getContentPane().add(pTodo);
 		frame.setVisible(true);
 		
@@ -113,6 +136,20 @@ public class VentanaProfile extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				new VentanaConcesionario(conc, cliente);
 				dispose();
+				
+			}
+		});
+		
+		btnConfirmarCambios = new JButton("Confirmar Cambios");
+		btnConfirmarCambios.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        confirmarCambios();
+		    }
+
+			
+			private void confirmarCambios() {
+				   
 				
 			}
 		});

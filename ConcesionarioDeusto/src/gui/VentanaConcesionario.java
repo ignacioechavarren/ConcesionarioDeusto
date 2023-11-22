@@ -62,7 +62,7 @@ public class VentanaConcesionario extends JFrame{
 	private JButton btnVolver;
 	private JButton btnAniadirCocheAlaReserva;
 	private JButton btnVerReservas;
-	private JButton btnFinalizarReservas, viewProfile,  btnConfirmarCambios;;
+	private JButton btnFinalizarReservas, viewProfile;
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; //El modelo guarda la información, los artículos
 	private JList<Coche> listaCoches; //La JList presenta/visualiza esos artículos
@@ -93,7 +93,7 @@ public class VentanaConcesionario extends JFrame{
 		setVisible(true);
 		
 		pSur = new JPanel();
-		pSur.setBackground(new Color(0, 128, 255));
+		pSur.setBackground(new Color(40, 40, 40));
 		getContentPane().add(pSur,BorderLayout.SOUTH);
 		
 		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE A LA RESERVA");
@@ -107,25 +107,25 @@ public class VentanaConcesionario extends JFrame{
 		
 		viewProfile=new JButton(new ImageIcon(im2));
 		viewProfile.setFont(new Font("Tahoma", Font.BOLD, 10));
-		btnAniadirCocheAlaReserva.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnAniadirCocheAlaReserva.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pSur.add(btnAniadirCocheAlaReserva);
 		btnVerReservas = new JButton(new ImageIcon(im3));
 		btnVerReservas.setFont(new Font("Tahoma", Font.BOLD, 10));		
 		btnFinalizarReservas = new JButton("FINALIZAR RESERVA");
-		btnFinalizarReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnFinalizarReservas.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pSur.add(btnFinalizarReservas);
 		btnVolver = new JButton("VOLVER");
-		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pSur.add(btnVolver);
 		
 		pOeste = new JPanel();
-		pOeste.setBackground(new Color(0, 128, 255));
+		pOeste.setBackground(new Color(40, 40, 40));
 		getContentPane().add(pOeste, BorderLayout.WEST);
 		
 		
 				
 		pCentro = new JPanel();
-		pCentro.setBackground(new Color(0, 128, 255));
+		pCentro.setBackground(new Color(40, 40, 40));
 		areaCarrito = new JTextArea(20, 30);
 		pCentro.add(panelCoches);
 		panelCoches.setPreferredSize(new Dimension(800, 700));
@@ -133,21 +133,24 @@ public class VentanaConcesionario extends JFrame{
 		
 		pEste=new JPanel(new GridLayout(0,1));
 		pEsteTop=new JPanel(new GridLayout(0,1));
+		pEsteTop.setBackground(new Color(40, 40, 40));
 		pEsteTop1=new JPanel(new GridLayout(0,1));
+		pEsteTop1.setBackground(new Color(40, 40, 40));
 		pEsteTop2=new JPanel();
-		pEsteTop2.setBackground(new Color(0, 128, 255));
+		pEsteTop2.setForeground(new Color(0, 0, 0));
+		pEsteTop2.setBackground(new Color(40, 40, 40));
 		
 		
 		
 		pViewProfile=new JPanel();
 		pBtnVerReservas=new JPanel();
 		pBtnVerReservas.setBorder(new EmptyBorder(0,250,0,0));
-		pBtnVerReservas.setBackground(new Color(0, 128, 255));
+		pBtnVerReservas.setBackground(new Color(40, 40, 40));
 		pViewProfile.setBorder(new EmptyBorder(0,250,0,0));
-		pViewProfile.setBackground(new Color(0, 128, 255));
+		pViewProfile.setBackground(new Color(40, 40, 40));
 		pAreaCarrito=new JPanel();
-		pAreaCarrito.setBackground(new Color(0, 128, 255));
-		pEste.setBackground(new Color(0, 128, 255));		
+		pAreaCarrito.setBackground(new Color(40, 40, 40));
+		pEste.setBackground(new Color(40, 40, 40));		
 		getContentPane().add(pEste, BorderLayout.EAST);
 		pViewProfile.add(viewProfile);
 		pBtnVerReservas.add(btnVerReservas);
@@ -160,9 +163,9 @@ public class VentanaConcesionario extends JFrame{
 		pEste.add(pAreaCarrito);
 		
 		pNorte = new JPanel();
-		pNorte.setBackground(new Color(0, 128, 255));
-		JLabel lblCantidadReservas = new JLabel("AÑADIDOS A LA RESERVA: " );
-		lblCantidadReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
+		pNorte.setBackground(new Color(40, 40, 40));
+		JLabel lblCantidadReservas = new JLabel("CONCESIONARIO DEUSTO" );
+		lblCantidadReservas.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblCantidadReservas.setForeground(new Color(255, 255, 255));
 		lblCantidadReservas.setBounds(369, 285, 332, 40);
 		pNorte.add(lblCantidadReservas);
@@ -276,39 +279,6 @@ public class VentanaConcesionario extends JFrame{
 			new VentanaInicio(conc);
 			
 		});
-		
-		btnConfirmarCambios = new JButton("Confirmar Cambios");
-		btnConfirmarCambios.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        confirmarCambios();
-		    }
-
-			
-				private void confirmarCambios() {
-				    String nuevoContenido = areaCarrito.getText();
-
-				    // Aplicar los cambios al objeto cliente o a tu estructura de datos
-				    cliente.setNombre(nuevoContenido);
-
-				  
-				    // Guardar los cambios en un archivo CSV
-				    try (Scanner sc  = new Scanner((Readable) new FileWriter("datos_clientes.csv"))) {
-				        // Aquí defines cómo deseas estructurar la información en el archivo CSV
-				        // En este ejemplo, se guarda el contenido del área de carrito en una sola columna
-				        String[] datos = {cliente.getNombre(), cliente.getDni(), nuevoContenido};
-				        
-
-				        System.out.println("Cambios confirmados y guardados en datos_clientes.csv");
-				    } catch (IOException e) {
-				        e.printStackTrace();
-				        // Manejar la excepción adecuadamente según tus necesidades
-				    }
-				
-			}
-		});
-		
-		pEsteTop2.add(btnConfirmarCambios);
 
 		
 		List<Coche>cochesCarrito=new ArrayList<Coche>();
@@ -345,9 +315,14 @@ public class VentanaConcesionario extends JFrame{
 			}
 		});
 		
-		btnVerReservas.addActionListener((e)->{
-			new VentanaCarrito(conc,cliente, reservas);
-			dispose();
+		btnVerReservas.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaCarrito(conc, cliente, reservas);
+				dispose();
+				
+			}
 		});
 		
 		btnFinalizarReservas.addActionListener((e)->{

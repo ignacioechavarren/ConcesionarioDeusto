@@ -50,68 +50,42 @@ public class VentanaRegistro extends JFrame{
 		vActual = this;
 		setBounds(300, 100, 600, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		setExtendedState(MAXIMIZED_BOTH);
 		
 		pTotal=new JPanel(new GridLayout(0,1));
 		pNorte = new JPanel();
-		pNorte.setBackground(new Color(0, 128, 255));
+		pNorte.setBackground(new Color(40, 40, 40));
 		pCentro = new JPanel();
-		pCentro.setBackground(new Color(0, 128, 255));
+		pCentro.setBackground(new Color(40, 40, 40));
 		pSur = new JPanel();
-		pSur.setBackground(new Color(0, 128, 255));
+		pSur.setBackground(new Color(40, 40, 40));
 		pCentro2 = new JPanel();
-		pCentro2.setBackground(new Color(0, 128, 255));
+		pCentro2.setBackground(new Color(40, 40, 40));
 		pCentro3 = new JPanel();
-		pCentro3.setBackground(new Color(0, 128, 255));
+		pCentro3.setBackground(new Color(40, 40, 40));
 		pCentro4 = new JPanel();
-		pCentro4.setBackground(new Color(0, 128, 255));
+		pCentro4.setBackground(new Color(40, 40, 40));
 		pCentro5 = new JPanel();
-		pCentro5.setBackground(new Color(0, 128, 255));
+		pCentro5.setBackground(new Color(40, 40, 40));
 		pCentro6 = new JPanel();
-		pCentro6.setBackground(new Color(0, 128, 255));
+		pCentro6.setBackground(new Color(40, 40, 40));
 		pCentro7 = new JPanel();
-		pCentro7.setBackground(new Color(0, 128, 255));
+		pCentro7.setBackground(new Color(40, 40, 40));
 		pCentro8 = new JPanel();
-		pCentro8.setBackground(new Color(0, 128, 255));
+		pCentro8.setBackground(new Color(40, 40, 40));
 						
 		lblTitulo=new JLabel("REGISTRO DE USUARIO");
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTitulo.setForeground(new Color(255, 255, 255));
-		lblDniR = new JLabel("DNI: ");
-		lblDniR.setForeground(new Color(255, 255, 255));
-		lblNomR = new JLabel("NOMBRE: ");
-		lblNomR.setForeground(new Color(255, 255, 255));
-		lblFNacR = new JLabel("FECHA DE NACIMIENTO: ");
-		lblFNacR.setForeground(new Color(255, 255, 255));
-		lblConR = new JLabel("CONTRASEÑA: ");
-		lblConR.setForeground(new Color(255, 255, 255));
-		
-		
-		
-		txtDniR = new JTextField(20);
-		txtNomR = new JTextField(20);
-		txtFNacR = new JTextField(20);
-		txtConR = new JPasswordField(20);
 		
 		btnRegistro = new JButton("REGISTRO");
-		btnRegistro.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnRegistro.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnVolver = new JButton("VOLVER");
-		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pSur.add(btnRegistro);
 		pSur.add(btnVolver);
 				
 		pNorte.add(lblTitulo);
-		
-		pCentro.add(lblDniR);
-		pCentro2.add(txtDniR);
-		
-		pCentro3.add(lblNomR);
-		pCentro4.add(txtNomR);
-		
-		pCentro5.add(lblFNacR);
-		pCentro6.add(txtFNacR);
-		
-		pCentro7.add(lblConR);
-		pCentro8.add(txtConR);
 		
 		pTotal.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		
@@ -150,9 +124,36 @@ public class VentanaRegistro extends JFrame{
 		pTotal.add(pCentro);
 		pTotal.add(pCentro2);
 		pTotal.add(pCentro3);
+		lblDniR = new JLabel("DNI: ");
+		pCentro3.add(lblDniR);
+		lblDniR.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDniR.setForeground(new Color(255, 255, 255));
+		
+		
+		
+		txtDniR = new JTextField(20);
+		pCentro3.add(txtDniR);
 		pTotal.add(pCentro4);
+		lblNomR = new JLabel("NOMBRE: ");
+		pCentro4.add(lblNomR);
+		lblNomR.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNomR.setForeground(new Color(255, 255, 255));
+		txtNomR = new JTextField(20);
+		pCentro4.add(txtNomR);
 		pTotal.add(pCentro5);
+		lblFNacR = new JLabel("FECHA DE NACIMIENTO: ");
+		pCentro5.add(lblFNacR);
+		lblFNacR.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFNacR.setForeground(new Color(255, 255, 255));
+		txtFNacR = new JTextField(20);
+		pCentro5.add(txtFNacR);
 		pTotal.add(pCentro6);
+		lblConR = new JLabel("CONTRASEÑA: ");
+		pCentro6.add(lblConR);
+		lblConR.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblConR.setForeground(new Color(255, 255, 255));
+		txtConR = new JPasswordField(20);
+		pCentro6.add(txtConR);
 		pTotal.add(pCentro7);
 		pTotal.add(pCentro8);
 		pTotal.add(pSur);
