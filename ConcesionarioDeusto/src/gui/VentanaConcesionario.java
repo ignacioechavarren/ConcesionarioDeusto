@@ -127,6 +127,13 @@ public class VentanaConcesionario extends JFrame{
 		pCentro = new JPanel();
 		pCentro.setBackground(new Color(40, 40, 40));
 		areaCarrito = new JTextArea(20, 30);
+		String texto = "CLIENTE: "+cliente.getNombre() +"\n"+"DNI:"+cliente.getDni()+"\n"+"F.N:"+cliente.getfNac()+"\n\n";
+		texto = texto + "COCHES EN EL CARRITO: \n";
+		//Recorremos el carrito para añadir los articulos al texto
+		for(Coche co: Main.carrito) {
+			texto = texto + co.toString() + "\n";
+		}
+		areaCarrito.setText(texto);
 		pCentro.add(panelCoches);
 		panelCoches.setPreferredSize(new Dimension(800, 700));
 		getContentPane().add(pCentro, BorderLayout.CENTER);
@@ -182,7 +189,7 @@ public class VentanaConcesionario extends JFrame{
 		}
 		
 		ArrayList<Coche> cocheTipo = new ArrayList<Coche>();
-		List<Coche>reservas=new ArrayList<Coche>();
+		List<Coche>reservas=Main.carrito;
 		
 		
 		List<Coche>coches1=new ArrayList<>(conc.getCoches());
@@ -281,14 +288,14 @@ public class VentanaConcesionario extends JFrame{
 		});
 
 		
-		List<Coche>cochesCarrito=new ArrayList<Coche>();
+		
 		btnAniadirCocheAlaReserva.addActionListener(new ActionListener() {
 			
 			
 			   @Override
                public void actionPerformed(ActionEvent e) {
 				        if (cocheSel != null) {		
-				        	cochesCarrito.add(cocheSel);
+				        	
 				            Main.carrito.add(cocheSel);
 				            lblCantidadReservas.setText("AÑADIDOS AL PEDIDO: " + Main.carrito.size());
 				            
@@ -299,7 +306,7 @@ public class VentanaConcesionario extends JFrame{
 				        String texto = "CLIENTE: "+cliente.getNombre() +"\n"+"DNI:"+cliente.getDni()+"\n"+"F.N:"+cliente.getfNac()+"\n\n";
 						texto = texto + "COCHES EN EL CARRITO: \n";
 						//Recorremos el carrito para añadir los articulos al texto
-						for(Coche co: cochesCarrito) {
+						for(Coche co: Main.carrito) {
 							texto = texto + co.toString() + "\n";
 						}
 						areaCarrito.setText(texto);
@@ -319,7 +326,7 @@ public class VentanaConcesionario extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaCarrito(conc, cliente, reservas);
+				new VentanaCarrito(conc, cliente, Main.carrito);
 				dispose();
 				
 			}

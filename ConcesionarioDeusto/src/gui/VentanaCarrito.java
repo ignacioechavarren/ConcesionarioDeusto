@@ -100,19 +100,7 @@ public class VentanaCarrito extends JFrame{
 		btnCrearFactura.addActionListener(e -> {
 			
 			frame.dispose();
-		});
-		
-		
-		
-		btnVolver.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new VentanaConcesionario(conc , cliente);
-				dispose();
-			}
-		});
-		
+		});		
 			
 		contentPane.add(pNorte);
 		contentPane.add(pCentro);

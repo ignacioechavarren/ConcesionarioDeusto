@@ -135,7 +135,7 @@ public class VentanaProfile extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaConcesionario(conc, cliente);
-				dispose();
+				frame.dispose();
 				
 			}
 		});
