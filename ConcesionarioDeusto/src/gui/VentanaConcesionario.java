@@ -14,10 +14,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -59,7 +62,7 @@ public class VentanaConcesionario extends JFrame{
 	private JButton btnVolver;
 	private JButton btnAniadirCocheAlaReserva;
 	private JButton btnVerReservas;
-	private JButton btnFinalizarReservas, viewProfile;
+	private JButton btnFinalizarReservas, viewProfile,  btnConfirmarCambios;;
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; //El modelo guarda la información, los artículos
 	private JList<Coche> listaCoches; //La JList presenta/visualiza esos artículos
@@ -183,6 +186,8 @@ public class VentanaConcesionario extends JFrame{
 		modeloListaCoches = new DefaultListModel<>();
 		
 
+		
+		
 		comboBoxTipo.addActionListener(new ActionListener() {
 			
 			@Override
@@ -271,6 +276,41 @@ public class VentanaConcesionario extends JFrame{
 			new VentanaInicio(conc);
 			
 		});
+		
+		btnConfirmarCambios = new JButton("Confirmar Cambios");
+		btnConfirmarCambios.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        confirmarCambios();
+		    }
+
+			
+				private void confirmarCambios() {
+				    String nuevoContenido = areaCarrito.getText();
+
+				    // Aplicar los cambios al objeto cliente o a tu estructura de datos
+				    cliente.setNombre(nuevoContenido);
+
+				  
+				    // Guardar los cambios en un archivo CSV
+				    try (Scanner sc  = new Scanner((Readable) new FileWriter("datos_clientes.csv"))) {
+				        // Aquí defines cómo deseas estructurar la información en el archivo CSV
+				        // En este ejemplo, se guarda el contenido del área de carrito en una sola columna
+				        String[] datos = {cliente.getNombre(), cliente.getDni(), nuevoContenido};
+				        
+
+				        System.out.println("Cambios confirmados y guardados en datos_clientes.csv");
+				    } catch (IOException e) {
+				        e.printStackTrace();
+				        // Manejar la excepción adecuadamente según tus necesidades
+				    }
+				
+			}
+		});
+		
+		pEsteTop2.add(btnConfirmarCambios);
+
+		
 		List<Coche>cochesCarrito=new ArrayList<Coche>();
 		btnAniadirCocheAlaReserva.addActionListener(new ActionListener() {
 			
@@ -299,7 +339,7 @@ public class VentanaConcesionario extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaProfile(cliente);
+				new VentanaProfile(cliente, conc);
 				dispose();
 				
 			}

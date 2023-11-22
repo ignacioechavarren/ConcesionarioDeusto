@@ -2,8 +2,11 @@ package gui;
 
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import domain.Cliente;
+import domain.Concesionario;
 
 public class VentanaProfile extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
@@ -35,7 +39,9 @@ public class VentanaProfile extends JFrame{
 	private JTextArea userFech;
 	private JLabel userPsswLabel= new JLabel("Contraseña");
 	private JTextArea userPssw;
-	public VentanaProfile(Cliente cliente) {
+	private JButton botonAtras;
+	private JButton btnAtras;
+	public VentanaProfile(Cliente cliente, Concesionario conc ) {
 		super();
 		frame.setBounds(300, 100, 600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,6 +66,11 @@ public class VentanaProfile extends JFrame{
 		userDni=new JTextArea(cliente.getDni());
 		userFech=new JTextArea(cliente.getfNacStr());
 		userPssw=new JTextArea(cliente.getContrasenia());
+		
+		
+		
+
+
 		pIcon.add(userIcon);
 		pContent1.add(userNameLabel);
 		pContent1.add(userName);
@@ -81,13 +92,30 @@ public class VentanaProfile extends JFrame{
 		
 		pTodoLeft.add(pIcon);
 		pTodoLeft.add(pIcon2);		
-		pTodoMid.add(pContent);		
+		pTodoMid.add(pContent);	
+		
+		
+		
+		
 		
 		pTodo.add(pTodoLeft);
 		pTodo.add(pTodoMid);
 		pTodo.add(pTodoRight);
-		frame.add(pTodo);
+		
+		btnAtras = new JButton("Volver");
+		pTodoRight.add(btnAtras);
+		frame.getContentPane().add(pTodo);
 		frame.setVisible(true);
+		
+		btnAtras.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaConcesionario(conc, cliente);
+				dispose();
+				
+			}
+		});
 	}
 	
 }
