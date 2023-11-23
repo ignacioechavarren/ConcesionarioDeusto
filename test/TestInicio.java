@@ -23,8 +23,7 @@ public class TestInicio {
 
 	@Test
 	public void testCargarClientes() {
-		concesionario.cargarClientesEnLista(nomfichClientes);
-		
+		concesionario.cargarClientesEnLista(nomfichClientes);		
 		assertEquals(concesionario.getClientes().get(0).getNombre(), "Jon");
 	}
 	
@@ -37,6 +36,7 @@ public class TestInicio {
 		
 		assertEquals(concesionario.getClientes().get(0).getNombre(), "Jon");
 	}
+	
 	@Test
 	public void testConstructor() {
         
