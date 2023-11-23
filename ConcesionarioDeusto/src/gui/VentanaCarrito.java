@@ -21,13 +21,15 @@ public class VentanaCarrito extends JFrame {
     private JPanel contentPane;
     private JPanel panelNorte;
     private JPanel panelCentro;
-    private JPanel panelSur;
+    private JPanel panelSur, panelInferior, panelFactura;
     private JButton btnRealizarReserva, btnVolver, btnCrearFactura, btnEliminarPedidos;
-    private JLabel lblCarrito;
+    private JLabel lblCarrito, lblTotal;
     private JList<Coche> listaProductos;
     private DefaultListModel<Coche> modeloLista;
     private JScrollPane scrollPane;
     private Coche selectedCoche;
+    private JTextField txtTotal;
+    private double totalFactura;
 
     public VentanaCarrito(Concesionario conc, Cliente cliente, List<Coche> reservas) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,8 +79,17 @@ public class VentanaCarrito extends JFrame {
         btnEliminarPedidos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panelFactura.removeAll();
                 Main.carrito.remove(selectedCoche);
                 modeloLista.removeElement(selectedCoche);
+                totalFactura = calcularTotal();
+                txtTotal = new JTextField(String.valueOf(totalFactura));
+                lblTotal.setFont(new Font("Tahoma", Font.BOLD, 15));
+                panelFactura.add(lblTotal);
+                txtTotal.setFont(new Font("Tahoma", Font.PLAIN, 15));
+                panelFactura.add(txtTotal);
+                panelFactura.revalidate();
+                panelFactura.repaint();
             }
         });
 
@@ -117,18 +128,18 @@ public class VentanaCarrito extends JFrame {
 
 
     private JPanel crearPanelInferior(Concesionario conc, Cliente cliente, List<Coche> reservas) {
-        JPanel panelInferior = new JPanel(new BorderLayout());
+        panelInferior = new JPanel(new BorderLayout());
         
-        JPanel panelFactura = new JPanel(new GridLayout(0, 2));
+        panelFactura = new JPanel(new GridLayout(0, 2));
         panelFactura.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        double totalFactura = calcularTotal();
+        totalFactura = calcularTotal();
         
-        JLabel lblTotal = new JLabel("Total: ");
+        lblTotal = new JLabel("Total: ");
         lblTotal.setFont(new Font("Tahoma", Font.BOLD, 15));
         panelFactura.add(lblTotal);
 
-        JTextField txtTotal = new JTextField(String.valueOf(totalFactura));
+        txtTotal = new JTextField(String.valueOf(totalFactura));
         txtTotal.setEditable(false);
         txtTotal.setFont(new Font("Tahoma", Font.PLAIN, 15));
         panelFactura.add(txtTotal);
