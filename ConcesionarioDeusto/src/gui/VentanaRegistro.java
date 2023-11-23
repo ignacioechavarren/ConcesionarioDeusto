@@ -3,6 +3,8 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +27,10 @@ public class VentanaRegistro extends JFrame{
 	private JPanel pTotal,pNorte,pCentro,pSur,pCentro2,pCentro3,pCentro4,pCentro5,pCentro6,pCentro7,pCentro8;
 	private JLabel lblDniR,lblNomR,lblFNacR,lblConR, lblTitulo;
 	private JTextField txtDniR, txtNomR,txtFNacR;
-	private JPasswordField txtConR;
+	private JPasswordField txtConR= new JPasswordField(20);
 	private JButton btnRegistro, btnVolver;
 	private static final String nomfichClientes = "Clientes.csv";
-	private JFrame vActual;
+	private JFrame vActual= new JFrame("CONCESIONARIO DEUSTO");
 	
 	private static Cliente cliente = new Cliente();
 	private static List<Coche> carrito = new ArrayList<>();
@@ -46,8 +48,7 @@ public class VentanaRegistro extends JFrame{
 
 
 	public VentanaRegistro() {
-		super();
-		vActual = this;
+		super();		 
 		setBounds(300, 100, 600, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
@@ -93,9 +94,14 @@ public class VentanaRegistro extends JFrame{
 		
 		conc.cargarClientesEnLista(nomfichClientes);
 		
-		
-	
-		
+		txtConR.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {		            
+		            btnRegistro.doClick();
+		        }
+		    }
+		});
 		
 		btnRegistro.addActionListener((e)->{
 			String dni = txtDniR.getText();
@@ -152,7 +158,6 @@ public class VentanaRegistro extends JFrame{
 		pCentro6.add(lblConR);
 		lblConR.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblConR.setForeground(new Color(255, 255, 255));
-		txtConR = new JPasswordField(20);
 		pCentro6.add(txtConR);
 		pTotal.add(pCentro7);
 		pTotal.add(pCentro8);

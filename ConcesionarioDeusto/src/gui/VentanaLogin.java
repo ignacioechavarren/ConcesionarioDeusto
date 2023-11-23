@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +33,13 @@ public class VentanaLogin extends JFrame{
 	private JPanel pCentro4;
 	private JPanel pSur;
 	private JPanel pTodo;
-	private JLabel inicio,dni,contraseña;
-	private JTextField textfield;
-	private JPasswordField password;
+	private JLabel inicio=new JLabel("INICIO DE SESION ");
+	private JLabel contraseña=new JLabel("CONTRASENA: ");
+	private JLabel dni=new JLabel("DNI: ");
+	private JTextField textfield=new JTextField(20);
+	private JPasswordField password=new JPasswordField(20);
 	private JButton botonI,botonS;	
-	private JFrame ventana;
+	private JFrame frame=new JFrame("CONCESIONARIO DEUSTO");
 	
 	
 	private static Cliente cliente; //c almacenará la información del cliente que ha iniciado sesión
@@ -54,9 +58,9 @@ public class VentanaLogin extends JFrame{
 
 	public VentanaLogin(Concesionario conc) {
 		super();
-		setBounds(300, 100, 600, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(MAXIMIZED_BOTH);
+		frame.setBounds(300, 100, 600, 400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setExtendedState(MAXIMIZED_BOTH);
 		pTodo=new JPanel(new GridLayout(0, 1));
 		pNorte=new JPanel();
 		pNorte.setBackground(new Color(40, 40, 40));
@@ -71,11 +75,9 @@ public class VentanaLogin extends JFrame{
 		pSur = new JPanel();
 		pSur.setBackground(new Color(40, 40, 40));
 				
-				
-		inicio=new JLabel("INICIO DE SESION");
 		inicio.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		inicio.setForeground(new Color(255, 255, 255));
-		contraseña=new JLabel("CONTRASENA: ");
+		
 		contraseña.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		contraseña.setForeground(new Color(255, 255, 255));
 		
@@ -96,6 +98,15 @@ public class VentanaLogin extends JFrame{
 		
 		conc.cargarClientesEnLista(nomfichClientes);
 		
+		password.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {		            
+		            botonI.doClick();
+		        }
+		    }
+		});
+		
 		botonI.addActionListener((e)->{
 			
 			String dni = textfield.getText();
@@ -112,7 +123,7 @@ public class VentanaLogin extends JFrame{
 					
 					//new VentanaProductos(conc);
 					new VentanaConcesionario(conc, cliente);
-					dispose();
+					frame.dispose();
 					
 				}else {
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta","ERROR",JOptionPane.WARNING_MESSAGE);
@@ -126,28 +137,26 @@ public class VentanaLogin extends JFrame{
 			setVisible(false);
 			conc.guardarClientesEnFichero(nomfichClientes);
 			VentanaInicio vi= new VentanaInicio(conc);
-			dispose();
+			frame.dispose();
 		});
 		pTodo.add(pNorte);
 		pTodo.add(pCentro);
 		pTodo.add(pCentro2);
-		dni=new JLabel("DNI: ");
 		dni.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		pCentro2.add(dni);
 		dni.setForeground(new Color(255, 255, 255));
 		
-		textfield=new JTextField(20);
+		
 		pCentro2.add(textfield);
 		pTodo.add(pCentro3);
 		
 
-		password=new JPasswordField(20);
 		pCentro3.add(password);
 		pTodo.add(pCentro4);
 		pTodo.add(pSur);
-		getContentPane().add(pTodo);
+		frame.getContentPane().add(pTodo);
 		
-		setVisible(true);
+		frame.setVisible(true);
 	}
 
 }
