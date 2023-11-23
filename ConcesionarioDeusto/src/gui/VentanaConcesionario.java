@@ -93,7 +93,7 @@ public class VentanaConcesionario extends JFrame{
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
+		//
 		contador=new JLabel("COCHES AÑADIDOS AL CARRITO: "+value);
 		contador.setForeground(new Color(255,255,255));
 		contador.setFont(new Font("Tahoma", Font.BOLD, 16));
