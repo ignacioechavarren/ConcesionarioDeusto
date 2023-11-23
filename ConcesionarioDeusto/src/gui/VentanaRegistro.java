@@ -147,7 +147,7 @@ public class VentanaRegistro extends JFrame{
 		txtNomR = new JTextField(20);
 		pCentro4.add(txtNomR);
 		pTotal.add(pCentro5);
-		lblFNacR = new JLabel("FECHA DE NACIMIENTO: ");
+		lblFNacR = new JLabel("FECHA DE NACIMIENTO(dd-MM-yyyy): ");
 		pCentro5.add(lblFNacR);
 		lblFNacR.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblFNacR.setForeground(new Color(255, 255, 255));

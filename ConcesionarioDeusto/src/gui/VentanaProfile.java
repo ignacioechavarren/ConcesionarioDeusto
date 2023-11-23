@@ -6,12 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
@@ -40,6 +45,7 @@ public class VentanaProfile extends JFrame{
 	private JLabel userNameLabel= new JLabel("Nombre:");
 	private JTextArea userName;
 	private JLabel userDniLabel= new JLabel("Dni:");
+	private String userDniSeguro;
 	private JTextArea userDni;
 	private JLabel userFechLabel= new JLabel("Fecha de Nacimiento");
 	private JTextArea userFech;
@@ -47,13 +53,15 @@ public class VentanaProfile extends JFrame{
 	private JTextArea userPssw;
 	private JButton btnAtras;
 	private JButton btnConfirmarCambios;
+	private Cliente clienteMod;
 	public VentanaProfile(Cliente cliente, Concesionario conc ) {
 		super();
 		frame.setBounds(300, 100, 600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setResizable(false);
-		
+		this.clienteMod=cliente;
+		userDniSeguro=cliente.getDni();
 		pContent1=new JPanel();
 		pContent1.setBackground(new Color(40, 40, 40));
 		pContent2=new JPanel();
@@ -124,6 +132,9 @@ public class VentanaProfile extends JFrame{
 		pTodoRight.setBackground(new Color(40, 40, 40));
 		pTodo.add(pTodoRight);
 		
+		btnConfirmarCambios = new JButton("Confirmar Cambios");
+		btnConfirmarCambios.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		pBotonAtras.add(btnConfirmarCambios);
 		btnAtras = new JButton("Volver");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pBotonAtras.add(btnAtras);
@@ -134,25 +145,38 @@ public class VentanaProfile extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaConcesionario(conc, cliente);
+				new VentanaConcesionario(conc, clienteMod);
 				frame.dispose();
 				
 			}
 		});
 		
-		btnConfirmarCambios = new JButton("Confirmar Cambios");
+		
 		btnConfirmarCambios.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		        confirmarCambios();
-		    }
-
-			
-			private void confirmarCambios() {
-				   
-				
-			}
+		    }			
 		});
 	}
-	
+	private void confirmarCambios() {
+		   String dni=userDni.getText();
+		   String nombre=userName.getText();
+		   SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+		   Date date=null;
+		   try {
+			date=formatoFecha.parse(userFech.getText());
+			} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			date=new Date();
+			}
+		   String contra=userPssw.getText();
+		   Cliente c=new Cliente(dni,nombre,date,contra);
+		   Concesionario.cargarClientesEnLista(nomfichClientes);
+		   Concesionario.borrarClientePorDNI(nomfichClientes, userDniSeguro);
+		   Concesionario.aniadirCliente(c);
+		   Concesionario.guardarClientesEnFichero(nomfichClientes);
+		   this.clienteMod=c;
+		   JOptionPane.showMessageDialog(null, "¡Cambios guardados con exito!","MODIFICADO",JOptionPane.INFORMATION_MESSAGE);
+	}
 }

@@ -2,7 +2,10 @@ package domain;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -161,6 +164,12 @@ public class Concesionario {
 		}
 		
 	}
+	
+
+    public static void borrarClientePorDNI(String nomfich,String dni) {        
+        clientes.removeIf(cliente -> cliente.getDni().equals(dni));        
+        guardarClientesEnFichero(nomfich);
+    }
 	/**
 	 * Método para buscar un cliente en lista clientes dado un String dni
 	 * @param String dni
