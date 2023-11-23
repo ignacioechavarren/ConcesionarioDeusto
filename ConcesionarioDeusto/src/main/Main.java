@@ -23,9 +23,6 @@ public class Main {
 	public static void main(String[] args) {
 		Concesionario conc=new Concesionario();
 
-		
-	    
-
 		Coche c1 = new Coche(500, 1996, Marca.SEA, "Ibiza","8828CUP" );
 		Coche c2 = new Coche(800, 2000, Marca.BMW, "E46","4777CHD" );
 		Coche c3 = new Coche(650, 1996, Marca.OPE, "Corsa", "8408KLP");

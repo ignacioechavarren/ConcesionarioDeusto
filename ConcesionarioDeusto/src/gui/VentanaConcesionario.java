@@ -56,13 +56,13 @@ import main.Main;
 public class VentanaConcesionario extends JFrame{
 	private JPanel pSur;
 	private JPanel pOeste;
-	private JPanel pEste,pViewProfile,pAreaCarrito,pEsteTop,pEsteTop1,pEsteTop2,pBtnVerReservas;
+	private JPanel pEste,pViewProfile,pEsteTop,pEsteTop1,pEsteTop2,pBtnVerReservas;
 	private JPanel pCentro;
 	private JPanel pNorte;
 	private JButton btnVolver;
 	private JButton btnAniadirCocheAlaReserva;
 	private JButton btnVerReservas;
-	private JButton btnFinalizarReservas, viewProfile;
+	private JButton viewProfile;
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; //El modelo guarda la información, los artículos
 	private JList<Coche> listaCoches; //La JList presenta/visualiza esos artículos
@@ -111,9 +111,7 @@ public class VentanaConcesionario extends JFrame{
 		pSur.add(btnAniadirCocheAlaReserva);
 		btnVerReservas = new JButton(new ImageIcon(im3));
 		btnVerReservas.setFont(new Font("Tahoma", Font.BOLD, 10));		
-		btnFinalizarReservas = new JButton("FINALIZAR RESERVA");
-		btnFinalizarReservas.setFont(new Font("Tahoma", Font.BOLD, 15));
-		pSur.add(btnFinalizarReservas);
+		
 		btnVolver = new JButton("VOLVER");
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pSur.add(btnVolver);
@@ -155,19 +153,18 @@ public class VentanaConcesionario extends JFrame{
 		pBtnVerReservas.setBackground(new Color(40, 40, 40));
 		pViewProfile.setBorder(new EmptyBorder(0,250,0,0));
 		pViewProfile.setBackground(new Color(40, 40, 40));
-		pAreaCarrito=new JPanel();
-		pAreaCarrito.setBackground(new Color(40, 40, 40));
+		
 		pEste.setBackground(new Color(40, 40, 40));		
 		getContentPane().add(pEste, BorderLayout.EAST);
 		pViewProfile.add(viewProfile);
 		pBtnVerReservas.add(btnVerReservas);
-		pAreaCarrito.add(areaCarrito);
+		
 		pEsteTop1.add(pViewProfile);
 		pEsteTop1.add(pBtnVerReservas);
 		pEsteTop.add(pEsteTop1);
 		pEsteTop.add(pEsteTop2);		
 		pEste.add(pEsteTop);
-		pEste.add(pAreaCarrito);
+		
 		
 		pNorte = new JPanel();
 		pNorte.setBackground(new Color(40, 40, 40));
@@ -297,7 +294,7 @@ public class VentanaConcesionario extends JFrame{
 				        if (cocheSel != null) {		
 				        	
 				            Main.carrito.add(cocheSel);
-				            lblCantidadReservas.setText("AÑADIDOS AL PEDIDO: " + Main.carrito.size());
+				            lblCantidadReservas.setText(" COCHES AÑADIDOS AL CARRITO: " + Main.carrito.size());
 				            
 				        } else {
 				            System.out.println("Por favor, selecciona un coche antes de añadirlo a la reserva.");
@@ -332,12 +329,7 @@ public class VentanaConcesionario extends JFrame{
 			}
 		});
 		
-		btnFinalizarReservas.addActionListener((e)->{
-			for (Coche c : reservas) {
-				Concesionario.aniadirReserva(cliente, c);
-			}
-			JOptionPane.showMessageDialog(null, "Enhorabuena, ha realizado la reserva correctamente","RESERVA FINALIZADA",JOptionPane.INFORMATION_MESSAGE);
-		});
+
 		
 	
 		

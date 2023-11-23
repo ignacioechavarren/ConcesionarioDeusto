@@ -7,9 +7,11 @@ import org.junit.Test;
 
 import domain.Cliente;
 import domain.Concesionario;
+import gui.VentanaInicio;
 
 public class TestInicio {
 
+	private static VentanaInicio ventanainicio;
 	private static Concesionario concesionario;
 	private static final String nomfichClientes = "Clientes.csv";
 	
@@ -34,5 +36,14 @@ public class TestInicio {
 		
 		assertEquals(concesionario.getClientes().get(0).getNombre(), "Jon");
 	}
+	
+	public void testConstructor() {
+        
+		assertNotNull(ventanainicio);
+        assertEquals("CONCESIONARIO DEUSTO", ventanainicio.getTitle());
+        assertTrue(ventanainicio.isResizable());
+        assertEquals(600, ventanainicio.getWidth());
+        assertEquals(400, ventanainicio.getHeight());
+    }
 
 }
