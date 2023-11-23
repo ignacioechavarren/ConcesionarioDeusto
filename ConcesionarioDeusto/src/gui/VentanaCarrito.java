@@ -90,6 +90,7 @@ public class VentanaCarrito extends JFrame {
                 panelFactura.add(txtTotal);
                 panelFactura.revalidate();
                 panelFactura.repaint();
+                panelFactura.setBackground(Color.GRAY);
             }
         });
 
@@ -143,8 +144,9 @@ public class VentanaCarrito extends JFrame {
         txtTotal.setEditable(false);
         txtTotal.setFont(new Font("Tahoma", Font.PLAIN, 15));
         panelFactura.add(txtTotal);
+        panelFactura.setBackground(Color.GRAY);
         panelInferior.add(panelFactura, BorderLayout.CENTER);
-
+        
         return panelInferior;
     }
 
