@@ -54,6 +54,7 @@ import main.Main;
 
 
 public class VentanaConcesionario extends JFrame{
+	private JFrame frame=new JFrame("CONCESIONARIO DEUSTO");
 	private JPanel pSur;
 	private JPanel pOeste;
 	private JPanel pEste,pViewProfile,pEsteTop,pEsteTop1,pEsteTop2,pBtnVerReservas;
@@ -78,8 +79,8 @@ public class VentanaConcesionario extends JFrame{
 	public VentanaConcesionario(Concesionario conc, Cliente cliente) {
 		
 		super();
-		getContentPane().setBackground(new Color(0, 128, 255));
-		setResizable(false);
+		frame.getContentPane().setBackground(new Color(0, 128, 255));
+		frame.setResizable(false);
 		this.coches = new ArrayList<Coche>(conc.getCoches());
 		this.iniciarTabla();
 		this.cargarCoches();
@@ -87,14 +88,14 @@ public class VentanaConcesionario extends JFrame{
 		JScrollPane panelCoches = new JScrollPane(this.tablaCoches);
 		panelCoches.setBorder(new TitledBorder("Coches disponibles"));
 		
-		setBounds(300, 200, 800, 400);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
+		frame.setBounds(300, 200, 800, 400);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setVisible(true);
 		
 		pSur = new JPanel();
 		pSur.setBackground(new Color(40, 40, 40));
-		getContentPane().add(pSur,BorderLayout.SOUTH);
+		frame.getContentPane().add(pSur,BorderLayout.SOUTH);
 		
 		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE A LA RESERVA");
 		
@@ -118,7 +119,7 @@ public class VentanaConcesionario extends JFrame{
 		
 		pOeste = new JPanel();
 		pOeste.setBackground(new Color(40, 40, 40));
-		getContentPane().add(pOeste, BorderLayout.WEST);
+		frame.getContentPane().add(pOeste, BorderLayout.WEST);
 		
 		
 				
@@ -134,7 +135,7 @@ public class VentanaConcesionario extends JFrame{
 		areaCarrito.setText(texto);
 		pCentro.add(panelCoches);
 		panelCoches.setPreferredSize(new Dimension(800, 700));
-		getContentPane().add(pCentro, BorderLayout.CENTER);
+		frame.getContentPane().add(pCentro, BorderLayout.CENTER);
 		
 		pEste=new JPanel(new GridLayout(0,1));
 		pEsteTop=new JPanel(new GridLayout(0,1));
@@ -155,7 +156,7 @@ public class VentanaConcesionario extends JFrame{
 		pViewProfile.setBackground(new Color(40, 40, 40));
 		
 		pEste.setBackground(new Color(40, 40, 40));		
-		getContentPane().add(pEste, BorderLayout.EAST);
+		frame.getContentPane().add(pEste, BorderLayout.EAST);
 		pViewProfile.add(viewProfile);
 		pBtnVerReservas.add(btnVerReservas);
 		
@@ -173,7 +174,7 @@ public class VentanaConcesionario extends JFrame{
 		lblCantidadReservas.setForeground(new Color(255, 255, 255));
 		lblCantidadReservas.setBounds(369, 285, 332, 40);
 		pNorte.add(lblCantidadReservas);
-		getContentPane().add(pNorte, BorderLayout.NORTH);
+		frame.getContentPane().add(pNorte, BorderLayout.NORTH);
 		
 		JComboBox<String> comboBoxTipo = new JComboBox<String>();
 		comboBoxTipo.setBounds(265, 296, 94, 22);
@@ -279,7 +280,7 @@ public class VentanaConcesionario extends JFrame{
 		});
 	
 		btnVolver.addActionListener((e)->{
-			dispose();
+			frame.dispose();
 			new VentanaInicio(conc);
 			
 		});
@@ -314,7 +315,7 @@ public class VentanaConcesionario extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaProfile(cliente, conc);
-				dispose();
+				frame.dispose();
 				
 			}
 		});
@@ -324,7 +325,7 @@ public class VentanaConcesionario extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaCarrito(conc, cliente, Main.carrito);
-				dispose();
+				frame.dispose();
 				
 			}
 		});

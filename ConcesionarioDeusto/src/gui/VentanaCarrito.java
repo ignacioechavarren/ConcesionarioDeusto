@@ -16,7 +16,7 @@ import domain.Pedido;
 import main.Main;
 
 public class VentanaCarrito extends JFrame {
-
+	private JFrame frame=new JFrame("CONCESIONARIO DEUSTO");
     private List<Cliente> clientes;
     private JPanel contentPane;
     private JPanel panelNorte;
@@ -32,9 +32,9 @@ public class VentanaCarrito extends JFrame {
     private double totalFactura;
 
     public VentanaCarrito(Concesionario conc, Cliente cliente, List<Coche> reservas) {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setResizable(false);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    	frame.setResizable(false);
 
         contentPane = new JPanel(new BorderLayout());
         panelNorte = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -122,8 +122,8 @@ public class VentanaCarrito extends JFrame {
         contentPane.add(splitPane, BorderLayout.CENTER); 
         contentPane.add(panelSur, BorderLayout.SOUTH);
 
-        setContentPane(contentPane);
-        setVisible(true);
+        frame.setContentPane(contentPane);
+        frame.setVisible(true);
     }
 
 
