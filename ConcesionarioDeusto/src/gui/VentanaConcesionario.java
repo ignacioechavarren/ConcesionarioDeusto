@@ -97,7 +97,7 @@ public class VentanaConcesionario extends JFrame{
 		pSur.setBackground(new Color(40, 40, 40));
 		frame.getContentPane().add(pSur,BorderLayout.SOUTH);
 		
-		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE A LA RESERVA");
+		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE AL CARRITOd");
 		
 		ImageIcon icon=new ImageIcon("imagenes/perfil.png");	
 		Image imagen=icon.getImage();
