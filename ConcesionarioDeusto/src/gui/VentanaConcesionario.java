@@ -132,8 +132,7 @@ public class VentanaConcesionario extends JFrame{
 		pCentro.setBackground(new Color(40, 40, 40));
 		areaCarrito = new JTextArea(20, 30);
 		String texto = "CLIENTE: "+cliente.getNombre() +"\n"+"DNI:"+cliente.getDni()+"\n"+"F.N:"+cliente.getfNac()+"\n\n";
-		texto = texto + "COCHES EN EL CARRITO: \n";
-		//Recorremos el carrito para añadir los articulos al texto
+		texto = texto + "COCHES EN EL CARRITO: \n";		
 		for(Coche co: Main.carrito) {
 			texto = texto + co.toString() + "\n";
 		}
@@ -336,7 +335,11 @@ public class VentanaConcesionario extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaCarrito(conc, cliente, Main.carrito);
+				try {
+					new VentanaCarrito(conc, cliente, Main.carrito);
+				} catch (IOException e1){					
+					e1.printStackTrace();
+				}
 				frame.dispose();
 				
 			}
@@ -393,7 +396,7 @@ public class VentanaConcesionario extends JFrame{
 
 	private void iniciarTabla() {
 
-		Vector<String> cabeceraCoches = new Vector<String>(Arrays.asList( "Precio", "Año", "Marca", "Modelo", "Matrícula"));
+		Vector<String> cabeceraCoches = new Vector<String>(Arrays.asList( "Precio", "Año","Modelo", "Marca", "Matrícula"));
 		this.modeloDatosCoches = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraCoches);
 		this.tablaCoches = new JTable(this.modeloDatosCoches);
 //		for (TableRow c : Collections.list (this.tablaCoches.getRowModel().getRows()))
