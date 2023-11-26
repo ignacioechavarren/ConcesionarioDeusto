@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
@@ -12,18 +13,27 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import domain.Cliente;
+import domain.Coche;
 import domain.Concesionario;
+import domain.Pedido;
+import main.Main;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 public class VentanaProfile extends JFrame{
@@ -39,8 +49,12 @@ public class VentanaProfile extends JFrame{
 	private JPanel pContent1,pContent2,pContent3,pContent4,pContent5,pContent6,pContent7,pContent8;
 	private JPanel pBtn,pBtn2,pBtn3=new JPanel();
 	private JPanel pBotonAtras=new JPanel();
-	private JPanel pNorte;
+	private JPanel pNorte;	
+	private JPanel espacio,espacio1,espacio2,espacio3,espacio4,espacio5;
 	
+	private JLabel lblPoliticas=new JLabel("<html><u>Políticas de Uso del Concesionario:</u></html>");
+	private JTextArea politicasTextArea;
+	private JLabel lblEmpresa;
 	private JLabel userIcon;
 	private JLabel userNameLabel= new JLabel("Nombre:");
 	private JTextArea userName;
@@ -62,6 +76,46 @@ public class VentanaProfile extends JFrame{
 		frame.setResizable(false);
 		this.clienteMod=cliente;
 		userDniSeguro=cliente.getDni();
+		
+		lblPoliticas.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblPoliticas.setForeground(new Color(255, 255, 255));
+		lblPoliticas.setBackground(new Color(40,40,40));
+		lblPoliticas.setPreferredSize(new Dimension(50,150));
+		pTodoRight.add(lblPoliticas);
+		politicasTextArea = new JTextArea();
+        politicasTextArea.setEditable(false);
+        politicasTextArea.setLineWrap(true);
+        politicasTextArea.setWrapStyleWord(true);
+        politicasTextArea.setText("En nuestra calidad de concesionario, las políticas"+
+        " de uso que aplicamos reflejan nuestro compromiso con la excelencia, la ética y"+
+        " la protección de la privacidad. Buscamos proporcionar a nuestros clientes"+
+        " una experiencia excepcional, basada en la transparencia y la integridad. La"+
+        " confianza que depositan en nosotros es invaluable, y por ello, nos esforzamos"+
+        " por salvaguardar sus datos personales, utilizando esta información de manera"+
+        " responsable y exclusiva para fines comerciales legítimos. Además, nos comprometemos"+
+        " a ofrecer información clara sobre nuestros servicios, promociones y términos"+
+        " comerciales, garantizando una relación de negocios fundamentada en la honestidad,"+
+        " la confianza y el respeto mutuo. En la elección de nuestros servicios, los"+
+        " clientes aceptan estas políticas, fortaleciendo así la base de una colaboración"+
+        " ética y transparente.\r\n"
+        		
+        		+ "");
+
+        JScrollPane scrollPaneDerecha = new JScrollPane(politicasTextArea);
+        scrollPaneDerecha.setPreferredSize(new Dimension(600,200));
+        pTodoRight.add(scrollPaneDerecha,BorderLayout.WEST);
+        espacio3=new JPanel();
+        espacio3.setBackground(new Color(40,40,40));
+        espacio4= new JPanel();
+        espacio4.setBackground(new Color(40,40,40));
+        espacio5=new JPanel();
+        espacio5.setBackground(new Color(40,40,40));
+        pTodoRight.add(espacio3);
+        pTodoRight.add(espacio4);
+		
+        
+        pContent.setBackground(new Color(40,40,40));
+        pContent.add(espacio5);
 		pContent1=new JPanel();
 		pContent1.setBackground(new Color(40, 40, 40));
 		pContent2=new JPanel();
@@ -120,9 +174,44 @@ public class VentanaProfile extends JFrame{
 		
 		pTodoLeft.add(pIcon);
 		pIcon2.setBackground(new Color(40, 40, 40));
-		pTodoLeft.add(pIcon2);		
+		pTodoMid.setBackground(new Color(40,40,40));		
 		pTodoMid.add(pContent);	
-		
+		JPanel infoContactoPanel = new JPanel(new GridLayout(0, 1));
+        infoContactoPanel.setBackground(new Color(40, 40, 40));
+        espacio=new JPanel();
+        espacio.setBackground(new Color(40,40,40));
+        
+
+        JLabel lblContacto = new JLabel("<html><u>Información de Contacto</u></html>");
+        lblContacto.setForeground(new Color(255, 255, 255));
+        lblContacto.setFont(new Font("Tahoma", Font.BOLD, 17));
+        infoContactoPanel.add(lblContacto,BorderLayout.CENTER);
+
+        JLabel lblTelefono = new JLabel("Teléfono: +1234567890");
+        lblTelefono.setForeground(new Color(255, 255, 255));
+        lblTelefono.setFont(new Font("Tahoma", Font.BOLD, 15));
+        infoContactoPanel.add(lblTelefono,BorderLayout.CENTER);
+
+        JLabel lblCorreo = new JLabel("Correo: info@concesionariodeusto.com");
+        lblCorreo.setForeground(new Color(255, 255, 255));
+        lblCorreo.setFont(new Font("Tahoma", Font.BOLD, 15));
+        infoContactoPanel.add(lblCorreo,BorderLayout.CENTER);
+
+        JLabel lblUbicacion = new JLabel("Sede: Ibaiondo kalea 13");
+        lblUbicacion.setForeground(new Color(255, 255, 255));
+        lblUbicacion.setFont(new Font("Tahoma", Font.BOLD, 15));
+        infoContactoPanel.add(lblUbicacion, BorderLayout.CENTER);
+        espacio1=new JPanel();
+        espacio2=new JPanel();
+        espacio2.setBackground(new Color(40,40,40));
+        espacio1.setBackground(new Color(40,40,40));
+        infoContactoPanel.add(espacio);
+        infoContactoPanel.add(espacio1);
+        infoContactoPanel.add(espacio2);
+        
+        infoContactoPanel.setBorder(new EmptyBorder(0, 130, 50, 0));
+        pTodoLeft.add(infoContactoPanel, BorderLayout.CENTER);
+        
 		
 		
 		

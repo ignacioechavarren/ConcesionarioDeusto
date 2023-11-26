@@ -1,14 +1,15 @@
 package domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Pedido {
     private Cliente cliente;
-    private Coche coche;
+    private List<Coche> coche;
     private LocalDateTime fechaCompra;
     private double precioTotal;
 
-    public Pedido(Cliente cliente, Coche coche, LocalDateTime fechaCompra, double precioTotal) {
+    public Pedido(Cliente cliente, List<Coche> coche, LocalDateTime fechaCompra, double precioTotal) {
         this.cliente = cliente;
         this.coche = coche;
         this.fechaCompra = fechaCompra;
@@ -23,11 +24,11 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public Coche getCoche() {
+    public List<Coche> getCoche() {
         return coche;
     }
 
-    public void setCoche(Coche coche) {
+    public void setCoche(List<Coche> coche) {
         this.coche = coche;
     }
 
