@@ -57,7 +57,7 @@ public class VentanaConcesionario extends JFrame{
 	private JFrame frame=new JFrame("CONCESIONARIO DEUSTO");
 	private JPanel pSur;
 	private JPanel pOeste;
-	private JPanel pEste,pViewProfile,pEsteTop,pEsteTop1,pEsteTop2,pEsteTop3,pBtnVerReservas;
+	private JPanel pEste,pViewProfile,pEsteTop,pEsteTop1,pEsteTop2,pEsteTop3,pBtnVerReservas,pRelleno;
 	private JPanel pCentro;
 	private JPanel pNorte;
 	private JButton btnVolver;
@@ -97,19 +97,20 @@ public class VentanaConcesionario extends JFrame{
 		contador=new JLabel("COCHES AÑADIDOS AL CARRITO: "+value);
 		contador.setForeground(new Color(255,255,255));
 		contador.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contador.setBorder(new EmptyBorder(0,80,0,0));
+		contador.setBorder(new EmptyBorder(20,0,0,0));
 		pSur = new JPanel();
 		pSur.setBackground(new Color(40, 40, 40));
+		pSur.setBorder(new EmptyBorder(0, 12, 0, 0));
 		frame.getContentPane().add(pSur,BorderLayout.SOUTH);
 		
 		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE AL CARRITO");
 		
 		ImageIcon icon=new ImageIcon("imagenes/perfil.png");	
 		Image imagen=icon.getImage();
-		Image im2=imagen.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+		Image im2=imagen.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		ImageIcon icon2=new ImageIcon("imagenes/carrito.png");	
 		Image imagen2=icon2.getImage();
-		Image im3=imagen2.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+		Image im3=imagen2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		
 		viewProfile=new JButton(new ImageIcon(im2));
 		viewProfile.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -122,7 +123,7 @@ public class VentanaConcesionario extends JFrame{
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pSur.add(btnVolver);
 		
-		pOeste = new JPanel();
+		pOeste = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		pOeste.setBackground(new Color(40, 40, 40));
 		frame.getContentPane().add(pOeste, BorderLayout.WEST);
 		
@@ -137,7 +138,9 @@ public class VentanaConcesionario extends JFrame{
 			texto = texto + co.toString() + "\n";
 		}
 		areaCarrito.setText(texto);
+		pCentro.setBorder(new EmptyBorder(0, 240, 0, 0));
 		pCentro.add(panelCoches);
+		pCentro.add(contador);
 		panelCoches.setPreferredSize(new Dimension(800, 700));
 		frame.getContentPane().add(pCentro, BorderLayout.CENTER);
 		
@@ -167,10 +170,11 @@ public class VentanaConcesionario extends JFrame{
 		frame.getContentPane().add(pEste, BorderLayout.EAST);
 		pViewProfile.add(viewProfile);
 		pBtnVerReservas.add(btnVerReservas);
-		
+		pRelleno= new JPanel();
+		pRelleno.setBackground(new Color(40,40,40));
 		pEsteTop1.add(pViewProfile);
 		pEsteTop1.add(pBtnVerReservas);
-		pEsteTop1.add(contador);
+		pEsteTop1.add(pRelleno);
 		pEsteTop.add(pEsteTop1);
 		pEsteTop.add(pEsteTop2);
 		pEsteTop.add(pEsteTop3);
