@@ -76,7 +76,7 @@ public class VentanaCarrito extends JFrame {
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.setTopComponent(panelCentro);
         splitPane.setBottomComponent(crearPanelInferior(conc, cliente, reservas));
-        splitPane.setDividerLocation(600);        
+        splitPane.setDividerLocation(800);        
 
         panelSur = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelSur.setBackground(new Color(40, 40, 40));
