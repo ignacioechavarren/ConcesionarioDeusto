@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,6 +34,7 @@ import main.Main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -50,7 +52,7 @@ public class VentanaProfile extends JFrame{
 	private JPanel pBtn,pBtn2,pBtn3=new JPanel();
 	private JPanel pBotonAtras=new JPanel();
 	private JPanel pNorte;	
-	private JPanel espacio,espacio1,espacio2,espacio3,espacio4,espacio5;
+	private JPanel espacio,espacio1,espacio2,espacio3,espacio4,espacio5,espacio6;
 	
 	private JLabel lblPoliticas=new JLabel("<html><u>Políticas de Uso del Concesionario:</u></html>");
 	private JTextArea politicasTextArea;
@@ -65,7 +67,7 @@ public class VentanaProfile extends JFrame{
 	private JTextArea userFech;
 	private JLabel userPsswLabel= new JLabel("Contraseña");
 	private JTextArea userPssw;
-	private JButton btnAtras;
+	private JButton btnAtras,btnaceptarCond;
 	private JButton btnConfirmarCambios;
 	private Cliente clienteMod;
 	public VentanaProfile(Cliente cliente, Concesionario conc ) {
@@ -77,10 +79,21 @@ public class VentanaProfile extends JFrame{
 		this.clienteMod=cliente;
 		userDniSeguro=cliente.getDni();
 		
+		
+		espacio4= new JPanel();
+        espacio4.setBackground(new Color(40,40,40));
+        espacio5=new JPanel();
+        espacio5.setBackground(new Color(40,40,40));
+        espacio6=new JPanel();
+        espacio6.setBackground(new Color(40,40,40));
+        pTodoRight.add(espacio4);
+        pTodoRight.add(espacio6);
+        
 		lblPoliticas.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblPoliticas.setForeground(new Color(255, 255, 255));
 		lblPoliticas.setBackground(new Color(40,40,40));
 		lblPoliticas.setPreferredSize(new Dimension(50,150));
+		lblPoliticas.setBorder(new EmptyBorder(70, 0, 0, 0));
 		pTodoRight.add(lblPoliticas);
 		politicasTextArea = new JTextArea();
         politicasTextArea.setEditable(false);
@@ -97,22 +110,21 @@ public class VentanaProfile extends JFrame{
         " comerciales, garantizando una relación de negocios fundamentada en la honestidad,"+
         " la confianza y el respeto mutuo. En la elección de nuestros servicios, los"+
         " clientes aceptan estas políticas, fortaleciendo así la base de una colaboración"+
-        " ética y transparente.\r\n"
-        		
-        		+ "");
-
+        " ética y transparente.\r\n");
+        politicasTextArea.setBackground(new Color(40,40,40));
+        politicasTextArea.setForeground(new Color(255,255,255));
+        politicasTextArea.setFont(new Font("Tahoma", Font.PLAIN,15));
         JScrollPane scrollPaneDerecha = new JScrollPane(politicasTextArea);
+        scrollPaneDerecha.setBorder(null);
         scrollPaneDerecha.setPreferredSize(new Dimension(600,200));
         pTodoRight.add(scrollPaneDerecha,BorderLayout.WEST);
+        
         espacio3=new JPanel();
         espacio3.setBackground(new Color(40,40,40));
-        espacio4= new JPanel();
-        espacio4.setBackground(new Color(40,40,40));
-        espacio5=new JPanel();
-        espacio5.setBackground(new Color(40,40,40));
-        pTodoRight.add(espacio3);
-        pTodoRight.add(espacio4);
-		
+        btnaceptarCond=new JButton("ACEPTAR TÉRMINOS");
+        btnaceptarCond.setAlignmentX(Component.CENTER_ALIGNMENT);        
+        espacio3.add(btnaceptarCond,BorderLayout.CENTER);        
+        pTodoRight.add(espacio3);        
         
         pContent.setBackground(new Color(40,40,40));
         pContent.add(espacio5);
@@ -246,6 +258,16 @@ public class VentanaProfile extends JFrame{
 		    public void actionPerformed(ActionEvent e) {
 		        confirmarCambios();
 		    }			
+		});
+		btnaceptarCond.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pTodoRight.removeAll();
+				JOptionPane.showMessageDialog(null, "Usted acepto los términos de uso","CODICIONES ACEPTADAS",JOptionPane.INFORMATION_MESSAGE);
+				pTodoRight.revalidate();
+				pTodoRight.repaint();
+			}
 		});
 	}
 	private void confirmarCambios() {
