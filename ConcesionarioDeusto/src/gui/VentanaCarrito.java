@@ -58,10 +58,15 @@ public class VentanaCarrito extends JFrame {
                     return String.class;
                 }
             }
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         };
-        modeloTabla.addColumn("Foto");
-        modeloTabla.addColumn("Modelo");
-        modeloTabla.addColumn("Precio");
+        modeloTabla.addColumn("Imagen");
+        modeloTabla.addColumn("Modelo del Coche");
+        modeloTabla.addColumn("Precio (€)");
+        
         for (Coche coche : Main.carrito) {
         	Image imagenOriginal = ImageIO.read(new File ("imagenes/"+coche.getModelo()+".png"));
         	Image imagenEscalada = imagenOriginal.getScaledInstance(ANCHO_MAXIMO, -1, Image.SCALE_SMOOTH);
@@ -101,18 +106,21 @@ public class VentanaCarrito extends JFrame {
         btnEliminarPedidos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelFactura.removeAll();
-                Main.carrito.remove(selectedCoche);
-                modeloTabla.removeRow(tablaProductos.getSelectedRow());
-                totalFactura = calcularTotal();
-                txtTotal = new JTextField(String.valueOf(totalFactura));
-                lblTotal.setFont(new Font("Tahoma", Font.BOLD, 15));
-                panelFactura.add(lblTotal);
-                txtTotal.setFont(new Font("Tahoma", Font.PLAIN, 15));
-                panelFactura.add(txtTotal);
-                panelFactura.revalidate();
-                panelFactura.repaint();
-                panelFactura.setBackground(Color.GRAY);
+                int respuesta = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres eliminar este producto?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    panelFactura.removeAll();
+                    Main.carrito.remove(selectedCoche);
+                    modeloTabla.removeRow(tablaProductos.getSelectedRow());
+                    totalFactura = calcularTotal();
+                    txtTotal = new JTextField(String.valueOf(totalFactura));
+                    lblTotal.setFont(new Font("Tahoma", Font.BOLD, 15));
+                    panelFactura.add(lblTotal);
+                    txtTotal.setFont(new Font("Tahoma", Font.PLAIN, 15));
+                    panelFactura.add(txtTotal);
+                    panelFactura.revalidate();
+                    panelFactura.repaint();
+                    panelFactura.setBackground(Color.GRAY);
+                }
             }
         });
 
@@ -143,6 +151,9 @@ public class VentanaCarrito extends JFrame {
                 }
             }
         });
+        
+        tablaProductos.getColumnModel().getColumn(0).setMinWidth(520);
+        tablaProductos.getColumnModel().getColumn(0).setMaxWidth(520);
 
         contentPane.add(panelNorte, BorderLayout.NORTH);
         contentPane.add(splitPane, BorderLayout.CENTER); 
