@@ -278,7 +278,6 @@ public class VentanaProfile extends JFrame{
 		   try {
 			date=formatoFecha.parse(userFech.getText());
 			} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			date=new Date();
 			}
 		   String contra=userPssw.getText();

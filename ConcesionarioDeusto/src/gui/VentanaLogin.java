@@ -42,8 +42,8 @@ public class VentanaLogin extends JFrame{
 	private JFrame frame=new JFrame("CONCESIONARIO DEUSTO");
 	
 	
-	private static Cliente cliente; //c almacenará la información del cliente que ha iniciado sesión
-	private static List<Coche> carrito; //almacenará los artículo que ha añadido al carrito el cliente que ha iniciado sesión
+	private static Cliente cliente; 
+	private static List<Coche> carrito; 
 	
 	
 	public static Cliente getCliente() {

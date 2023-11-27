@@ -65,8 +65,8 @@ public class VentanaConcesionario extends JFrame{
 	private JButton btnVerReservas;
 	private JButton viewProfile;
 	private JTextArea areaCarrito;
-	private DefaultListModel<Coche> modeloListaCoches; //El modelo guarda la información, los artículos
-	private JList<Coche> listaCoches; //La JList presenta/visualiza esos artículos
+	private DefaultListModel<Coche> modeloListaCoches; 
+	private JList<Coche> listaCoches; 
 	private JLabel lblBusqueda,contador;
 	private JTextField txtBusqueda;
 	private DefaultTableModel modeloDatosCoches;
@@ -215,8 +215,6 @@ public class VentanaConcesionario extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				   String marcaSeleccionada = comboBoxTipo.getSelectedItem().toString();
-			        // Limpia el modelo de la lista de coches
-
 			        if (marcaSeleccionada.equals("Todos")) {
 			           coches=new ArrayList<>(conc.getCoches());
 			           pCentro.removeAll();
@@ -302,29 +300,30 @@ public class VentanaConcesionario extends JFrame{
 		
 		
 		btnAniadirCocheAlaReserva.addActionListener(new ActionListener() {
-			
-			
-			   @Override
-               public void actionPerformed(ActionEvent e) {
-				        if (cocheSel != null) {		
-				        	
-				            Main.carrito.add(cocheSel);
-				            //lblCantidadReservas.setText(" COCHES AÑADIDOS AL CARRITO: " + Main.carrito.size());
-				            value=Main.carrito.size();
-				            contador.setText("COCHES AÑADIDOS AL CARRITO: "+ value);
-				        } else {
-				            System.out.println("Por favor, selecciona un coche antes de añadirlo a la reserva.");
-				        }
-				        
-				        String texto = "CLIENTE: "+cliente.getNombre() +"\n"+"DNI:"+cliente.getDni()+"\n"+"F.N:"+cliente.getfNac()+"\n\n";
-						texto = texto + "COCHES EN EL CARRITO: \n";
-						//Recorremos el carrito para añadir los articulos al texto
-						for(Coche co: Main.carrito) {
-							texto = texto + co.toString() + "\n";
-						}
-						areaCarrito.setText(texto);
-				    }
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        if (cocheSel != null) {   
+		            if (cocheYaEnCarrito(cocheSel)) {
+		                JOptionPane.showMessageDialog(null, "Este coche ya está en el carrito", "Error", JOptionPane.ERROR_MESSAGE);
+		            } else {
+		                Main.carrito.add(cocheSel);
+		                value = Main.carrito.size();
+		                contador.setText("COCHES AÑADIDOS AL CARRITO: " + value);
+
+		                String texto = "CLIENTE: " + cliente.getNombre() + "\n" + "DNI:" + cliente.getDni() + "\n" + "F.N:"
+		                        + cliente.getfNac() + "\n\n";
+		                texto = texto + "COCHES EN EL CARRITO: \n";		                
+		                for (Coche co : Main.carrito) {
+		                    texto = texto + co.toString() + "\n";
+		                }
+		                areaCarrito.setText(texto);
+		            }
+		        } else {
+		            System.out.println("Por favor, selecciona un coche antes de añadirlo al carrito.");
+		        }
+		    }
 		});
+		
 		viewProfile.addActionListener(new ActionListener() {
 			
 			@Override
@@ -380,8 +379,7 @@ public class VentanaConcesionario extends JFrame{
 	
 		this.tablaCoches.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseExited(MouseEvent e) {
-				//Se resetea la fila/columna sobre la que está el ratón				
+			public void mouseExited(MouseEvent e) {			
 				mouseRowPersonajes = -1;
 			}
 		});
@@ -389,10 +387,7 @@ public class VentanaConcesionario extends JFrame{
 		this.tablaCoches.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				//Se actualiza la fila/columna sobre la que está el ratón
 				mouseRowPersonajes = tablaCoches.rowAtPoint(e.getPoint());
-				
-				//Se provoca el redibujado de la tabla
 				tablaCoches.repaint();
 			}			
 		});
@@ -403,8 +398,6 @@ public class VentanaConcesionario extends JFrame{
 		Vector<String> cabeceraCoches = new Vector<String>(Arrays.asList( "Precio", "Año","Modelo", "Marca", "Matrícula"));
 		this.modeloDatosCoches = new DefaultTableModel(new Vector<Vector<Object>>(), cabeceraCoches);
 		this.tablaCoches = new JTable(this.modeloDatosCoches);
-//		for (TableRow c : Collections.list (this.tablaCoches.getRowModel().getRows()))
-//			c.setHeight(100);
 		this.tablaCoches.setRowHeight(60);
 		this.tablaCoches.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
@@ -507,6 +500,15 @@ public class VentanaConcesionario extends JFrame{
 				new Object[] {e.getPrecio(), e.getAnyo(), e.getModelo(), e.getMarca(), e.getMatricula()} )
 		);
 		
+	}
+	
+	private boolean cocheYaEnCarrito(Coche coche) {
+	    for (Coche c : Main.carrito) {
+	        if (c.equals(coche)) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 }
