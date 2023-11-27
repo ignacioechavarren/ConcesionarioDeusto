@@ -88,7 +88,7 @@ public class VentanaCarrito extends JFrame {
         panelNorte.add(lblCarrito);
 
         btnVolver = new JButton("VOLVER");
-        btnEliminarPedidos = new JButton("ELIMINAR PEDIDO");
+        btnEliminarPedidos = new JButton("ELIMINAR PRODUCTO");
         btnRealizarReserva = new JButton("REALIZAR RESERVA");
         btnCrearFactura = new JButton("CREAR FACTURA");
 
