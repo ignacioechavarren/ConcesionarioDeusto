@@ -239,7 +239,7 @@ public class VentanaConcesionario extends JFrame{
 			   							   String modelo=tablaCoches.getValueAt(filaSeleccionada,2).toString();
 			   							   Marca marca=Marca.getPorID(tablaCoches.getValueAt(filaSeleccionada,3).toString());
 			   							   String matricula=tablaCoches.getValueAt(filaSeleccionada,4).toString();
-			   							   cocheSel=new Coche(precio,anyo,marca,modelo,matricula);
+			   							   cocheSel=new Coche(precio,anyo,modelo,marca,matricula);
 			   							   filaAnt=filaSeleccionada;
 			   							   }
 			   						   System.out.println("Fila seleccionada: " + filaSeleccionada);
@@ -277,7 +277,7 @@ public class VentanaConcesionario extends JFrame{
 				   							   String modelo=tablaCoches.getValueAt(filaSeleccionada,2).toString();
 				   							   Marca marca=Marca.getPorID(tablaCoches.getValueAt(filaSeleccionada,3).toString());
 				   							   String matricula=tablaCoches.getValueAt(filaSeleccionada,4).toString();
-				   							   cocheSel=new Coche(precio,anyo,marca,modelo,matricula);
+				   							   cocheSel=new Coche(precio,anyo,modelo,marca,matricula);
 				   							   filaAnt=filaSeleccionada;
 				   							   }
 				   						   System.out.println("Fila seleccionada: " + filaSeleccionada);
@@ -367,7 +367,7 @@ public class VentanaConcesionario extends JFrame{
 		                String modelo=tablaCoches.getValueAt(filaSeleccionada,2).toString();
 		                Marca marca=Marca.valueOf(tablaCoches.getValueAt(filaSeleccionada,3).toString());
 		                String matricula=tablaCoches.getValueAt(filaSeleccionada,4).toString();
-		                cocheSel=new Coche(precio,anyo,marca,modelo,matricula);
+		                cocheSel=new Coche(precio,anyo,modelo,marca,matricula);
 		                filaAnt=filaSeleccionada;
 		                }
 		            System.out.println("Fila seleccionada: " + filaSeleccionada);

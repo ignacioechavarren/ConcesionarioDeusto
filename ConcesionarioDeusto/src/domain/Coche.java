@@ -18,7 +18,7 @@ public class Coche implements Comparable<Coche>{
 	 * @param marca
 	 * @param matricula
 	 */
-	public Coche(double precio, int anyo, Marca marca, String modelo, String matricula) {
+	public Coche(double precio, int anyo, String modelo, Marca marca, String matricula) {
 		super();
 		this.precio = precio;
 		this.anyo = anyo;
