@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import domain.Coche;
+import domain.Concesionario;
 import domain.Marca;
 
 public class bd {
@@ -44,7 +45,7 @@ public class bd {
 		//Se abre la conexión y se obtiene el Statement
 		//Al abrir la conexión, si no existía el fichero, se crea la base de datos
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING)) {			
-	        String sql = "CREATE TABLE IF NOT EXISTS CLIENTE (\n"
+	        String sql = "CREATE TABLE IF NOT EXISTS Cliente (\n"
 	                   + " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
 	                   + " NAME TEXT NOT NULL,\n"
 	                   + " EMAIL TEXT NOT NULL,\n"
@@ -54,9 +55,11 @@ public class bd {
 	        PreparedStatement pstmt = con.prepareStatement(sql);
 	        
 	        if (!pstmt.execute()) {
-	        	System.out.println("\n- Se ha creado la tabla Cliente");
+	        	System.out.println("\n- Se ha creado las tablas con exito");
 	        }
-	        
+	        else if(pstmt.execute()) {
+	        	System.out.println("Se han creado las tablas manualmente");
+	        }
 	        //Es necesario cerrar el PreparedStatement
 	        pstmt.close();		
 		} catch (Exception ex) {
@@ -94,5 +97,44 @@ public class bd {
 			ex.printStackTrace();						
 		}
 	}
+	
+	public void insertarCoche(Coche coche) throws SQLException {
+		Connection con = DriverManager.getConnection(CONNECTION_STRING);        
+        String sql = "INSERT INTO coches (precio, anyo, modelo, marca, matricula) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {           
+            statement.setDouble(1, coche.getPrecio());
+            statement.setInt(2, coche.getAnyo());
+            statement.setString(3, coche.getModelo());
+            statement.setString(4, coche.getMarca().getMarca());
+            statement.setString(5, coche.getMatricula());            
+            statement.executeUpdate();
+        } catch (SQLException e) {            
+            if (e.getSQLState().equals("23505")) {                
+                System.out.println("Error: La matrícula ya existe en la base de datos.");
+            } else {                
+                e.printStackTrace();
+            }
+        }
+    }
+	
+	public void cargarCochesBDDConcesionario() throws SQLException {        
+        Connection con = DriverManager.getConnection(CONNECTION_STRING);        
+        String sql = "SELECT * FROM Coche";
+        try (PreparedStatement statement = con.prepareStatement(sql)) {            
+            try (ResultSet resultSet = statement.executeQuery()) {                
+                while (resultSet.next()){
+                    double precio = resultSet.getDouble("precio");
+                    int anyo = resultSet.getInt("anyo");
+                    String modelo = resultSet.getString("modelo");                    
+                    String marcaStr = resultSet.getString("marca");
+                    Marca marca = Marca.getPorID(marcaStr);
+                    String matricula = resultSet.getString("matricula");                   
+                    Coche coche = new Coche(precio, anyo, modelo, marca, matricula);
+                    Concesionario.aniadirCoche(coche);
+                }
+            }
+        }        
+    }
 }
 
