@@ -9,13 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
 import domain.Marca;
+import domain.Pedido;
 
 public class bd {
 	
@@ -135,6 +138,91 @@ public class bd {
                 }
             }
         }        
+    }
+	
+	public void insertarPedidoConDetalles(Pedido pedido) throws SQLException {
+		Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        String sqlPedido = "INSERT INTO Pedido (dni, fecha_compra, precio_total) VALUES (?, ?, ?)";
+        String sqlDetallePedido = "INSERT INTO DetallePedido (id_pedido, matricula) VALUES (?, ?)";
+
+        try (PreparedStatement statementPedido = con.prepareStatement(sqlPedido, PreparedStatement.RETURN_GENERATED_KEYS);
+             PreparedStatement statementDetallePedido = con.prepareStatement(sqlDetallePedido)) {            
+        	con.setAutoCommit(false);
+
+            statementPedido.setString(1, pedido.getCliente().getDni());
+            statementPedido.setString(2, pedido.getFechaCompra().toString());
+            statementPedido.setDouble(3, pedido.getPrecioTotal());
+            statementPedido.executeUpdate();
+            
+            try (ResultSet generatedKeys = statementPedido.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int idPedidoGenerado = generatedKeys.getInt(1);
+                    
+                    for (Coche coche : pedido.getCoche()) {
+                        statementDetallePedido.setInt(1, idPedidoGenerado);
+                        statementDetallePedido.setString(2, coche.getMatricula());
+                        statementDetallePedido.executeUpdate();
+                    }                    
+                    con.commit();
+                } else {                    
+                	con.rollback();
+                    throw new SQLException("Error al obtener el ID del pedido generado.");
+                }
+            }
+        } catch (SQLException e) {            
+        	con.rollback();
+            throw e;
+        } finally {            
+        	con.setAutoCommit(true);
+        }
+    }
+	
+	public List<Pedido> obtenerTodosLosPedidosConCoches() throws SQLException {
+        List<Pedido> listaPedidos = new ArrayList<>();
+        Connection con = DriverManager.getConnection(CONNECTION_STRING);        
+        String sqlPedidos = "SELECT * FROM Pedido";
+
+        try (PreparedStatement statementPedidos = con.prepareStatement(sqlPedidos)) {
+            try (ResultSet resultSetPedidos = statementPedidos.executeQuery()) {                
+                while (resultSetPedidos.next()) {
+                    int idPedido = resultSetPedidos.getInt("id_pedido");
+                    String dniCliente = resultSetPedidos.getString("dni");
+                    LocalDateTime fechaCompra = LocalDateTime.parse(resultSetPedidos.getString("fecha_compra"));
+                    double precioTotal = resultSetPedidos.getDouble("precio_total");                    
+                    List<Coche> coches = obtenerCochesPorPedido(idPedido);                    
+                    Cliente cliente = Concesionario.buscarCliente(dniCliente);  
+                    Pedido pedido = new Pedido(cliente, coches, fechaCompra, precioTotal);
+                    listaPedidos.add(pedido);
+                }
+            }
+        }
+
+        return listaPedidos;
+    }    
+    private List<Coche> obtenerCochesPorPedido(int idPedido) throws SQLException {
+        List<Coche> coches = new ArrayList<>();
+        Connection con = DriverManager.getConnection(CONNECTION_STRING);        
+        String sqlCoches = "SELECT Coche.* FROM Coche " +
+                           "JOIN DetallePedido ON Coche.matricula = DetallePedido.matricula " +
+                           "WHERE DetallePedido.id_pedido = ?";
+
+        try (PreparedStatement statementCoches = con.prepareStatement(sqlCoches)) {
+            statementCoches.setInt(1, idPedido);
+            try (ResultSet resultSetCoches = statementCoches.executeQuery()) {                
+                while (resultSetCoches.next()) {
+                    double precio = resultSetCoches.getDouble("precio");
+                    int anyo = resultSetCoches.getInt("anyo");
+                    String modelo = resultSetCoches.getString("modelo");                    
+                    String marcaStr = resultSetCoches.getString("marca");
+                    Marca marca = Marca.getPorID(marcaStr);
+                    String matricula = resultSetCoches.getString("matricula");                    
+                    Coche coche = new Coche(precio, anyo, modelo, marca, matricula);
+                    coches.add(coche);
+                }
+            }
+        }
+
+        return coches;
     }
 }
 
