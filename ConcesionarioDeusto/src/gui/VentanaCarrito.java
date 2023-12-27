@@ -10,8 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import domain.Cliente;
@@ -138,7 +142,7 @@ public class VentanaCarrito extends JFrame {
         });
 
         btnCrearFactura.addActionListener(e -> {
-        	frame.dispose();
+        	facturaSave(cliente, Main.carrito);
         });
 
         tablaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -198,5 +202,67 @@ public class VentanaCarrito extends JFrame {
             total += coche.getPrecio();
         }
         return total;
+    }
+    public void facturaSave(Cliente cliente, List<Coche> pedidoFactura) {
+        if (Main.carrito.size() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay coches seleccionados y por lo" +
+                    " tanto no se puede crear la factura", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            String nombreArchivo = "Factura.txt";
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {                
+                writer.write("========CONCESIONARIO DEUSTO========");
+                writer.newLine();
+                writer.newLine();
+
+                writer.write(String.format("Cliente: %s", cliente.getNombre()));
+                writer.newLine();
+                writer.write(String.format("DNI: %s", cliente.getDni()));
+                writer.newLine();
+                writer.write(String.format("Fecha de Nacimiento: %s", cliente.getfNacStr()));
+                writer.newLine();
+                writer.newLine();
+
+                writer.write(String.format("Fecha de Facturación: %s",
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+                writer.newLine();
+                writer.newLine();
+
+                writer.write("Detalles del Pedido:");
+                writer.newLine();
+                double precioTotal = 0.0;
+
+                for (Coche coche : pedidoFactura) {
+                    writer.write(String.format("Modelo: %s", coche.getModelo()));
+                    writer.newLine();
+                    writer.write(String.format("Marca: %s", coche.getMarca().getMarca()));
+                    writer.newLine();
+                    writer.write(String.format("Matrícula: %s", coche.getMatricula()));
+                    writer.newLine();
+                    writer.write(String.format("Precio: %s", coche.getPrecio()));
+                    writer.newLine();
+                    writer.newLine();
+                    precioTotal += coche.getPrecio();
+                }
+
+                writer.newLine();
+                writer.write(String.format("Precio Total: %s", precioTotal));
+                writer.newLine();
+                writer.newLine();
+
+                writer.write("---Información de contacto---");
+                writer.newLine();
+                writer.write("Teléfono: +1234567890");
+                writer.newLine();
+                writer.write("Email: info@concesionariodeusto.com");
+                writer.newLine();
+                writer.write("Sede: Ibaiondo Kalea 13");
+
+                JOptionPane.showMessageDialog(null, "La factura se ha guardado exitosamente en " + nombreArchivo + "." +
+                        " Para más información, consulte la factura en detalle.", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
