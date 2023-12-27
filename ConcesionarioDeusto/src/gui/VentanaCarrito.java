@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import db.bd;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +16,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -134,11 +137,23 @@ public class VentanaCarrito extends JFrame {
         });
 
         btnRealizarReserva.addActionListener((e) -> {
-            for (Coche c : reservas) {
-                Concesionario.aniadirReserva(cliente, c);
-            }
-            JOptionPane.showMessageDialog(null, "Enhorabuena, ha realizado la reserva correctamente",
-                    "RESERVA FINALIZADA", JOptionPane.INFORMATION_MESSAGE);
+            bd bdtemporal= new bd();
+            bdtemporal.crearBBDD();
+            double precio= 0;
+            for (Coche c : Main.carrito) {
+				precio=+c.getPrecio();
+			}
+            LocalDateTime ldt=LocalDateTime.now();
+            Pedido pactual=new Pedido(cliente, Main.carrito, ldt, precio);
+            try {
+				bdtemporal.insertarPedidoConDetalles(pactual);
+				JOptionPane.showMessageDialog(null, "Enhorabuena, ha realizado la"+
+				" reserva correctamente en la base de datos",
+	            "RESERVA FINALIZADA", JOptionPane.INFORMATION_MESSAGE);
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+            
         });
 
         btnCrearFactura.addActionListener(e -> {
@@ -224,7 +239,7 @@ public class VentanaCarrito extends JFrame {
                 writer.newLine();
 
                 writer.write(String.format("Fecha de Facturación: %s",
-                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
                 writer.newLine();
                 writer.newLine();
 

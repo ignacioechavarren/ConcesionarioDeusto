@@ -75,7 +75,7 @@ public class bd {
 		//Se abre la conexión y se obtiene el Statement
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING)) {			
 	        
-			String sql = "DROP TABLE IF EXISTS CLIENTE";
+			String sql = "DROP TABLE IF EXISTS Cliente";
 			
 	        PreparedStatement pstmt = con.prepareStatement(sql);
 			
@@ -175,6 +175,7 @@ public class bd {
         } finally {            
         	con.setAutoCommit(true);
         }
+        System.out.println("Inserción de pedido exitosa");
     }
 	
 	public List<Pedido> obtenerTodosLosPedidosConCoches() throws SQLException {
