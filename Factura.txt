@@ -1,0 +1,26 @@
+========CONCESIONARIO DEUSTO========
+
+Cliente: ddd
+DNI: ddd
+Fecha de Nacimiento: 01-01-1970
+
+Fecha de Facturación: 2023-12-27 13:28:03
+
+Detalles del Pedido:
+Modelo: Corsa
+Marca: Opel
+Matrícula: 8408KLP
+Precio: 650.0
+
+Modelo: Corolla
+Marca: Toyota
+Matrícula: 1234ABC
+Precio: 1300.0
+
+
+Precio Total: 1950.0
+
+---Información de contacto---
+Teléfono: +1234567890
+Email: info@concesionariodeusto.com
+Sede: Ibaiondo Kalea 13
