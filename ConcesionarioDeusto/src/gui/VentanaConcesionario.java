@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -38,6 +39,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.OverlayLayout;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -67,7 +69,7 @@ public class VentanaConcesionario extends JFrame{
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; 
 	private JList<Coche> listaCoches; 
-	private JLabel lblBusqueda,contador;
+	private JLabel lblBusqueda,contador,soporte;
 	private JTextField txtBusqueda;
 	private DefaultTableModel modeloDatosCoches;
 	private List<Coche> coches;
@@ -93,11 +95,13 @@ public class VentanaConcesionario extends JFrame{
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		//
-		contador=new JLabel("COCHES AÑADIDOS AL CARRITO: "+value);
-		contador.setForeground(new Color(255,255,255));
-		contador.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contador.setBorder(new EmptyBorder(20,0,0,0));
+		
+		contador=new JLabel(""+value);
+		contador.setForeground(new Color(255, 0, 0, 125));
+		contador.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contador.setAlignmentY(Component.CENTER_ALIGNMENT);
+		contador.setFont(new Font("Verdana", Font.PLAIN, 55));
+		contador.setBorder(new EmptyBorder(0,0,0,0));
 		pSur = new JPanel();
 		pSur.setBackground(new Color(40, 40, 40));
 		pSur.setBorder(new EmptyBorder(0, 12, 0, 0));
@@ -116,8 +120,20 @@ public class VentanaConcesionario extends JFrame{
 		viewProfile.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnAniadirCocheAlaReserva.setFont(new Font("Tahoma", Font.BOLD, 15));
 		pSur.add(btnAniadirCocheAlaReserva);
-		btnVerReservas = new JButton(new ImageIcon(im3));
-		btnVerReservas.setFont(new Font("Tahoma", Font.BOLD, 10));		
+		
+		ImageIcon ic = new ImageIcon(im3);
+		ic.setImage(ic.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+		soporte = new JLabel(ic);
+		
+		OverlayLayout overlayLayout = new OverlayLayout(soporte);
+		soporte.setLayout(overlayLayout);
+		soporte.add(contador);
+
+		btnVerReservas = new JButton();
+		btnVerReservas.add(soporte);
+		btnVerReservas.setFont(new Font("Tahoma", Font.BOLD, 10));
+
+		
 		
 		btnVolver = new JButton("VOLVER");
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -140,7 +156,7 @@ public class VentanaConcesionario extends JFrame{
 		areaCarrito.setText(texto);
 		pCentro.setBorder(new EmptyBorder(0, 240, 0, 0));
 		pCentro.add(panelCoches);
-		pCentro.add(contador);
+		//pCentro.add(contador);
 		panelCoches.setPreferredSize(new Dimension(800, 700));
 		frame.getContentPane().add(pCentro, BorderLayout.CENTER);
 		
@@ -169,7 +185,7 @@ public class VentanaConcesionario extends JFrame{
 		pEste.setBackground(new Color(40, 40, 40));		
 		frame.getContentPane().add(pEste, BorderLayout.EAST);
 		pViewProfile.add(viewProfile);
-		pBtnVerReservas.add(btnVerReservas);
+		pBtnVerReservas.add(btnVerReservas);		
 		pRelleno= new JPanel();
 		pRelleno.setBackground(new Color(40,40,40));
 		pEsteTop1.add(pViewProfile);
@@ -308,7 +324,7 @@ public class VentanaConcesionario extends JFrame{
 		            } else {
 		                Main.carrito.add(cocheSel);
 		                value = Main.carrito.size();
-		                contador.setText("COCHES AÑADIDOS AL CARRITO: " + value);
+		                contador.setText("" + value);
 
 		                String texto = "CLIENTE: " + cliente.getNombre() + "\n" + "DNI:" + cliente.getDni() + "\n" + "F.N:"
 		                        + cliente.getfNac() + "\n\n";
