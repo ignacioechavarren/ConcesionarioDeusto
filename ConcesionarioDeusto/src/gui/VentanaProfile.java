@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+import db.bd;
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
@@ -282,6 +283,10 @@ public class VentanaProfile extends JFrame{
 			}
 		   String contra=userPssw.getText();
 		   Cliente c=new Cliente(dni,nombre,date,contra);
+		   bd bdd=new bd();
+		   bdd.crearBBDD();
+		   bdd.borrarCliente(dni);
+		   bdd.insertarCliente(c);
 		   Concesionario.cargarClientesEnLista(nomfichClientes);
 		   Concesionario.borrarClientePorDNI(nomfichClientes, userDniSeguro);
 		   Concesionario.aniadirCliente(c);

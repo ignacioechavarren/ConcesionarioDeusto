@@ -25,28 +25,21 @@ public class Main {
 
 	public static void main(String[] args) {
 		Concesionario conc=new Concesionario();
+		bd bdd=new bd();
+		bdd.crearBBDD();
+		try {
+			bdd.cargarCochesBDDConcesionario();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Coche c1 = new Coche(500, 1996, "Ibiza",Marca.SEA,"8828CUP" );
 		Coche c2 = new Coche(800, 2000, "E46",Marca.BMW,"4777CHD" );
-		Coche c3 = new Coche(650, 1996, "Corsa",Marca.OPE,  "8408KLP");
-	    Coche c4 = new Coche(1300, 2005, "Corolla",Marca.TOY, "1234ABC");
-	    Coche c5 = new Coche(1900, 2010, "Focus", Marca.FOR,"5678XYZ");
-	    Coche c6 = new Coche(2800, 2015, "Civic",Marca.HON,  "9876PQR");
-	    Coche c7 = new Coche(2500, 2020, "Golf",Marca.VOL,  "5432LMN");
-
-		
+				
 		Cliente cli1 = new Cliente("16102892V", "Jon", "14-10-1999", "A");
 		Cliente cli2 = new Cliente("16122842V", "Alex", "04-10-2009", "B");
-		
-		
-		
-		Concesionario.aniadirCoche(c1);
-		Concesionario.aniadirCoche(c2);
-		Concesionario.aniadirCoche(c3);
-		Concesionario.aniadirCoche(c4);
-		Concesionario.aniadirCoche(c5);
-		Concesionario.aniadirCoche(c6);
-		Concesionario.aniadirCoche(c7);
+				
 		Concesionario.imprimirCoches();
 		
 		//Concesionario.aniadirCliente(cli1);

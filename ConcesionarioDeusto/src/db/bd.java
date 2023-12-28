@@ -267,5 +267,20 @@ public class bd {
         return clientes;
     }
 
+    public void borrarCliente(String dniCliente) {
+        String sql = "DELETE FROM Cliente WHERE DNI = ?";
+        try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, dniCliente);
+            int filasAfectadas = pstmt.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Cliente con DNI " + dniCliente + " eliminado exitosamente.");
+            } else {
+                System.out.println("No se encontró ningún cliente con DNI " + dniCliente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();            
+        }
+    }
 }
 
