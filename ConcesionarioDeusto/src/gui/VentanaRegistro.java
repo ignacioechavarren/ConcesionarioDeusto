@@ -102,8 +102,7 @@ public class VentanaRegistro extends JFrame{
 		            btnRegistro.doClick();
 		        }
 		    }
-		});
-		
+		});		
 		btnRegistro.addActionListener((e)->{
 			String dni = txtDniR.getText();
 			String nom = txtNomR.getText();
