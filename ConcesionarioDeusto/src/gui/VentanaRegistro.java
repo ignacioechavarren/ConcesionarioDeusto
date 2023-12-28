@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import db.bd;
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
@@ -113,6 +114,9 @@ public class VentanaRegistro extends JFrame{
 				JOptionPane.showMessageDialog(null, "Ya existe un cliente con ese dni","ERROR",JOptionPane.ERROR_MESSAGE);
 			}else {
 				Concesionario.aniadirCliente(c);
+				bd bdd=new bd();
+				bdd.crearBBDD();
+				bdd.insertarCliente(c);
 				JOptionPane.showMessageDialog(null, "Cliente registrado con éxito","REGISTRADO",JOptionPane.INFORMATION_MESSAGE);
 				conc.guardarClientesEnFichero(nomfichClientes);
 				
@@ -122,7 +126,7 @@ public class VentanaRegistro extends JFrame{
 	
 		
 		btnVolver.addActionListener((e)->{
-			conc.guardarClientesEnFichero(nomfichClientes);
+			conc.guardarClientesEnFichero(nomfichClientes);			
 			VentanaInicio vi = new VentanaInicio(conc);
 			dispose();
 		});

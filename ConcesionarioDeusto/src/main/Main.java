@@ -8,11 +8,14 @@ import gui.VentanaInicio;
 import gui.VentanaLogin;
 import gui.VentanaRegistro;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
+
+import db.bd;
 
 
 
@@ -63,9 +66,8 @@ public class Main {
 		System.out.println("Reservas del cliente: "+cli1.getDni());
 		Concesionario.imprimirReservasCliente(cli1);
 		System.out.println("************************************************************************");
+				
 		
-		
-	
 		//SwingUtilities.invokeLater(() -> new VentanaProductos(conc));
 
 		VentanaInicio vi=new VentanaInicio(conc);

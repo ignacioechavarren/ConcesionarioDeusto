@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +104,7 @@ public class bd {
 	
 	public void insertarCoche(Coche coche) throws SQLException {
 		Connection con = DriverManager.getConnection(CONNECTION_STRING);        
-        String sql = "INSERT INTO coches (precio, anyo, modelo, marca, matricula) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Coche (precio, anyo, modelo, marca, matricula) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = con.prepareStatement(sql)) {           
             statement.setDouble(1, coche.getPrecio());
@@ -113,7 +114,8 @@ public class bd {
             statement.setString(5, coche.getMatricula());            
             statement.executeUpdate();
         } catch (SQLException e) {            
-            if (e.getSQLState().equals("23505")) {                
+        	String sqlState = e.getSQLState();
+            if (sqlState != null && sqlState.equals("23505")){                
                 System.out.println("Error: La matrícula ya existe en la base de datos.");
             } else {                
                 e.printStackTrace();
@@ -225,5 +227,45 @@ public class bd {
 
         return coches;
     }
+    
+    public void insertarCliente(Cliente cliente) {
+        String sql = "INSERT INTO Cliente (DNI, NOMBRE, FNAC, PASSWORD) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, cliente.getDni());
+            pstmt.setString(2, cliente.getNombre());
+            pstmt.setString(3, cliente.getfNacStr());
+            pstmt.setString(4, cliente.getContrasenia());
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Cliente> obtenerClientes() {
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT DNI, NOMBRE, FNAC, PASSWORD FROM Cliente";
+
+        try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                String dni = rs.getString("DNI");
+                String nombre = rs.getString("NOMBRE");
+                String fNacStr = rs.getString("FNAC");
+                String contrasenia = rs.getString("PASSWORD");
+                Cliente cliente = new Cliente(dni, nombre, fNacStr, contrasenia);
+                clientes.add(cliente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clientes;
+    }
+
 }
 
