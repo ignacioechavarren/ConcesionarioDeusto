@@ -31,7 +31,7 @@ public class VentanaRegistro extends JFrame{
 	private JPasswordField txtConR= new JPasswordField(20);
 	private JButton btnRegistro, btnVolver;
 	private static final String nomfichClientes = "Clientes.csv";
-	private JFrame vActual= new JFrame("CONCESIONARIO DEUSTO");
+	private JFrame frame= new JFrame("CONCESIONARIO DEUSTO");
 	
 	private static Cliente cliente = new Cliente();
 	private static List<Coche> carrito = new ArrayList<>();
@@ -50,9 +50,9 @@ public class VentanaRegistro extends JFrame{
 
 	public VentanaRegistro() {
 		super();		 
-		setBounds(300, 100, 600, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(MAXIMIZED_BOTH);
+		frame.setBounds(300, 100, 600, 400);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setExtendedState(MAXIMIZED_BOTH);
 		
 		pTotal=new JPanel(new GridLayout(0,1));
 		pNorte = new JPanel();
@@ -77,8 +77,8 @@ public class VentanaRegistro extends JFrame{
 		pCentro8.setBackground(new Color(40, 40, 40));
 						
 		lblTitulo=new JLabel("REGISTRO DE USUARIO");
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblTitulo.setForeground(new Color(255, 165, 0));
 		
 		btnRegistro = new JButton("REGISTRO");
 		btnRegistro.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -110,6 +110,9 @@ public class VentanaRegistro extends JFrame{
 			String fNac = txtFNacR.getText();
 			String con = txtConR.getText();
 			Cliente c = new Cliente(dni, nom, fNac, con);
+			if(dni.isEmpty()||nom.isEmpty()||con.isEmpty()){
+				JOptionPane.showMessageDialog(null, "Dni, nombre o password estan vacios","ERROR",JOptionPane.ERROR_MESSAGE);
+			}else {
 			if(Concesionario.buscarCliente(dni)!=null) {
 				JOptionPane.showMessageDialog(null, "Ya existe un cliente con ese dni","ERROR",JOptionPane.ERROR_MESSAGE);
 			}else {
@@ -120,15 +123,15 @@ public class VentanaRegistro extends JFrame{
 				JOptionPane.showMessageDialog(null, "Cliente registrado con éxito","REGISTRADO",JOptionPane.INFORMATION_MESSAGE);
 				conc.guardarClientesEnFichero(nomfichClientes);
 				
-			}
+			}}
 		});
 		
 	
 		
 		btnVolver.addActionListener((e)->{
-			conc.guardarClientesEnFichero(nomfichClientes);			
+			conc.guardarClientesEnFichero(nomfichClientes);		
+			frame.dispose();
 			VentanaInicio vi = new VentanaInicio(conc);
-			dispose();
 		});
 		pTotal.add(pNorte);
 		pTotal.add(pCentro);
@@ -136,8 +139,8 @@ public class VentanaRegistro extends JFrame{
 		pTotal.add(pCentro3);
 		lblDniR = new JLabel("DNI: ");
 		pCentro3.add(lblDniR);
-		lblDniR.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDniR.setForeground(new Color(255, 255, 255));
+		lblDniR.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDniR.setForeground(new Color(255, 165, 0));
 		
 		
 		
@@ -146,28 +149,28 @@ public class VentanaRegistro extends JFrame{
 		pTotal.add(pCentro4);
 		lblNomR = new JLabel("NOMBRE: ");
 		pCentro4.add(lblNomR);
-		lblNomR.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNomR.setForeground(new Color(255, 255, 255));
+		lblNomR.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNomR.setForeground(new Color(255, 165, 0));
 		txtNomR = new JTextField(20);
 		pCentro4.add(txtNomR);
 		pTotal.add(pCentro5);
 		lblFNacR = new JLabel("FECHA DE NACIMIENTO(dd-MM-yyyy): ");
 		pCentro5.add(lblFNacR);
-		lblFNacR.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblFNacR.setForeground(new Color(255, 255, 255));
+		lblFNacR.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblFNacR.setForeground(new Color(255, 165, 0));
 		txtFNacR = new JTextField(20);
 		pCentro5.add(txtFNacR);
 		pTotal.add(pCentro6);
 		lblConR = new JLabel("CONTRASEÑA: ");
 		pCentro6.add(lblConR);
-		lblConR.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblConR.setForeground(new Color(255, 255, 255));
+		lblConR.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblConR.setForeground(new Color(255, 165, 0));
 		pCentro6.add(txtConR);
 		pTotal.add(pCentro7);
 		pTotal.add(pCentro8);
 		pTotal.add(pSur);
-		getContentPane().add(pTotal);
+		frame.getContentPane().add(pTotal);
 		
-		setVisible(true);
+		frame.setVisible(true);
 	}
 }

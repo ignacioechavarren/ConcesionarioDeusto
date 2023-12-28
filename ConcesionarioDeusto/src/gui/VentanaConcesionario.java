@@ -97,7 +97,7 @@ public class VentanaConcesionario extends JFrame{
 		frame.setVisible(true);
 		
 		contador=new JLabel(""+value);
-		contador.setForeground(new Color(255, 0, 0, 125));
+		contador.setForeground(new Color(255, 165, 0, 165));
 		contador.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contador.setAlignmentY(Component.CENTER_ALIGNMENT);
 		contador.setFont(new Font("Verdana", Font.PLAIN, 55));
@@ -201,7 +201,7 @@ public class VentanaConcesionario extends JFrame{
 		pNorte.setBackground(new Color(40, 40, 40));
 		JLabel lblCantidadReservas = new JLabel("CONCESIONARIO DEUSTO" );
 		lblCantidadReservas.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblCantidadReservas.setForeground(new Color(255, 255, 255));
+		lblCantidadReservas.setForeground(new Color(255, 165, 0));
 		lblCantidadReservas.setBounds(369, 285, 332, 40);
 		pNorte.add(lblCantidadReservas);
 		frame.getContentPane().add(pNorte, BorderLayout.NORTH);

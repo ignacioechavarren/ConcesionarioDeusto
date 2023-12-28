@@ -75,11 +75,11 @@ public class VentanaLogin extends JFrame{
 		pSur = new JPanel();
 		pSur.setBackground(new Color(40, 40, 40));
 				
-		inicio.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		inicio.setForeground(new Color(255, 255, 255));
+		inicio.setFont(new Font("Tahoma", Font.BOLD, 18));
+		inicio.setForeground(new Color(255, 165, 0));
 		
-		contraseña.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		contraseña.setForeground(new Color(255, 255, 255));
+		contraseña.setFont(new Font("Tahoma", Font.BOLD, 14));
+		contraseña.setForeground(new Color(255, 165, 0));
 		
 		botonI=new JButton("INICIAR");
 		botonI.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -142,9 +142,9 @@ public class VentanaLogin extends JFrame{
 		pTodo.add(pNorte);
 		pTodo.add(pCentro);
 		pTodo.add(pCentro2);
-		dni.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dni.setFont(new Font("Tahoma", Font.BOLD, 14));
 		pCentro2.add(dni);
-		dni.setForeground(new Color(255, 255, 255));
+		dni.setForeground(new Color(255, 165, 0));
 		
 		
 		pCentro2.add(textfield);
