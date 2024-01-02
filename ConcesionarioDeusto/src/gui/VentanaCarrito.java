@@ -223,7 +223,7 @@ public class VentanaCarrito extends JFrame {
             JOptionPane.showMessageDialog(null, "No hay coches seleccionados y por lo" +
                     " tanto no se puede crear la factura", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            String nombreArchivo = "Factura.txt";
+            String nombreArchivo = cliente.getDni()+"-Factura.txt";
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {                
                 writer.write("========CONCESIONARIO DEUSTO========");
