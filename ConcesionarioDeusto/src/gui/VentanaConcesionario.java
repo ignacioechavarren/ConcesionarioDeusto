@@ -25,6 +25,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -96,12 +97,13 @@ public class VentanaConcesionario extends JFrame{
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
-		contador=new JLabel(""+value);
-		contador.setForeground(new Color(255, 165, 0, 165));
-		contador.setAlignmentX(Component.CENTER_ALIGNMENT);
-		contador.setAlignmentY(Component.CENTER_ALIGNMENT);
-		contador.setFont(new Font("Verdana", Font.PLAIN, 55));
-		contador.setBorder(new EmptyBorder(0,0,0,0));
+		contador = new JLabel("" + value);
+		contador.setForeground(Color.GRAY);
+		contador.setFont(new Font("Verdana", Font.BOLD, 15));
+		contador.setAlignmentX(Component.LEFT_ALIGNMENT);
+		contador.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		contador.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
 		pSur = new JPanel();
 		pSur.setBackground(new Color(40, 40, 40));
 		pSur.setBorder(new EmptyBorder(0, 12, 0, 0));
