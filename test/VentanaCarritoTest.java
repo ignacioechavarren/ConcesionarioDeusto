@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import db.bd;
 import domain.Cliente;
 import domain.Coche;
 import domain.Marca;
@@ -24,14 +26,23 @@ import main.Main;
 
 public class VentanaCarritoTest {
 	 private Cliente cliente;
-	    private List<Coche> coches;
+	 private List<Coche> coches;
 
 	   
 	
 	@Test
-	public void testGuardarFactura() throws IOException {
+	public void testGuardarFactura() throws IOException, SQLException {
 		  // Crear una instancia de VentanaCarrito para acceder al método facturaSave
+		
+		bd bdd=new bd();		
+		bdd.cargarCochesBDDConcesionario();
+		Concesionario.cargarClientesEnLista("Clientes.csv");
+		Main.carrito = new ArrayList<>(Concesionario.getCoches());
+		cliente=Concesionario.buscarCliente("ddd");
+		coches=Main.carrito;
         VentanaCarrito ventanaCarrito = new VentanaCarrito(new Concesionario(), cliente, coches);
+        ventanaCarrito.setVisible(false);
+        
 
         // Llamar al método facturaSave
         ventanaCarrito.facturaSave(cliente, coches);

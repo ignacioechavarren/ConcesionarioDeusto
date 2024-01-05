@@ -10,8 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -257,8 +259,16 @@ public class bd {
                 String dni = rs.getString("DNI");
                 String nombre = rs.getString("NOMBRE");
                 String fNacStr = rs.getString("FNAC");
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                Date fechaNacimiento=null;
+				try {
+					fechaNacimiento = formatoFecha.parse(fNacStr);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 String contrasenia = rs.getString("PASSWORD");
-                Cliente cliente = new Cliente(dni, nombre, fNacStr, contrasenia);
+                Cliente cliente = new Cliente(dni, nombre, fechaNacimiento, contrasenia);
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
