@@ -27,6 +27,15 @@ public class Coche implements Comparable<Coche>{
 		this.matricula = matricula;
 	}
 	
+	public Coche(double precio, int anyo, String modelo, Marca marca) {
+		super();
+		this.precio = precio;
+		this.anyo = anyo;
+		this.modelo = modelo;
+		this.marca = marca;
+		this.matricula = generarMatricula(4, 3);
+	}
+	
 	/**
 	 * 
 	 */
@@ -120,6 +129,25 @@ public class Coche implements Comparable<Coche>{
 		return "Coche [precio=" + precio + ", anyo=" + anyo + ", modelo=" + modelo + ", marca=" + marca + ", matricula="
 				+ matricula + "]";
 	}
+	public static String generarMatricula(int numNumeros, int numLetras) {
+        String numeros = "0123456789";
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        return generarMatriculaRecursiva(numeros, letras, numNumeros, numLetras, "");
+    }
+
+    public static String generarMatriculaRecursiva(String numeros, String letras, int numNumeros, int numLetras, String c) {
+        if (numNumeros == 0 && numLetras == 0) {
+            return c;
+        } else if (numNumeros > 0) {
+            int index = (int) (numeros.length() * Math.random());
+            String nuevoc = c + numeros.charAt(index);
+            return generarMatriculaRecursiva(numeros, letras, numNumeros - 1, numLetras, nuevoc);
+        } else {
+            int index = (int) (letras.length() * Math.random());
+            String nuevoc = c + letras.charAt(index);
+            return generarMatriculaRecursiva(numeros, letras, numNumeros, numLetras - 1, nuevoc);
+        }
+    }
 	/**
 	 * 
 	 */

@@ -31,15 +31,13 @@ public class bd {
 	
 	public bd() {		
 		try {
-			//Se crea el Properties y se actualizan los 3 parámetros
 			Properties connectionProperties = new Properties();
 			connectionProperties.load(new FileReader("resources/parametros.properties"));
 			
 			DRIVER_NAME = connectionProperties.getProperty("DRIVER_NAME");
 			DATABASE_FILE = connectionProperties.getProperty("DATABASE_FILE");
 			CONNECTION_STRING = connectionProperties.getProperty("CONNECTION_STRING") + DATABASE_FILE;
-			
-			//Cargar el diver SQLite
+						
 			Class.forName(DRIVER_NAME);
 		} catch (Exception ex) {
 			System.err.format("\n* Error al cargar el driver de BBDD: %s", ex.getMessage());
@@ -48,8 +46,6 @@ public class bd {
 	}
 		
 	public void crearBBDD() {
-		//Se abre la conexión y se obtiene el Statement
-		//Al abrir la conexión, si no existía el fichero, se crea la base de datos
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING)) {			
 	        String sql = "CREATE TABLE IF NOT EXISTS Cliente (\n"
 	                   + " DNI TEXT PRIMARY KEY AUTOINCREMENT,\n"
@@ -66,7 +62,6 @@ public class bd {
 	        else if(pstmt.execute()) {
 	        	System.out.println("Se han creado las tablas manualmente");
 	        }
-	        //Es necesario cerrar el PreparedStatement
 	        pstmt.close();		
 		} catch (Exception ex) {
 			System.err.format("\n* Error al crear la BBDD: %s", ex.getMessage());
@@ -74,41 +69,37 @@ public class bd {
 		}
 	}
 	
-	 public void insertarCliente(Cliente cliente) throws SQLException {		 
-		 Connection conn = DriverManager.getConnection(CONNECTION_STRING);
-	     String sql = "INSERT INTO Cliente (DNI, NOMBRE, FNAC, PASSWORD) VALUES (?, ?, ?, ?)";
+	public void insertarCliente(Cliente cliente) throws SQLException {
+	    Connection conn = DriverManager.getConnection(CONNECTION_STRING);
+	    String sql = "INSERT OR IGNORE INTO Cliente (DNI, NOMBRE, FNAC, PASSWORD) VALUES (?, ?, ?, ?)";
 
-	        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	            pstmt.setString(1, cliente.getDni());
-	            pstmt.setString(2, cliente.getNombre());
-	            pstmt.setString(3, cliente.getfNacStr());
-	            pstmt.setString(4, cliente.getContrasenia());
-	            pstmt.executeUpdate();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, cliente.getDni());
+	        pstmt.setString(2, cliente.getNombre());
+	        pstmt.setString(3, cliente.getfNacStr());
+	        pstmt.setString(4, cliente.getContrasenia());
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
 	    }
-	
-	public void insertarCoche(Coche coche) throws SQLException {
-		Connection con = DriverManager.getConnection(CONNECTION_STRING);        
-        String sql = "INSERT INTO Coche (precio, anyo, modelo, marca, matricula) VALUES (?, ?, ?, ?, ?)";
+	}
 
-        try (PreparedStatement statement = con.prepareStatement(sql)) {           
-            statement.setDouble(1, coche.getPrecio());
-            statement.setInt(2, coche.getAnyo());
-            statement.setString(3, coche.getModelo());
-            statement.setString(4, coche.getMarca().getMarca());
-            statement.setString(5, coche.getMatricula());            
-            statement.executeUpdate();
-        } catch (SQLException e) {            
-        	String sqlState = e.getSQLState();
-            if (sqlState != null && sqlState.equals("23505")){                
-                System.out.println("Error: La matrícula ya existe en la base de datos.");
-            } else {                
-                e.printStackTrace();
-            }
-        }
-    }
+	public void insertarCoche(Coche coche) throws SQLException {
+	    Connection con = DriverManager.getConnection(CONNECTION_STRING);
+	    String sql = "INSERT OR IGNORE INTO Coche (precio, anyo, modelo, marca, matricula) VALUES (?, ?, ?, ?, ?)";
+
+	    try (PreparedStatement statement = con.prepareStatement(sql)) {
+	        statement.setDouble(1, coche.getPrecio());
+	        statement.setInt(2, coche.getAnyo());
+	        statement.setString(3, coche.getModelo());
+	        statement.setString(4, coche.getMarca().getMarca());
+	        statement.setString(5, coche.getMatricula());
+	        statement.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	
 	public void cargarCochesBDDConcesionario() throws SQLException {        
         Connection con = DriverManager.getConnection(CONNECTION_STRING);        
@@ -130,42 +121,42 @@ public class bd {
     }
 	
 	public void insertarPedidoConDetalles(Pedido pedido) throws SQLException {
-		Connection con = DriverManager.getConnection(CONNECTION_STRING);
-        String sqlPedido = "INSERT INTO Pedido (dni, fecha_compra, precio_total) VALUES (?, ?, ?)";
-        String sqlDetallePedido = "INSERT INTO DetallePedido (id_pedido, matricula) VALUES (?, ?)";
+	    Connection con = DriverManager.getConnection(CONNECTION_STRING);
+	    String sqlPedido = "INSERT OR IGNORE INTO Pedido (dni, fecha_compra, precio_total) VALUES (?, ?, ?)";
+	    String sqlDetallePedido = "INSERT OR IGNORE INTO DetallePedido (id_pedido, matricula) VALUES (?, ?)";
 
-        try (PreparedStatement statementPedido = con.prepareStatement(sqlPedido, PreparedStatement.RETURN_GENERATED_KEYS);
-             PreparedStatement statementDetallePedido = con.prepareStatement(sqlDetallePedido)) {            
-        	con.setAutoCommit(false);
+	    try (PreparedStatement statementPedido = con.prepareStatement(sqlPedido, PreparedStatement.RETURN_GENERATED_KEYS);
+	         PreparedStatement statementDetallePedido = con.prepareStatement(sqlDetallePedido)) {
+	        con.setAutoCommit(false);
 
-            statementPedido.setString(1, pedido.getCliente().getDni());
-            statementPedido.setString(2, pedido.getFechaCompra().toString());
-            statementPedido.setDouble(3, pedido.getPrecioTotal());
-            statementPedido.executeUpdate();
-            
-            try (ResultSet generatedKeys = statementPedido.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    int idPedidoGenerado = generatedKeys.getInt(1);
-                    
-                    for (Coche coche : pedido.getCoche()) {
-                        statementDetallePedido.setInt(1, idPedidoGenerado);
-                        statementDetallePedido.setString(2, coche.getMatricula());
-                        statementDetallePedido.executeUpdate();
-                    }                    
-                    con.commit();
-                } else {                    
-                	con.rollback();
-                    throw new SQLException("Error al obtener el ID del pedido generado.");
-                }
-            }
-        } catch (SQLException e) {            
-        	con.rollback();
-            throw e;
-        } finally {            
-        	con.setAutoCommit(true);
-        }
-        System.out.println("Inserción de pedido exitosa");
-    }
+	        statementPedido.setString(1, pedido.getCliente().getDni());
+	        statementPedido.setString(2, pedido.getFechaCompra().toString());
+	        statementPedido.setDouble(3, pedido.getPrecioTotal());
+	        statementPedido.executeUpdate();
+
+	        try (ResultSet generatedKeys = statementPedido.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                int idPedidoGenerado = generatedKeys.getInt(1);
+
+	                for (Coche coche : pedido.getCoche()) {
+	                    statementDetallePedido.setInt(1, idPedidoGenerado);
+	                    statementDetallePedido.setString(2, coche.getMatricula());
+	                    statementDetallePedido.executeUpdate();
+	                }
+	                con.commit();
+	            } else {
+	                con.rollback();
+	                throw new SQLException("Error al obtener el ID del pedido generado.");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        con.rollback();
+	        throw e;
+	    } finally {
+	        con.setAutoCommit(true);
+	    }
+	    System.out.println("Inserción de pedido exitosa");
+	}
 	
 	public List<Pedido> obtenerTodosLosPedidosConCoches() throws SQLException {
         List<Pedido> listaPedidos = new ArrayList<>();

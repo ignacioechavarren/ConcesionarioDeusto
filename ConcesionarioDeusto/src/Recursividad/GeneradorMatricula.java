@@ -2,7 +2,7 @@ package Recursividad;
 
 import java.util.Random;
 
-public class generadorMatricula {
+public class GeneradorMatricula {
     public static void main(String[] args) {
         String matricula = generarMatricula(4, 3);
         System.out.println("Matrícula: " + matricula);
