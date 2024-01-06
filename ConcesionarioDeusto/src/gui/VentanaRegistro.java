@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +119,12 @@ public class VentanaRegistro extends JFrame{
 				Concesionario.aniadirCliente(c);
 				bd bdd=new bd();
 				bdd.crearBBDD();
-				bdd.insertarCliente(c);
+				try {
+					bdd.insertarCliente(c);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "Cliente registrado con éxito","REGISTRADO",JOptionPane.INFORMATION_MESSAGE);
 				conc.guardarClientesEnFichero(nomfichClientes);
 				

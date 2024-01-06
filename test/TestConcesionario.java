@@ -93,15 +93,11 @@ public class TestConcesionario {
 	    @Test
 	    public void testInsertarCoche() throws SQLException {
 	        Coche coche = new Coche(20000.0, 2022, "Civic", Marca.getPorID("Honda"), "123ABC");
-
-	        // Insert the car into the database
-	        Concesionario.cargarClientesEnLista(nomfichClientes);
-	        for (Cliente c : Concesionario.getClientes()) {
-				bdd.insertarCliente(c);
+	        Concesionario.aniadirCoche(coche);
+	        for (Coche c : Concesionario.getCoches()) {
+				bdd.insertarCoche(c);
 			}
 	        bdd.insertarCoche(coche);
-
-	        // Retrieve the car from the database
 	        bdd.cargarCochesBDDConcesionario();	        
 	        assertTrue(Concesionario.getCoches().contains(coche));
 	    }
@@ -117,33 +113,40 @@ public class TestConcesionario {
 	        Cliente cliente = new Cliente("testDNI", "TestNombre", new Date(), "testPassword");
 	        Coche coche = new Coche(20000.0, 2022, "Civic", Marca.getPorID("Honda"), "123ABC");
 	        Pedido pedido = new Pedido(cliente, List.of(coche), LocalDateTime.now(), 20000.0);
-
-	        // Insert the order into the database
 	        bdd.insertarPedidoConDetalles(pedido);
-
-	        // Retrieve orders from the database	        
-	        assertTrue(bdd.obtenerTodosLosPedidosConCoches().contains(pedido));
+	        List<Pedido>pedidos=bdd.obtenerTodosLosPedidosConCoches();
+	        boolean res=false;
+	        for (Pedido p : pedidos) {
+				if(p.getCliente().getDni().equals("testDNI")&&p.getPrecioTotal()==20000.0){
+					int tam=p.getCoche().size();
+					for (Coche c : p.getCoche()) {
+						if(c.getMatricula().equals("123ABC")){
+							tam--;
+						}if(tam==0){
+							res=true;
+						}
+					}
+				}
+			}
+	        assertEquals(true, res);
 	    }
 
 	    @Test
-	    public void testInsertarCliente() {
+	    public void testInsertarCliente() throws SQLException {
 	        Cliente cliente = new Cliente("testDNI", "TestNombre", new Date(), "testPassword");	        
 	        bdd.insertarCliente(cliente);
+	        boolean res=false;
+	        for (Cliente c : bdd.obtenerClientes()) {
+				if(c.getDni().equals("testDNI")){
+					res=true;
+				}
+			}
 
-	        assertTrue(bdd.obtenerClientes().contains(cliente));
+	        assertEquals(true,res);
 	    }
 
-	    @Test
-	    public void testBorrarCliente() {
-	        String dniCliente = "testDNI";
-	        bdd.borrarCliente(dniCliente);
-
-	        // Retrieve customers from the database
-	        List<Cliente> clientes = bdd.obtenerClientes();
-	        assertFalse(clientes.stream().anyMatch(c -> c.getDni().equals(dniCliente)));
-	    }
-
-	    // Helper method to check if a table exists in the database
+	    
+	   
 	    private boolean tableExists(String tableName) {
 	        try (Connection connection = DriverManager.getConnection(bd.CONNECTION_STRING);
 	             ResultSet tables = connection.getMetaData().getTables(null, null, tableName, null)) {

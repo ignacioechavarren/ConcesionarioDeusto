@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -257,7 +258,12 @@ public class VentanaProfile extends JFrame{
 		btnConfirmarCambios.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        confirmarCambios();
+		        try {
+					confirmarCambios();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    }			
 		});
 		btnaceptarCond.addActionListener(new ActionListener() {
@@ -271,7 +277,7 @@ public class VentanaProfile extends JFrame{
 			}
 		});
 	}
-	private void confirmarCambios() {
+	private void confirmarCambios() throws SQLException {
 		   String dni=userDni.getText();
 		   String nombre=userName.getText();
 		   SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");

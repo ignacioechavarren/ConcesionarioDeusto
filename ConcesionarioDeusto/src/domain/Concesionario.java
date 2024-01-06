@@ -21,7 +21,7 @@ public class Concesionario {
 	/**
 	 * Atributos
 	 */
-	private static Set<Coche> coches = new TreeSet<>();
+	private static List<Coche> coches = new ArrayList<>();
 	private static List<Cliente> clientes = new ArrayList<>();
 	private static Map<Cliente, List<Coche>> reservas = new TreeMap<>();//new HashMap<>();
 	/**
@@ -44,7 +44,7 @@ public class Concesionario {
 	public static List<Cliente> getClientes(){
 		return clientes;
 	}
-	public static Set<Coche> getCoches(){
+	public static List<Coche> getCoches(){
 		return coches;
 	}
 	public static Map<Cliente, List<Coche>> getReservas(){

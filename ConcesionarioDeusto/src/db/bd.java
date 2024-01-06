@@ -74,6 +74,20 @@ public class bd {
 		}
 	}
 	
+	 public void insertarCliente(Cliente cliente) throws SQLException {		 
+		 Connection conn = DriverManager.getConnection(CONNECTION_STRING);
+	     String sql = "INSERT INTO Cliente (DNI, NOMBRE, FNAC, PASSWORD) VALUES (?, ?, ?, ?)";
+
+	        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	            pstmt.setString(1, cliente.getDni());
+	            pstmt.setString(2, cliente.getNombre());
+	            pstmt.setString(3, cliente.getfNacStr());
+	            pstmt.setString(4, cliente.getContrasenia());
+	            pstmt.executeUpdate();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	
 	public void insertarCoche(Coche coche) throws SQLException {
 		Connection con = DriverManager.getConnection(CONNECTION_STRING);        
@@ -165,8 +179,14 @@ public class bd {
                     String dniCliente = resultSetPedidos.getString("dni");
                     LocalDateTime fechaCompra = LocalDateTime.parse(resultSetPedidos.getString("fecha_compra"));
                     double precioTotal = resultSetPedidos.getDouble("precio_total");                    
-                    List<Coche> coches = obtenerCochesPorPedido(idPedido);                    
-                    Cliente cliente = Concesionario.buscarCliente(dniCliente);  
+                    List<Coche> coches = obtenerCochesPorPedido(idPedido); 
+                    List<Cliente> clientes=obtenerClientes();  
+                    Cliente cliente=null;
+                    for (Cliente c : clientes) {
+                    	if(c.getDni().equals(dniCliente)){
+                    		cliente=c;
+                    	}						
+					}  
                     Pedido pedido = new Pedido(cliente, coches, fechaCompra, precioTotal);
                     listaPedidos.add(pedido);
                 }
@@ -199,25 +219,8 @@ public class bd {
         }
 
         return coches;
-    }
-    
-    public void insertarCliente(Cliente cliente) {
-        String sql = "INSERT INTO Cliente (DNI, NOMBRE, FNAC, PASSWORD) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, cliente.getDni());
-            pstmt.setString(2, cliente.getNombre());
-            pstmt.setString(3, cliente.getfNacStr());
-            pstmt.setString(4, cliente.getContrasenia());
-
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    }    
+   
 
     public List<Cliente> obtenerClientes() {
         List<Cliente> clientes = new ArrayList<>();
@@ -226,18 +229,21 @@ public class bd {
         try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
+
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+
             while (rs.next()) {
                 String dni = rs.getString("DNI");
                 String nombre = rs.getString("NOMBRE");
                 String fNacStr = rs.getString("FNAC");
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                Date fechaNacimiento=null;
-				try {
-					fechaNacimiento = formatoFecha.parse(fNacStr);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                Date fechaNacimiento = null;
+                try {
+                    fechaNacimiento = formatoFecha.parse(fNacStr);
+                } catch (ParseException e) {                   
+                    fechaNacimiento = new Date();
+                    e.printStackTrace();
+                }
+
                 String contrasenia = rs.getString("PASSWORD");
                 Cliente cliente = new Cliente(dni, nombre, fechaNacimiento, contrasenia);
                 clientes.add(cliente);
@@ -245,8 +251,10 @@ public class bd {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return clientes;
     }
+
 
     public void borrarCliente(String dniCliente) {
         String sql = "DELETE FROM Cliente WHERE DNI = ?";
