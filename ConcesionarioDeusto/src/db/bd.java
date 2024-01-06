@@ -25,9 +25,9 @@ import domain.Pedido;
 
 public class bd {
 	
-	protected static String DRIVER_NAME;
-	protected static String DATABASE_FILE;
-	protected static String CONNECTION_STRING;
+	public static String DRIVER_NAME;
+	public static String DATABASE_FILE;
+	public static String CONNECTION_STRING;
 	
 	public bd() {		
 		try {
@@ -52,9 +52,9 @@ public class bd {
 		//Al abrir la conexión, si no existía el fichero, se crea la base de datos
 		try (Connection con = DriverManager.getConnection(CONNECTION_STRING)) {			
 	        String sql = "CREATE TABLE IF NOT EXISTS Cliente (\n"
-	                   + " ID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-	                   + " NAME TEXT NOT NULL,\n"
-	                   + " EMAIL TEXT NOT NULL,\n"
+	                   + " DNI TEXT PRIMARY KEY AUTOINCREMENT,\n"
+	                   + " NOMBRE TEXT NOT NULL,\n"
+	                   + " FNAC TEXT NOT NULL,\n"
 	                   + " PASSWORD TEXT NOT NULL\n"
 	                   + ");";
 	        
@@ -74,35 +74,6 @@ public class bd {
 		}
 	}
 	
-	public void borrarBBDD() {
-		//Se abre la conexión y se obtiene el Statement
-		try (Connection con = DriverManager.getConnection(CONNECTION_STRING)) {			
-	        
-			String sql = "DROP TABLE IF EXISTS Cliente";
-			
-	        PreparedStatement pstmt = con.prepareStatement(sql);
-			
-	        //Se ejecuta la sentencia de creación de la tabla Estudiantes
-	        if (!pstmt.execute()) {
-	        	System.out.println("\n- Se ha borrado la tabla Cliente");
-	        }
-
-	        //Es necesario cerrar el PreparedStatement
-	        pstmt.close();		
-		} catch (Exception ex) {
-			System.err.format("\n* Error al borrar la BBDD: %s", ex.getMessage());
-			ex.printStackTrace();			
-		}
-		
-		try {
-			//Se borra el fichero de la BBDD
-			Files.delete(Paths.get(DATABASE_FILE));
-			System.out.println("\n- Se ha borrado el fichero de la BBDD");
-		} catch (Exception ex) {
-			System.err.format("\n* Error al borrar el archivo de la BBDD: %s", ex.getMessage());
-			ex.printStackTrace();						
-		}
-	}
 	
 	public void insertarCoche(Coche coche) throws SQLException {
 		Connection con = DriverManager.getConnection(CONNECTION_STRING);        

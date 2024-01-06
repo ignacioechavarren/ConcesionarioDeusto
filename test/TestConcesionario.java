@@ -3,11 +3,20 @@ import static org.junit.Assert.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,6 +24,8 @@ import db.bd;
 import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
+import domain.Marca;
+import domain.Pedido;
 import gui.VentanaCarrito;
 import gui.VentanaInicio;
 import gui.VentanaLogin;
@@ -28,6 +39,7 @@ public class TestConcesionario {
 	private static Cliente cliente; 
 	private static Cliente cliente2; 
 	private static List<Coche> coches;
+	private static bd bdd;
 	private static VentanaRegistro ventanaregis;
 	private static VentanaInicio ventanainicio;
 	private static VentanaProfile ventanaprofile;
@@ -36,7 +48,7 @@ public class TestConcesionario {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		bd bdd=new bd();
+		bdd=new bd();
 		bdd.cargarCochesBDDConcesionario();
 		Concesionario.cargarClientesEnLista("Clientes.csv");
 		Main.carrito = new ArrayList<>(Concesionario.getCoches());
@@ -64,6 +76,84 @@ public class TestConcesionario {
 		ventanaCarrito.setVisible(false);
 		
 	}	
+	
+	 @After
+	    public void tearDown() throws Exception {
+	        
+	    }
+	 
+	@Test
+	   public void testCrearBBDD() {
+	       bdd.crearBBDD();
+	       assertTrue(tableExists("Cliente"));
+	    }
+	
+	 
+
+	    @Test
+	    public void testInsertarCoche() throws SQLException {
+	        Coche coche = new Coche(20000.0, 2022, "Civic", Marca.getPorID("Honda"), "123ABC");
+
+	        // Insert the car into the database
+	        Concesionario.cargarClientesEnLista(nomfichClientes);
+	        for (Cliente c : Concesionario.getClientes()) {
+				bdd.insertarCliente(c);
+			}
+	        bdd.insertarCoche(coche);
+
+	        // Retrieve the car from the database
+	        bdd.cargarCochesBDDConcesionario();	        
+	        assertTrue(Concesionario.getCoches().contains(coche));
+	    }
+
+	    @Test
+	    public void testCargarCochesBDDConcesionario() throws SQLException {	        
+	        bdd.cargarCochesBDDConcesionario();
+	        assertFalse(Concesionario.getCoches().isEmpty());
+	    }
+
+	    @Test
+	    public void testInsertarPedidoConDetalles() throws SQLException {
+	        Cliente cliente = new Cliente("testDNI", "TestNombre", new Date(), "testPassword");
+	        Coche coche = new Coche(20000.0, 2022, "Civic", Marca.getPorID("Honda"), "123ABC");
+	        Pedido pedido = new Pedido(cliente, List.of(coche), LocalDateTime.now(), 20000.0);
+
+	        // Insert the order into the database
+	        bdd.insertarPedidoConDetalles(pedido);
+
+	        // Retrieve orders from the database	        
+	        assertTrue(bdd.obtenerTodosLosPedidosConCoches().contains(pedido));
+	    }
+
+	    @Test
+	    public void testInsertarCliente() {
+	        Cliente cliente = new Cliente("testDNI", "TestNombre", new Date(), "testPassword");	        
+	        bdd.insertarCliente(cliente);
+
+	        assertTrue(bdd.obtenerClientes().contains(cliente));
+	    }
+
+	    @Test
+	    public void testBorrarCliente() {
+	        String dniCliente = "testDNI";
+	        bdd.borrarCliente(dniCliente);
+
+	        // Retrieve customers from the database
+	        List<Cliente> clientes = bdd.obtenerClientes();
+	        assertFalse(clientes.stream().anyMatch(c -> c.getDni().equals(dniCliente)));
+	    }
+
+	    // Helper method to check if a table exists in the database
+	    private boolean tableExists(String tableName) {
+	        try (Connection connection = DriverManager.getConnection(bd.CONNECTION_STRING);
+	             ResultSet tables = connection.getMetaData().getTables(null, null, tableName, null)) {
+	            return tables.next();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
+	
 		
 	@Test
 	public void testCargarClientes() {
