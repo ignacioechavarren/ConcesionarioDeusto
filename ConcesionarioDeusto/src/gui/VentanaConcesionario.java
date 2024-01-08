@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -79,6 +81,7 @@ public class VentanaConcesionario extends JFrame{
 	private Coche cocheSel;
 	private int mouseRowPersonajes = -1;
 	private int value=Main.carrito.size();
+	private  boolean ventanaAbierta = false;
 
 	
 	public VentanaConcesionario(Concesionario conc, Cliente cliente) {
@@ -322,7 +325,37 @@ public class VentanaConcesionario extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(!ventanaAbierta) {
 				VentanaCombinaciones vc=new VentanaCombinaciones(Concesionario.getCoches());
+				vc.setAlwaysOnTop(true);
+				vc.addWindowListener(new WindowListener(){					
+					@Override
+					public void windowOpened(WindowEvent e){
+						ventanaAbierta=true;						
+					}					
+					@Override
+					public void windowIconified(WindowEvent e){						
+					}					
+					@Override
+					public void windowDeiconified(WindowEvent e){
+					}					
+					@Override
+					public void windowDeactivated(WindowEvent e) {						
+					}					
+					@Override
+					public void windowClosing(WindowEvent e) {						
+					}					
+					@Override
+					public void windowClosed(WindowEvent e) {
+						ventanaAbierta=false;						
+					}					
+					@Override
+					public void windowActivated(WindowEvent e) {						
+					}
+				});
+				}else {
+					JOptionPane.showMessageDialog(null, "La ventana ya esta abierta","ERROR",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
