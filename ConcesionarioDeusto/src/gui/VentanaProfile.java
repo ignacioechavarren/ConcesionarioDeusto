@@ -82,7 +82,7 @@ public class VentanaProfile extends JFrame{
 		this.clienteMod=cliente;
 		userDniSeguro=cliente.getDni();	
 		
-		ImageIcon icon2=new ImageIcon("imagenes/ajustes2.png");
+		ImageIcon icon2=new ImageIcon("resources/imagenes/ajustes2.png");
 		Image imagen2=icon2.getImage();
 		Image im3=imagen2.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
 		JLabel iconLabel=new JLabel(new ImageIcon(im3));
@@ -156,7 +156,7 @@ public class VentanaProfile extends JFrame{
 		pContent8=new JPanel();
 		pContent8.setBackground(new Color(40, 40, 40));
 		
-		ImageIcon icon=new ImageIcon("imagenes/perfil.png");	
+		ImageIcon icon=new ImageIcon("resources/imagenes/perfil.png");	
 		Image imagen=icon.getImage();
 		Image im2=imagen.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
 		userIcon=new JLabel(new ImageIcon(im2));

@@ -46,14 +46,14 @@ import domain.Concesionario;
 			pCentro = new JPanel();
 			pCentro.setBackground(new Color(40, 40, 40));
 			pCentro.setLayout(new BorderLayout());
-			ImageIcon icono = new ImageIcon("imagenes/1366_2000.jpg");
+			ImageIcon icono = new ImageIcon("resources/imagenes/1366_2000.jpg");
 			JLabel etiquetaImagen = new JLabel(icono);
 			pCentro.add(etiquetaImagen, BorderLayout.CENTER);
 			
 			pSur = new JPanel();
 			pSur.setBackground(new Color(40, 40, 40));
 			
-			ImageIcon icon=new ImageIcon("imagenes/logo.png");	
+			ImageIcon icon=new ImageIcon("resources/imagenes/logo.png");	
 			Image imagen=icon.getImage();
 			Image im2=imagen.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
 			inicio=new JLabel("CONCESIONARIO DEUSTO");

@@ -73,7 +73,7 @@ public class VentanaCarrito extends JFrame {
         modeloTabla.addColumn("Precio (€)");
         
         for (Coche coche : Main.carrito) {
-        	Image imagenOriginal = ImageIO.read(new File ("imagenes/"+coche.getModelo()+".png"));
+        	Image imagenOriginal = ImageIO.read(new File ("resources/imagenes/"+coche.getModelo()+".png"));
         	Image imagenEscalada = imagenOriginal.getScaledInstance(ANCHO_MAXIMO, -1, Image.SCALE_SMOOTH);
             modeloTabla.addRow(new Object[]{new ImageIcon(imagenEscalada), coche.getModelo(), coche.getPrecio()});
         }

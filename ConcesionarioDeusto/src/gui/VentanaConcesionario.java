@@ -115,10 +115,10 @@ public class VentanaConcesionario extends JFrame{
 		
 		btnAniadirCocheAlaReserva = new JButton("AÑADIR COCHE AL CARRITO");
 		
-		ImageIcon icon=new ImageIcon("imagenes/perfil.png");	
+		ImageIcon icon=new ImageIcon("resources/imagenes/perfil.png");	
 		Image imagen=icon.getImage();
 		Image im2=imagen.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-		ImageIcon icon2=new ImageIcon("imagenes/carrito.png");	
+		ImageIcon icon2=new ImageIcon("resources/imagenes/carrito.png");	
 		Image imagen2=icon2.getImage();
 		Image im3=imagen2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		
@@ -460,7 +460,7 @@ public class VentanaConcesionario extends JFrame{
 				switch (m) { 
 					case SEA:
 					try {
-						id.setImage (ImageIO.read (new File ("imagenes/SEAT_Logo_from_2017.png")));
+						id.setImage (ImageIO.read (new File ("resources/imagenes/SEAT_Logo_from_2017.png")));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -468,7 +468,7 @@ public class VentanaConcesionario extends JFrame{
 						break;
 					case BMW:
 					try {
-						id.setImage (ImageIO.read (new File ("imagenes/bmw_logo_PNG19712.png")));
+						id.setImage (ImageIO.read (new File ("resources/imagenes/bmw_logo_PNG19712.png")));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -476,7 +476,7 @@ public class VentanaConcesionario extends JFrame{
 						break;
 					case OPE:
 					try {
-						id.setImage (ImageIO.read (new File ("imagenes/Opel-Logo_2017.png")));
+						id.setImage (ImageIO.read (new File ("resources/imagenes/Opel-Logo_2017.png")));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -484,7 +484,7 @@ public class VentanaConcesionario extends JFrame{
 						break;
 					case TOY:
 					try {
-						id.setImage (ImageIO.read (new File ("imagenes/toyota.png")));
+						id.setImage (ImageIO.read (new File ("resources/imagenes/toyota.png")));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -492,7 +492,7 @@ public class VentanaConcesionario extends JFrame{
 						break;
 					case FOR:
 					try {
-						id.setImage (ImageIO.read (new File ("imagenes/Ford-Motor-Company-Logo.png")));
+						id.setImage (ImageIO.read (new File ("resources/imagenes/Ford-Motor-Company-Logo.png")));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -500,7 +500,7 @@ public class VentanaConcesionario extends JFrame{
 						break;
 					case HON:
 					try {
-						id.setImage (ImageIO.read (new File ("imagenes/Logo_Honda_F1.png")));
+						id.setImage (ImageIO.read (new File ("resources/imagenes/Logo_Honda_F1.png")));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -508,7 +508,7 @@ public class VentanaConcesionario extends JFrame{
 						break;
 					case VOL:
 					try {
-						id.setImage (ImageIO.read (new File ("imagenes/Volkswagen_Logo_till_1995.svg.png")));
+						id.setImage (ImageIO.read (new File ("resources/imagenes/Volkswagen_Logo_till_1995.svg.png")));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
