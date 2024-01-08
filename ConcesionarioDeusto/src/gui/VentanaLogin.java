@@ -117,11 +117,8 @@ public class VentanaLogin extends JFrame{
 			}else {
 				if(c.getContrasenia().equals(con)) {
 					JOptionPane.showMessageDialog(null, "Bienvenido!","SESIÓN INICIADA",JOptionPane.INFORMATION_MESSAGE);
-					cliente = c; //Guardo en cliente los datos del cliente que ha iniciado sesión
-					carrito = new ArrayList<>(); //Instancio (creo) un carrito vacío
-					
-					
-					//new VentanaProductos(conc);
+					cliente = c;
+					carrito = new ArrayList<>();
 					new VentanaConcesionario(conc, cliente);
 					frame.dispose();
 					

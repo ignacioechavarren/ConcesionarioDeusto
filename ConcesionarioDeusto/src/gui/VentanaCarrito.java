@@ -52,10 +52,8 @@ public class VentanaCarrito extends JFrame {
         panelNorte = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelNorte.setBackground(new Color(40, 40, 40));
         panelNorte.setBorder(new EmptyBorder(20, 0, 20, 0));
-
         panelCentro = new JPanel(new BorderLayout());
         panelCentro.setBackground(new Color(40, 40, 40));
-
         modeloTabla = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -83,7 +81,6 @@ public class VentanaCarrito extends JFrame {
         tablaProductos.setRowHeight(100);
         tablaProductos.getColumnModel().getColumn(0).setPreferredWidth(100);
         panelCentro.add(new JScrollPane(tablaProductos), BorderLayout.CENTER);
-
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.setTopComponent(panelCentro);

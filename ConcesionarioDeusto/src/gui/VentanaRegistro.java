@@ -32,12 +32,9 @@ public class VentanaRegistro extends JFrame{
 	private JPasswordField txtConR= new JPasswordField(20);
 	private JButton btnRegistro, btnVolver;
 	private static final String nomfichClientes = "Clientes.csv";
-	private JFrame frame= new JFrame("CONCESIONARIO DEUSTO");
-	
+	private JFrame frame= new JFrame("CONCESIONARIO DEUSTO");	
 	private static Cliente cliente = new Cliente();
 	private static List<Coche> carrito = new ArrayList<>();
-
-	
 	
 	public static Cliente getCliente() {
 		return cliente;
@@ -122,22 +119,20 @@ public class VentanaRegistro extends JFrame{
 				try {
 					bdd.insertarCliente(c);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(null, "Cliente registrado con éxito","REGISTRADO",JOptionPane.INFORMATION_MESSAGE);
 				conc.guardarClientesEnFichero(nomfichClientes);
 				
 			}}
-		});
-		
-	
+		});	
 		
 		btnVolver.addActionListener((e)->{
 			conc.guardarClientesEnFichero(nomfichClientes);		
 			frame.dispose();
 			VentanaInicio vi = new VentanaInicio(conc);
 		});
+		
 		pTotal.add(pNorte);
 		pTotal.add(pCentro);
 		pTotal.add(pCentro2);
@@ -145,9 +140,7 @@ public class VentanaRegistro extends JFrame{
 		lblDniR = new JLabel("DNI: ");
 		pCentro3.add(lblDniR);
 		lblDniR.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDniR.setForeground(new Color(255, 165, 0));
-		
-		
+		lblDniR.setForeground(new Color(255, 165, 0));		
 		
 		txtDniR = new JTextField(20);
 		pCentro3.add(txtDniR);
@@ -174,8 +167,7 @@ public class VentanaRegistro extends JFrame{
 		pTotal.add(pCentro7);
 		pTotal.add(pCentro8);
 		pTotal.add(pSur);
-		frame.getContentPane().add(pTotal);
-		
+		frame.getContentPane().add(pTotal);		
 		frame.setVisible(true);
 	}
 }
