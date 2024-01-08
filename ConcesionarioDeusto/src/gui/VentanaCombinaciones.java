@@ -15,6 +15,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Map;
+//IAG: ChatGPT
+//FILE: daniel.nocito-opendeusto
+//ADAPTADO: La intención era entender un error con relacion a lo group layout en uso, pero ante la imposibilidad de solucionarlo le pedi 
+//a la ia una solución mas simple. En conclusion no se usaron los layout group y se desecho la 
+//idea y fuimos mas conservadores con una interface sencilla.
 
 public class VentanaCombinaciones extends JFrame {
 
@@ -36,7 +41,6 @@ public class VentanaCombinaciones extends JFrame {
         modelo.addColumn("Ver Detalles");
 
         tabla = new JTable(modelo);
-        // Centrar el contenido de las celdas
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         tabla.setDefaultRenderer(Object.class, centerRenderer);

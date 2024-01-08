@@ -1,1 +1,807 @@
 #2024-1-7_2:46
+User
+package gui;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import domain.Coche;
+import domain.Concesionario;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
+
+public class VentanaCombinaciones extends JFrame {
+
+    private JTable tabla;
+    private JTextField presupuestoField;
+    private JButton generarCombinacionesButton;
+
+    public VentanaCombinaciones(List<Coche> listaDeCoches) {
+        super("Combinaciones de Compra");
+
+        // Crear modelo de tabla
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Dinero Restante");
+        modelo.addColumn("Coches Comprados");
+
+        // Crear la tabla con el modelo
+        tabla = new JTable(modelo);
+
+        // Configurar la ventana
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 400);
+
+        // Configurar un campo de texto para el presupuesto
+        presupuestoField = new JTextField(10);
+        add(new JLabel("Presupuesto:"));
+        add(presupuestoField);
+
+        // Configurar un botón para generar las combinaciones
+        generarCombinacionesButton = new JButton("Generar Combinaciones");
+        add(generarCombinacionesButton);
+
+        // Agregar un ActionListener al botón
+        generarCombinacionesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generarCombinaciones();
+            }
+        });
+
+        // Agregar la tabla a un JScrollPane y agregarlo a la ventana
+        JScrollPane scrollPane = new JScrollPane(tabla);
+        add(scrollPane);
+
+        // Configurar el diseño de la ventana
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        // Configurar el diseño horizontal
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(new JLabel("Presupuesto:"))
+                                .addComponent(presupuestoField)
+                                .addComponent(generarCombinacionesButton))
+                        .addComponent(scrollPane)
+        );
+
+        // Configurar el diseño vertical
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(new JLabel("Presupuesto:"))
+                                .addComponent(presupuestoField)
+                                .addComponent(generarCombinacionesButton))
+                        .addComponent(scrollPane)
+        );
+
+        // Hacer visible la ventana
+        setVisible(true);
+    }
+
+    private void generarCombinaciones() {
+        // Obtener el presupuesto ingresado
+        double presupuesto = Double.parseDouble(presupuestoField.getText());
+
+        // Obtener la lista de coches del concesionario
+        List<Coche> listaDeCoches = Concesionario.getCoches();
+
+        // Generar todas las combinaciones posibles
+        Map<Integer, Map<String, Object>> combinaciones = Concesionario.generarCombinacionesDeCompra(presupuesto, listaDeCoches);
+
+        // Actualizar la tabla con las nuevas combinaciones
+        actualizarTabla(combinaciones);
+    }
+
+    private void actualizarTabla(Map<Integer, Map<String, Object>> combinaciones) {
+        // Limpiar el modelo de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.setRowCount(0);
+
+        // Llenar la tabla con los datos de las combinaciones
+        for (Map.Entry<Integer, Map<String, Object>> entry : combinaciones.entrySet()) {
+            int id = entry.getKey();
+            Map<String, Object> infoCompra = entry.getValue();
+            double dineroRestante = (double) infoCompra.get("dineroRestante");
+            List<Coche> cochesComprados = (List<Coche>) infoCompra.get("coches");
+
+            // Crear una fila con los datos
+            Object[] fila = {id, dineroRestante, cochesComprados};
+
+            // Agregar la fila al modelo de la tabla
+            modelo.addRow(fila);
+        }
+    }
+
+    
+}
+ChatGPT
+El código de tu ventana de combinaciones parece correcto en términos generales. Sin embargo, se debe considerar que estás usando Double.parseDouble(presupuestoField.getText()) directamente, lo cual puede generar una excepción NumberFormatException si el usuario ingresa un valor no numérico.
+
+Sería buena práctica incluir una validación para asegurarte de que el valor ingresado sea un número antes de intentar convertirlo. Además, te recomiendo gestionar esta excepción de manera adecuada para proporcionar un mensaje de error o alguna acción que consideres pertinente.
+
+Aquí hay una pequeña modificación para agregar una validación:
+
+java
+Copy code
+private void generarCombinaciones() {
+    try {
+        // Obtener el presupuesto ingresado
+        double presupuesto = Double.parseDouble(presupuestoField.getText());
+
+        // Obtener la lista de coches del concesionario
+        List<Coche> listaDeCoches = Concesionario.getCoches();
+
+        // Generar todas las combinaciones posibles
+        Map<Integer, Map<String, Object>> combinaciones = Concesionario.generarCombinacionesDeCompra(presupuesto, listaDeCoches);
+
+        // Actualizar la tabla con las nuevas combinaciones
+        actualizarTabla(combinaciones);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico para el presupuesto.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+En este ejemplo, he envuelto el bloque de código que realiza la conversión de presupuestoField.getText() en un bloque try-catch. Si se produce una excepción NumberFormatException, se muestra un mensaje de error utilizando un cuadro de diálogo de JOptionPane. Este enfoque ayuda a manejar situaciones donde el usuario ingresa datos incorrectos.
+
+User
+package main;
+
+import domain.Cliente;
+import domain.Coche;
+import domain.Concesionario;
+import domain.Marca;
+import gui.VentanaCombinaciones;
+import gui.VentanaInicio;
+import gui.VentanaLogin;
+import gui.VentanaRegistro;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.swing.SwingUtilities;
+
+import db.bd;
+
+
+
+public class Main {
+	
+  public static ArrayList<Coche> carrito = new ArrayList<Coche>();
+
+	public static void main(String[] args) {
+		Concesionario conc=new Concesionario();
+		bd bdd=new bd();
+		bdd.crearBBDD();
+		try {
+			bdd.cargarCochesBDDConcesionario();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Coche c1 = new Coche(500, 1996, "Ibiza",Marca.SEA,"8828CUP" );
+		Coche c2 = new Coche(800, 2000, "E46",Marca.BMW,"4777CHD" );
+				
+		Cliente cli1 = new Cliente("16102892V", "Jon", "14-10-1999", "A");
+		Cliente cli2 = new Cliente("16122842V", "Alex", "04-10-2009", "B");
+				
+		Concesionario.imprimirCoches();
+		
+		//Concesionario.aniadirCliente(cli1);
+		//Concesionario.aniadirCliente(cli2);
+		Concesionario.cargarClientesEnLista("Clientes.csv");
+		System.out.println("Lista de clientes antes de ordenarla");
+		Concesionario.imprimirClientes();
+		Concesionario.ordenarListaClientes();
+		System.out.println("Lista de clientes después de ordenarla");
+		Concesionario.imprimirClientes();
+		
+		Concesionario.aniadirReserva(cli1, c1);
+		Concesionario.aniadirReserva(cli2, c2);
+		Concesionario.aniadirReserva(cli1, c2);
+		System.out.println("TODAS LAS RESERVAS");
+		Concesionario.imprimirReservas();
+		System.out.println("Reservas del cliente: "+cli1.getDni());
+		Concesionario.imprimirReservasCliente(cli1);
+		System.out.println("************************************************************************");
+				
+		
+		//SwingUtilities.invokeLater(() -> new VentanaProductos(conc));
+
+		//VentanaInicio vi=new VentanaInicio(conc);
+		new VentanaCombinaciones(Concesionario.getCoches());
+		
+		
+	}
+
+
+	}
+ChatGPT
+Tu aplicación parece tener varias funcionalidades, como cargar coches desde una base de datos, gestionar clientes, realizar reservas y mostrar combinaciones de compra. Aquí hay algunos comentarios y sugerencias sobre tu código:
+
+Nombres de variables y métodos descriptivos: Intenta utilizar nombres de variables y métodos más descriptivos para que tu código sea más fácil de entender. Por ejemplo, en lugar de cli1 y cli2, podrías usar clienteJon y clienteAlex.
+
+Manejo de excepciones: Cuando manejas excepciones, generalmente es una buena práctica imprimir o registrar información sobre la excepción para facilitar la depuración en caso de errores. En tu código, cuando atrapas una excepción de SQL, estás imprimiendo la traza de la pila, lo cual es útil, pero podría ser más claro en términos de mensajes.
+
+Uso de constantes: Puedes considerar el uso de constantes para valores que se utilizan en varios lugares, como el nombre del archivo de clientes ("Clientes.csv"). Esto facilita la actualización y mantenimiento del código.
+
+Interfaz de usuario y multihilo: Parece que estás utilizando Swing para la interfaz de usuario. Recuerda que las operaciones de interfaz de usuario deben ejecutarse en el hilo de despacho de eventos de Swing. Utiliza SwingUtilities.invokeLater para asegurarte de que la creación de la interfaz de usuario se realice en el hilo adecuado.
+
+Gestión de clientes y coches: Puedes encapsular la lógica de gestión de clientes y coches en tu clase Concesionario. Por ejemplo, podrías tener métodos como añadirCliente, ordenarListaClientes, añadirReserva, etc., directamente en Concesionario. Esto ayudará a organizar y simplificar tu código.
+
+Uso de ArrayList en lugar de List: Donde sea posible, utiliza el tipo de interfaz (List) en lugar de la implementación específica (ArrayList). Esto facilita cambiar la implementación en el futuro si es necesario.
+
+Comentarios: Aunque tu código está bastante claro, puedes considerar agregar comentarios para explicar secciones más complejas o para proporcionar información adicional sobre el propósito de ciertas partes del código.
+
+Cerrar recursos: Al trabajar con recursos como Scanner o PrintWriter, es importante cerrarlos correctamente. Considera el uso de bloques try-with-resources para garantizar que los recursos se cierren adecuadamente.
+
+Espero que estos comentarios te sean útiles. Si tienes alguna pregunta específica o si hay algo específico en lo que necesitas ayuda, no dudes en preguntar.
+
+User
+package gui;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import domain.Coche;
+import domain.Concesionario;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
+
+public class VentanaCombinaciones extends JFrame {
+
+    private JTable tabla;
+    private JTextField presupuestoField;
+    private JButton generarCombinacionesButton;
+
+    public VentanaCombinaciones(List<Coche> listaDeCoches) {
+        super("Combinaciones de Compra");
+
+        // Crear modelo de tabla
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Dinero Restante");
+        modelo.addColumn("Coches Comprados");
+
+        // Crear la tabla con el modelo
+        tabla = new JTable(modelo);
+
+        // Configurar la ventana
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 400);
+
+        // Configurar un campo de texto para el presupuesto
+        presupuestoField = new JTextField(10);
+        add(new JLabel("Presupuesto:"));
+        add(presupuestoField);
+
+        // Configurar un botón para generar las combinaciones
+        generarCombinacionesButton = new JButton("Generar Combinaciones");
+        add(generarCombinacionesButton);
+
+        // Agregar un ActionListener al botón
+        generarCombinacionesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generarCombinaciones();
+            }
+        });
+
+        // Agregar la tabla a un JScrollPane y agregarlo a la ventana
+        JScrollPane scrollPane = new JScrollPane(tabla);
+        add(scrollPane);
+
+        // Configurar el diseño de la ventana
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        // Configurar el diseño horizontal
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(new JLabel("Presupuesto:"))
+                                .addComponent(presupuestoField)
+                                .addComponent(generarCombinacionesButton))
+                        .addComponent(scrollPane)
+        );
+
+        // Configurar el diseño vertical
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(new JLabel("Presupuesto:"))
+                                .addComponent(presupuestoField)
+                                .addComponent(generarCombinacionesButton))
+                        .addComponent(scrollPane)
+        );
+
+        // Hacer visible la ventana
+        setVisible(true);
+    }
+
+    private void generarCombinaciones() {
+        try {
+            // Obtener el presupuesto ingresado
+            double presupuesto = Double.parseDouble(presupuestoField.getText());
+
+            // Obtener la lista de coches del concesionario
+            List<Coche> listaDeCoches = Concesionario.getCoches();
+
+            // Generar todas las combinaciones posibles
+            Map<Integer, Map<String, Object>> combinaciones = Concesionario.generarCombinacionesDeCompra(presupuesto, listaDeCoches);
+
+            // Actualizar la tabla con las nuevas combinaciones
+            actualizarTabla(combinaciones);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico para el presupuesto.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    private void actualizarTabla(Map<Integer, Map<String, Object>> combinaciones) {
+        // Limpiar el modelo de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.setRowCount(0);
+
+        // Llenar la tabla con los datos de las combinaciones
+        for (Map.Entry<Integer, Map<String, Object>> entry : combinaciones.entrySet()) {
+            int id = entry.getKey();
+            Map<String, Object> infoCompra = entry.getValue();
+            double dineroRestante = (double) infoCompra.get("dineroRestante");
+            List<Coche> cochesComprados = (List<Coche>) infoCompra.get("coches");
+
+            // Crear una fila con los datos
+            Object[] fila = {id, dineroRestante, cochesComprados};
+
+            // Agregar la fila al modelo de la tabla
+            modelo.addRow(fila);
+        }
+    }
+
+    
+}
+ChatGPT
+Tu clase VentanaCombinaciones parece estar diseñada para mostrar combinaciones de coches que se pueden comprar con un presupuesto dado. Aquí algunos comentarios y sugerencias adicionales:
+
+Manejo de excepciones: En el método generarCombinaciones, estás manejando la excepción NumberFormatException cuando el usuario ingresa un valor no numérico. Esto es bueno para proporcionar retroalimentación al usuario. Sería aún mejor incluir un mensaje en el cuadro de diálogo de error que indique específicamente qué salió mal.
+
+java
+Copy code
+JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido para el presupuesto.", "Error", JOptionPane.ERROR_MESSAGE);
+Uso de Double.parseDouble: Ten en cuenta que Double.parseDouble puede lanzar una NumberFormatException si el formato del número ingresado no es válido. Sería prudente incluir un manejo de excepciones para manejar esta situación.
+
+Tabla y Listas: En tu implementación actual, estás tratando de mostrar la lista de coches comprados directamente en una celda de la tabla. Esto puede no ser visualmente agradable y puede ser difícil de leer si hay muchos coches. Considera mostrar solo una representación más concisa de la información en la celda de la tabla o utilizar un enfoque diferente para mostrar las listas de coches.
+
+Diseño de interfaz: La interfaz gráfica es un aspecto crucial para la experiencia del usuario. Puedes considerar agregar etiquetas explicativas o mensajes informativos para mejorar la comprensión de la función de la ventana. Además, puedes explorar opciones para mejorar el diseño visual de la ventana.
+
+Manejo de Eventos: En lugar de usar una clase anónima para el ActionListener, puedes considerar usar lambdas (si estás utilizando Java 8 o superior) para hacer que el código sea más conciso.
+
+Con estas sugerencias, tu clase parece estar bien estructurada y debería cumplir su propósito. Si tienes alguna pregunta específica o si hay algo en lo que necesitas ayuda, no dudes en preguntar.
+
+User
+con ese main y la ultima version de la ventana me salta el siguiente error:Exception in thread "main" java.lang.IllegalStateException: javax.swing.JLabel[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,horizontalAlignment=LEADING,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=Presupuesto:,verticalAlignment=CENTER,verticalTextPosition=CENTER] is not attached to a horizontal group
+	at java.desktop/javax.swing.GroupLayout.checkComponents(GroupLayout.java:1090)
+	at java.desktop/javax.swing.GroupLayout.prepare(GroupLayout.java:1044)
+	at java.desktop/javax.swing.GroupLayout.layoutContainer(GroupLayout.java:914)
+	at java.desktop/java.awt.Container.layout(Container.java:1541)
+	at java.desktop/java.awt.Container.doLayout(Container.java:1530)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1725)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validate(Container.java:1660)
+	at java.desktop/java.awt.Container.validateUnconditionally(Container.java:1697)
+	at java.desktop/java.awt.Window.show(Window.java:1055)
+	at java.desktop/java.awt.Component.show(Component.java:1728)
+	at java.desktop/java.awt.Component.setVisible(Component.java:1675)
+	at java.desktop/java.awt.Window.setVisible(Window.java:1036)
+	at gui.VentanaCombinaciones.<init>(VentanaCombinaciones.java:84)
+	at main.Main.main(Main.java:68)
+Exception in thread "AWT-EventQueue-0" java.lang.IllegalStateException: javax.swing.JLabel[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,horizontalAlignment=LEADING,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=Presupuesto:,verticalAlignment=CENTER,verticalTextPosition=CENTER] is not attached to a horizontal group
+	at java.desktop/javax.swing.GroupLayout.checkComponents(GroupLayout.java:1090)
+	at java.desktop/javax.swing.GroupLayout.prepare(GroupLayout.java:1044)
+	at java.desktop/javax.swing.GroupLayout.layoutContainer(GroupLayout.java:914)
+	at java.desktop/java.awt.Container.layout(Container.java:1541)
+	at java.desktop/java.awt.Container.doLayout(Container.java:1530)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1725)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validate(Container.java:1660)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2778)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4833)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:97)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+ChatGPT
+El error que estás experimentando, IllegalStateException, generalmente ocurre cuando hay un problema con la configuración del GroupLayout en la interfaz gráfica. En tu caso, parece que el diseño horizontal (Horizontal Group) del GroupLayout no se ha configurado correctamente.
+
+Revisemos el código para ver si podemos identificar la fuente del problema. La excepción indica que hay un problema con un JLabel relacionado con el presupuesto. Aquí está la parte del código relevante:
+
+java
+Copy code
+layout.setHorizontalGroup(
+    layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addComponent(new JLabel("Presupuesto:"))
+            .addComponent(presupuestoField)
+            .addComponent(generarCombinacionesButton))
+        .addComponent(scrollPane)
+);
+El código parece estar correctamente estructurado para un GroupLayout, pero el problema puede surgir debido a la forma en que se agregan los componentes al diseño horizontal. Aquí hay algunas cosas que puedes probar:
+
+Usa GroupLayout.SequentialGroup: Puedes probar a encapsular la parte relacionada con el presupuesto en un SequentialGroup:
+java
+Copy code
+layout.setHorizontalGroup(
+    layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(new JLabel("Presupuesto:"))
+                .addComponent(presupuestoField))
+            .addComponent(generarCombinacionesButton))
+        .addComponent(scrollPane)
+);
+Verifica la disposición de componentes: Asegúrate de que todos los componentes agregados estén configurados correctamente. Verifica si hay algún otro componente en el código que podría afectar la disposición.
+
+Prueba con un diseño más simple: Puedes intentar simplificar el diseño eliminando componentes uno por uno y viendo si el error persiste. Esto podría ayudarte a identificar cuál componente está causando el problema.
+
+Si después de realizar estos cambios aún experimentas el problema, podría ser útil proporcionar más detalles sobre cómo se configuran otros componentes en tu ventana o proporcionar más del código relacionado con el diseño de la interfaz gráfica.
+
+User
+e pegado el HoricontalGroup kue me has pasv
+ChatGPT
+Entendido. Parece que el código que proporcionaste está utilizando GroupLayout y algunas de las recomendaciones que hice ya están presentes en tu código. Sin embargo, veo que las llamadas a los métodos addComponent y addGroup están directamente en el constructor de GroupLayout, lo cual podría estar causando el problema.
+
+Vamos a refactorizar el código para asegurarnos de que las llamadas a estos métodos estén organizadas correctamente:
+
+java
+Copy code
+// Configurar el diseño de la ventana
+GroupLayout layout = new GroupLayout(getContentPane());
+getContentPane().setLayout(layout);
+layout.setAutoCreateGaps(true);
+layout.setAutoCreateContainerGaps(true);
+
+// Configurar el diseño horizontal
+layout.setHorizontalGroup(
+    layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addComponent(new JLabel("Presupuesto:"))
+            .addComponent(presupuestoField)
+            .addComponent(generarCombinacionesButton))
+        .addComponent(scrollPane)
+);
+
+// Configurar el diseño vertical
+layout.setVerticalGroup(
+    layout.createSequentialGroup()
+        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+            .addComponent(new JLabel("Presupuesto:"))
+            .addComponent(presupuestoField
+User
+Exception in thread "main" java.lang.IllegalStateException: javax.swing.JLabel[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,horizontalAlignment=LEADING,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=Presupuesto:,verticalAlignment=CENTER,verticalTextPosition=CENTER] is not attached to a horizontal group
+	at java.desktop/javax.swing.GroupLayout.checkComponents(GroupLayout.java:1090)
+	at java.desktop/javax.swing.GroupLayout.prepare(GroupLayout.java:1044)
+	at java.desktop/javax.swing.GroupLayout.layoutContainer(GroupLayout.java:914)
+	at java.desktop/java.awt.Container.layout(Container.java:1541)
+	at java.desktop/java.awt.Container.doLayout(Container.java:1530)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1725)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validate(Container.java:1660)
+	at java.desktop/java.awt.Container.validateUnconditionally(Container.java:1697)
+	at java.desktop/java.awt.Window.show(Window.java:1055)
+	at java.desktop/java.awt.Component.show(Component.java:1728)
+	at java.desktop/java.awt.Component.setVisible(Component.java:1675)
+	at java.desktop/java.awt.Window.setVisible(Window.java:1036)
+	at gui.VentanaCombinaciones.<init>(VentanaCombinaciones.java:86)
+	at main.Main.main(Main.java:68)
+Exception in thread "AWT-EventQueue-0" java.lang.IllegalStateException: javax.swing.JLabel[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,horizontalAlignment=LEADING,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=,text=Presupuesto:,verticalAlignment=CENTER,verticalTextPosition=CENTER] is not attached to a horizontal group
+	at java.desktop/javax.swing.GroupLayout.checkComponents(GroupLayout.java:1090)
+	at java.desktop/javax.swing.GroupLayout.prepare(GroupLayout.java:1044)
+	at java.desktop/javax.swing.GroupLayout.layoutContainer(GroupLayout.java:914)
+	at java.desktop/java.awt.Container.layout(Container.java:1541)
+	at java.desktop/java.awt.Container.doLayout(Container.java:1530)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1725)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validateTree(Container.java:1734)
+	at java.desktop/java.awt.Container.validate(Container.java:1660)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2778)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4833)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:97)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+ChatGPT
+El problema parece estar relacionado con la organización de los componentes en el GroupLayout. Te proporcioné una versión simplificada de tu código original, pero parece que hay un problema persistente. Vamos a hacer una revisión más detallada para asegurarnos de que todo esté correctamente organizado.
+
+java
+Copy code
+// Configurar el diseño de la ventana
+GroupLayout layout = new GroupLayout(getContentPane());
+getContentPane().setLayout(layout);
+layout.setAutoCreateGaps(true);
+layout.setAutoCreateContainerGaps(true);
+
+// Configurar el diseño horizontal
+layout.setHorizontalGroup(
+    layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addComponent(new JLabel("Presupuesto:"))
+            .addComponent(presupuestoField)
+            .addComponent(generarCombinacionesButton))
+        .addComponent(scrollPane)
+);
+
+// Configurar el diseño vertical
+layout.setVerticalGroup(
+    layout.createSequentialGroup()
+        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+            .addComponent(new JLabel("Presupuesto:"))
+            .addComponent(presupuestoField)
+            .addComponent(generarCombinacionesButton))
+        .addComponent(scrollPane)
+);
+
+// Hacer visible la ventana
+setVisible(true);
+Asegúrate de que no haya líneas adicionales innecesarias entre estas secciones de código y que el código relacionado con la configuración del diseño esté organizado como se muestra arriba. Si el problema persiste, podrías considerar comentar algunas secciones del código para identificar exactamente dónde está ocurriendo el problema. Además, si tienes algún otro código relacionado con la interfaz de usuario, especialmente cerca de la creación de la instancia VentanaCombinaciones, también podrías revisarlo para asegurarte de que no esté interfiriendo con la configuración del GroupLayout.
+
+User
+me sigue sin funcionar me puedes reconstruir la ventana sin los vertical ni horisontal solo con JPanels sencillos?
+ChatGPT
+Claro, podemos simplificar el diseño utilizando paneles individuales para cada sección. Aquí tienes un ejemplo de cómo podrías hacerlo:
+
+java
+Copy code
+package gui;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
+
+public class VentanaCombinaciones extends JFrame {
+
+    private JTable tabla;
+    private JTextField presupuestoField;
+    private JButton generarCombinacionesButton;
+
+    public VentanaCombinaciones(List<Coche> listaDeCoches) {
+        super("Combinaciones de Compra");
+
+        // Crear modelo de tabla
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Dinero Restante");
+        modelo.addColumn("Coches Comprados");
+
+        // Crear la tabla con el modelo
+        tabla = new JTable(modelo);
+
+        // Configurar la ventana
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 400);
+
+        // Crear un panel para los controles superiores
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.add(new JLabel("Presupuesto:"));
+        presupuestoField = new JTextField(10);
+        panelSuperior.add(presupuestoField);
+        generarCombinacionesButton = new JButton("Generar Combinaciones");
+        panelSuperior.add(generarCombinacionesButton);
+
+        // Crear un panel para la tabla
+        JPanel panelTabla = new JPanel(new BorderLayout());
+        panelTabla.add(new JScrollPane(tabla), BorderLayout.CENTER);
+
+        // Configurar el diseño de la ventana
+        setLayout(new BorderLayout());
+        add(panelSuperior, BorderLayout.NORTH);
+        add(panelTabla, BorderLayout.CENTER);
+
+        // Agregar un ActionListener al botón
+        generarCombinacionesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generarCombinaciones();
+            }
+        });
+
+        // Hacer visible la ventana
+        setVisible(true);
+    }
+
+    private void generarCombinaciones() {
+        try {
+            // Obtener el presupuesto ingresado
+            double presupuesto = Double.parseDouble(presupuestoField.getText());
+
+            // Obtener la lista de coches del concesionario
+            List<Coche> listaDeCoches = Concesionario.getCoches();
+
+            // Generar todas las combinaciones posibles
+            Map<Integer, Map<String, Object>> combinaciones = Concesionario.generarCombinacionesDeCompra(presupuesto, listaDeCoches);
+
+            // Actualizar la tabla con las nuevas combinaciones
+            actualizarTabla(combinaciones);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico para el presupuesto.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void actualizarTabla(Map<Integer, Map<String, Object>> combinaciones) {
+        // Limpiar el modelo de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.setRowCount(0);
+
+        // Llenar la tabla con los datos de las combinaciones
+        for (Map.Entry<Integer, Map<String, Object>> entry : combinaciones.entrySet()) {
+            int id = entry.getKey();
+            Map<String, Object> infoCompra = entry.getValue();
+            double dineroRestante = (double) infoCompra.get("dineroRestante");
+            List<Coche> cochesComprados = (List<Coche>) infoCompra.get("coches");
+
+            // Crear una fila con los datos
+            Object[] fila = {id, dineroRestante, cochesComprados};
+
+            // Agregar la fila al modelo de la tabla
+            modelo.addRow(fila);
+        }
+    }
+}
+Este código utiliza dos paneles (panelSuperior y panelTabla) para organizar los controles y la tabla, respectivamente. El diseño general se realiza utilizando un BorderLayout, y cada panel se agrega a la ubicación correspondiente en ese diseño. Espero que esta versión más simple funcione para ti.
+
+User
+perfecto el siguiente codigo me a funcionado de maravilla: package gui;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import domain.Coche;
+import domain.Concesionario;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
+
+public class VentanaCombinaciones extends JFrame {
+
+    private JTable tabla;
+    private JTextField presupuestoField;
+    private JButton generarCombinacionesButton;
+
+    public VentanaCombinaciones(List<Coche> listaDeCoches) {
+        super("Combinaciones de Compra");
+
+        // Crear modelo de tabla
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Dinero Restante");
+        modelo.addColumn("Coches Comprados");
+
+        // Crear la tabla con el modelo
+        tabla = new JTable(modelo);
+
+        // Configurar la ventana
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 400);
+
+        // Crear un panel para los controles superiores
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.add(new JLabel("Presupuesto:"));
+        presupuestoField = new JTextField(10);
+        panelSuperior.add(presupuestoField);
+        generarCombinacionesButton = new JButton("Generar Combinaciones");
+        panelSuperior.add(generarCombinacionesButton);
+
+        // Crear un panel para la tabla
+        JPanel panelTabla = new JPanel(new BorderLayout());
+        panelTabla.add(new JScrollPane(tabla), BorderLayout.CENTER);
+
+        // Configurar el diseño de la ventana
+        setLayout(new BorderLayout());
+        add(panelSuperior, BorderLayout.NORTH);
+        add(panelTabla, BorderLayout.CENTER);
+
+        // Agregar un ActionListener al botón
+        generarCombinacionesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generarCombinaciones();
+            }
+        });
+
+        // Hacer visible la ventana
+        setVisible(true);
+    }
+
+    private void generarCombinaciones() {
+        try {
+            // Obtener el presupuesto ingresado
+            double presupuesto = Double.parseDouble(presupuestoField.getText());
+
+            // Obtener la lista de coches del concesionario
+            List<Coche> listaDeCoches = Concesionario.getCoches();
+
+            // Generar todas las combinaciones posibles
+            Map<Integer, Map<String, Object>> combinaciones = Concesionario.generarCombinacionesDeCompra(presupuesto, listaDeCoches);
+
+            // Actualizar la tabla con las nuevas combinaciones
+            actualizarTabla(combinaciones);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico para el presupuesto.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void actualizarTabla(Map<Integer, Map<String, Object>> combinaciones) {
+        // Limpiar el modelo de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.setRowCount(0);
+
+        // Llenar la tabla con los datos de las combinaciones
+        for (Map.Entry<Integer, Map<String, Object>> entry : combinaciones.entrySet()) {
+            int id = entry.getKey();
+            Map<String, Object> infoCompra = entry.getValue();
+            double dineroRestante = (double) infoCompra.get("dineroRestante");
+            List<Coche> cochesComprados = (List<Coche>) infoCompra.get("coches");
+
+            // Crear una fila con los datos
+            Object[] fila = {id, dineroRestante, cochesComprados};
+
+            // Agregar la fila al modelo de la tabla
+            modelo.addRow(fila);
+        }
+    }
+}
+ChatGPT
+Me alegra saber que el código ha funcionado para ti. Si tienes más preguntas o si hay algo más en lo que pueda ayudarte, no dudes en preguntar. ¡Buena programación!
