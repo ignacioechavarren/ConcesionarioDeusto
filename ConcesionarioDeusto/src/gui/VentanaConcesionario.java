@@ -67,6 +67,7 @@ public class VentanaConcesionario extends JFrame{
 	private JButton btnAniadirCocheAlaReserva;
 	private JButton btnVerReservas;
 	private JButton viewProfile;
+	private JButton simulador= new JButton("SIMULAR COMPRAS");
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; 
 	private JList<Coche> listaCoches; 
@@ -121,6 +122,8 @@ public class VentanaConcesionario extends JFrame{
 		viewProfile=new JButton(new ImageIcon(im2));
 		viewProfile.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnAniadirCocheAlaReserva.setFont(new Font("Tahoma", Font.BOLD, 15));
+		simulador.setFont(new Font("Tahoma", Font.BOLD, 15));
+		pSur.add(simulador);
 		pSur.add(btnAniadirCocheAlaReserva);
 		
 		ImageIcon ic = new ImageIcon(im3);
@@ -315,7 +318,13 @@ public class VentanaConcesionario extends JFrame{
 			
 		});
 
-		
+		simulador.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCombinaciones vc=new VentanaCombinaciones(Concesionario.getCoches());
+			}
+		});
 		
 		btnAniadirCocheAlaReserva.addActionListener(new ActionListener() {
 		    @Override

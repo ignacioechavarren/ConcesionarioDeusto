@@ -4,6 +4,7 @@ import domain.Cliente;
 import domain.Coche;
 import domain.Concesionario;
 import domain.Marca;
+import gui.VentanaCombinaciones;
 import gui.VentanaInicio;
 import gui.VentanaLogin;
 import gui.VentanaRegistro;
@@ -63,8 +64,7 @@ public class Main {
 		
 		//SwingUtilities.invokeLater(() -> new VentanaProductos(conc));
 
-		VentanaInicio vi=new VentanaInicio(conc);
-		
+		VentanaInicio vi=new VentanaInicio(conc);		
 		
 		
 	}

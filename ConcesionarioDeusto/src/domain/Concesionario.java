@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -183,6 +184,35 @@ public class Concesionario {
         ordenarCochesRecursivo(coches, n - 1);
     }
 	
+    
+    public static Map<Integer, List<Coche>> generarCombinacionesDeCompra(double presupuesto, List<Coche> coches) {
+        Map<Integer, List<Coche>> combinaciones = new HashMap<>();
+        generarCombinacionesRecursivo(presupuesto, coches, 0, new ArrayList<>(), combinaciones);
+        return combinaciones;
+    }
+
+    private static void generarCombinacionesRecursivo(double presupuesto, List<Coche> coches, int indice,
+                                                      List<Coche> combinacion, Map<Integer, List<Coche>> combinaciones) {
+        if (indice == coches.size()) {
+            double precioTotal = calcularPrecioTotal(combinacion);
+            if (precioTotal <= presupuesto) {
+                combinaciones.put(combinaciones.size() + 1, new ArrayList<>(combinacion));
+            }
+            return;
+        }
+        combinacion.add(coches.get(indice));
+        generarCombinacionesRecursivo(presupuesto, coches, indice + 1, combinacion, combinaciones);
+        combinacion.remove(combinacion.size() - 1);
+        generarCombinacionesRecursivo(presupuesto, coches, indice + 1, combinacion, combinaciones);
+    }
+    
+    private static double calcularPrecioTotal(List<Coche> coches) {
+        double precioTotal = 0;
+        for (Coche coche : coches) {
+            precioTotal += coche.getPrecio();
+        }
+        return precioTotal;
+    }
 
     public static void borrarClientePorDNI(String nomfich,String dni) {        
         clientes.removeIf(cliente -> cliente.getDni().equals(dni));        
