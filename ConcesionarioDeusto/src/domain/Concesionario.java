@@ -165,6 +165,24 @@ public class Concesionario {
 		
 	}
 	
+	public static void ordenarCoches(List<Coche> coches) {
+        ordenarCochesRecursivo(coches, coches.size());
+    }
+	
+    private static void ordenarCochesRecursivo(List<Coche> coches, int n) {       
+        if (n <= 1) {
+            return;
+        }
+        for (int i = 0; i < n - 1; i++) {
+            if (coches.get(i).compareTo(coches.get(i + 1)) > 0) {
+                Coche temp = coches.get(i);
+                coches.set(i, coches.get(i + 1));
+                coches.set(i + 1, temp);
+            }
+        }
+        ordenarCochesRecursivo(coches, n - 1);
+    }
+	
 
     public static void borrarClientePorDNI(String nomfich,String dni) {        
         clientes.removeIf(cliente -> cliente.getDni().equals(dni));        
