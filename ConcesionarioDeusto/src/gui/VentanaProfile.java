@@ -55,11 +55,12 @@ public class VentanaProfile extends JFrame{
 	private JPanel pBotonAtras=new JPanel();
 	private JPanel pNorte;	
 	private JPanel espacio,espacio1,espacio2,espacio3,espacio4,espacio5,espacio6;
+	private JPanel condiciones=new JPanel();
 	
 	private JLabel lblPoliticas=new JLabel("<html><u>Políticas de Uso del Concesionario:</u></html>");
 	private JTextArea politicasTextArea;
 	private JLabel lblEmpresa;
-	private JLabel userIcon;
+	private JLabel userIcon,userIcon2;
 	private JLabel userNameLabel= new JLabel("Nombre:");
 	private JTextArea userName;
 	private JLabel userDniLabel= new JLabel("Dni:");
@@ -79,24 +80,30 @@ public class VentanaProfile extends JFrame{
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setResizable(false);
 		this.clienteMod=cliente;
-		userDniSeguro=cliente.getDni();
+		userDniSeguro=cliente.getDni();	
 		
-		
-		espacio4= new JPanel();
+		ImageIcon icon2=new ImageIcon("imagenes/ajustes2.png");
+		Image imagen2=icon2.getImage();
+		Image im3=imagen2.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+		JLabel iconLabel=new JLabel(new ImageIcon(im3));
+		espacio4= new JPanel();		
         espacio4.setBackground(new Color(40,40,40));
         espacio5=new JPanel();
-        espacio5.setBackground(new Color(40,40,40));
+        espacio5.setBackground(new Color(40,40,40));       
         espacio6=new JPanel();
         espacio6.setBackground(new Color(40,40,40));
-        pTodoRight.add(espacio4);
+        espacio6.add(iconLabel);
+        espacio6.setBorder(new EmptyBorder(50,0,0,0));
+        //pTodoRight.add(espacio4);
         pTodoRight.add(espacio6);
         
+        condiciones.setBackground(new Color(40,40,40));
 		lblPoliticas.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblPoliticas.setForeground(new Color(255, 255, 255));
 		lblPoliticas.setBackground(new Color(40,40,40));
-		lblPoliticas.setPreferredSize(new Dimension(50,150));
-		lblPoliticas.setBorder(new EmptyBorder(70, 0, 0, 0));
-		pTodoRight.add(lblPoliticas);
+		lblPoliticas.setPreferredSize(new Dimension(300,50));
+		lblPoliticas.setBorder(new EmptyBorder(0, 0, 0, 0));
+		condiciones.add(lblPoliticas,TOP_ALIGNMENT);
 		politicasTextArea = new JTextArea();
         politicasTextArea.setEditable(false);
         politicasTextArea.setLineWrap(true);
@@ -118,15 +125,17 @@ public class VentanaProfile extends JFrame{
         politicasTextArea.setFont(new Font("Tahoma", Font.PLAIN,15));
         JScrollPane scrollPaneDerecha = new JScrollPane(politicasTextArea);
         scrollPaneDerecha.setBorder(null);
-        scrollPaneDerecha.setPreferredSize(new Dimension(600,200));
-        pTodoRight.add(scrollPaneDerecha,BorderLayout.WEST);
+        scrollPaneDerecha.setPreferredSize(new Dimension(450,200));
+        condiciones.add(scrollPaneDerecha);
         
         espacio3=new JPanel();
         espacio3.setBackground(new Color(40,40,40));
         btnaceptarCond=new JButton("ACEPTAR TÉRMINOS");
         btnaceptarCond.setAlignmentX(Component.CENTER_ALIGNMENT);        
         espacio3.add(btnaceptarCond,BorderLayout.CENTER);        
-        pTodoRight.add(espacio3);        
+        condiciones.add(espacio3); 
+        condiciones.setBorder(new EmptyBorder(0,0,75,0));
+        pTodoRight.add(condiciones);
         
         pContent.setBackground(new Color(40,40,40));
         pContent.add(espacio5);
@@ -157,10 +166,6 @@ public class VentanaProfile extends JFrame{
 		userFech=new JTextArea(cliente.getfNacStr());
 		userPssw=new JTextArea(cliente.getContrasenia());
 		pIcon.setBackground(new Color(40, 40, 40));
-		
-		
-		
-
 
 		pIcon.add(userIcon);
 		userNameLabel.setForeground(new Color(255, 255, 255));
@@ -270,10 +275,10 @@ public class VentanaProfile extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				pTodoRight.removeAll();
+				condiciones.removeAll();
 				JOptionPane.showMessageDialog(null, "Usted acepto los términos de uso","CODICIONES ACEPTADAS",JOptionPane.INFORMATION_MESSAGE);
-				pTodoRight.revalidate();
-				pTodoRight.repaint();
+				condiciones.revalidate();
+				condiciones.repaint();
 			}
 		});
 	}

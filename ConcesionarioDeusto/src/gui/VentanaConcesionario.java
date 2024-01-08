@@ -69,7 +69,7 @@ public class VentanaConcesionario extends JFrame{
 	private JButton btnAniadirCocheAlaReserva;
 	private JButton btnVerReservas;
 	private JButton viewProfile;
-	private JButton simulador= new JButton("SIMULAR COMPRAS");
+	private JButton simulador= new JButton("SUGERIR COMPRAS");
 	private JTextArea areaCarrito;
 	private DefaultListModel<Coche> modeloListaCoches; 
 	private JList<Coche> listaCoches; 

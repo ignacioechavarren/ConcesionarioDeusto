@@ -31,7 +31,6 @@ public class Main {
 		try {
 			bdd.cargarCochesBDDConcesionario();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -60,10 +59,7 @@ public class Main {
 		System.out.println("Reservas del cliente: "+cli1.getDni());
 		Concesionario.imprimirReservasCliente(cli1);
 		System.out.println("************************************************************************");
-				
 		
-		//SwingUtilities.invokeLater(() -> new VentanaProductos(conc));
-
 		VentanaInicio vi=new VentanaInicio(conc);		
 		
 		
