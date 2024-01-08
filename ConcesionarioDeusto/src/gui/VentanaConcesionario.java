@@ -164,7 +164,6 @@ public class VentanaConcesionario extends JFrame{
 		areaCarrito.setText(texto);
 		pCentro.setBorder(new EmptyBorder(0, 240, 0, 0));
 		pCentro.add(panelCoches);
-		//pCentro.add(contador);
 		panelCoches.setPreferredSize(new Dimension(800, 700));
 		frame.getContentPane().add(pCentro, BorderLayout.CENTER);
 		
@@ -226,13 +225,9 @@ public class VentanaConcesionario extends JFrame{
 		
 		ArrayList<Coche> cocheTipo = new ArrayList<Coche>();
 		List<Coche>reservas=Main.carrito;
-		
-		
+	
 		List<Coche>coches1=new ArrayList<>(conc.getCoches());
 		modeloListaCoches = new DefaultListModel<>();
-		
-
-		
 		
 		comboBoxTipo.addActionListener(new ActionListener() {
 			
@@ -407,11 +402,6 @@ public class VentanaConcesionario extends JFrame{
 				
 			}
 		});
-		
-
-		
-	
-		
 		
 		tablaCoches.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			int filaAnt = -1;

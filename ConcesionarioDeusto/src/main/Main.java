@@ -42,8 +42,6 @@ public class Main {
 				
 		Concesionario.imprimirCoches();
 		
-		//Concesionario.aniadirCliente(cli1);
-		//Concesionario.aniadirCliente(cli2);
 		Concesionario.cargarClientesEnLista("Clientes.csv");
 		System.out.println("Lista de clientes antes de ordenarla");
 		Concesionario.imprimirClientes();

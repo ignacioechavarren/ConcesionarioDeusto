@@ -39,25 +39,13 @@ public enum Marca implements Serializable, Comparable<Marca>{
 	TES("Tesla"),
 	TOY("Toyota"),
 	VOL("Volkswagen");
-	//Acabado
-	
-	/**
-	 * 
-	 */
+
 	private String nombre;
 	
-	/**
-	 * 
-	 * @param nombre
-	 */
 	Marca(String nombre) {
 		this.nombre = nombre;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public String getMarca() {
 		return this.nombre;
 	}
