@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -19,13 +20,13 @@ public class VentanaCombinaciones extends JFrame {
 
     private JTable tabla;
     private JTextField presupuestoField;
-    private JButton generarCombinacionesButton;
+    private JButton generarCombinacionesButton, volver;
     private Map<Integer, List<Coche>> combinaciones;
 
     public VentanaCombinaciones(List<Coche> listaDeCoches) {
         super("Combinaciones de Compra");
-        DefaultTableModel modelo = new DefaultTableModel(){
-        	@Override
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -33,15 +34,25 @@ public class VentanaCombinaciones extends JFrame {
         modelo.addColumn("ID");
         modelo.addColumn("Dinero Restante");
         modelo.addColumn("Ver Detalles");
+
         tabla = new JTable(modelo);
+        // Centrar el contenido de las celdas
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tabla.setDefaultRenderer(Object.class, centerRenderer);
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(800, 400);
+        setSize(1000, 400);
 
         JPanel panelSuperior = new JPanel();
+        panelSuperior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
         panelSuperior.add(new JLabel("Presupuesto:"));
         presupuestoField = new JTextField(10);
         panelSuperior.add(presupuestoField);
-        generarCombinacionesButton = new JButton("Generar Combinaciones");
+        generarCombinacionesButton = new JButton("Generar Combinacion"); 
+        volver = new JButton("Volver");
+        generarCombinacionesButton.setBackground(new Color(75, 169, 255)); 
+        generarCombinacionesButton.setForeground(Color.WHITE); 
         panelSuperior.add(generarCombinacionesButton);
 
         JPanel panelTabla = new JPanel(new BorderLayout());
