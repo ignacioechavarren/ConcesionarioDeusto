@@ -22,12 +22,14 @@ import domain.Coche;
 import domain.Concesionario;
 import domain.Marca;
 import domain.Pedido;
+import java.util.logging.Logger;
 
 public class bd {
 	
 	public static String DRIVER_NAME;
 	public static String DATABASE_FILE;
 	public static String CONNECTION_STRING;
+	private static final Logger logger=Logger.getLogger(Concesionario.class.getName());
 	
 	public bd() {		
 		try {
@@ -40,6 +42,7 @@ public class bd {
 						
 			Class.forName(DRIVER_NAME);
 		} catch (Exception ex) {
+			logger.warning("No se pudo cargar el driver: "+DRIVER_NAME);
 			System.err.format("\n* Error al cargar el driver de BBDD: %s", ex.getMessage());
 			ex.printStackTrace();
 		}
@@ -64,6 +67,7 @@ public class bd {
 	        }
 	        pstmt.close();		
 		} catch (Exception ex) {
+			logger.warning("No se pudo encontrar ni crear la siguiente bdd: "+DATABASE_FILE);
 			System.err.format("\n* Error al crear la BBDD: %s", ex.getMessage());
 			ex.printStackTrace();			
 		}
@@ -81,6 +85,7 @@ public class bd {
 	        pstmt.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	        logger.warning("No se pudo insertar el cliente en la siguiente bdd: "+DATABASE_FILE);
 	    }
 	}
 
@@ -97,6 +102,7 @@ public class bd {
 	        statement.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	        logger.warning("No se pudo insertar el coche en la siguiente bdd: "+DATABASE_FILE);
 	    }
 	}
 
@@ -146,11 +152,13 @@ public class bd {
 	                con.commit();
 	            } else {
 	                con.rollback();
+	                logger.warning("No se pudo insertar los coches del pedido en la bdd.");
 	                throw new SQLException("Error al obtener el ID del pedido generado.");
 	            }
 	        }
 	    } catch (SQLException e) {
 	        con.rollback();
+	        logger.warning("No se encontro el id");
 	        throw e;
 	    } finally {
 	        con.setAutoCommit(true);
@@ -241,6 +249,7 @@ public class bd {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.warning("No se encontro la bdd o no existe la tabla, nombre bdd:"+DATABASE_FILE);
         }
 
         return clientes;
@@ -260,6 +269,8 @@ public class bd {
             }
         } catch (SQLException e) {
             e.printStackTrace();            
+            logger.warning("No se pudo borrar el cliente con el siguiente dni por que no se"+
+            " encuentro en la base de datos"+dniCliente);
         }
     }
 }

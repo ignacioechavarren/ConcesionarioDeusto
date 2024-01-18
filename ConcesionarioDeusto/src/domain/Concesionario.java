@@ -16,12 +16,15 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Logger;
+
 
 public class Concesionario {
 	
 	private static List<Coche> coches = new ArrayList<>();
 	private static List<Cliente> clientes = new ArrayList<>();
 	private static Map<Cliente, List<Coche>> reservas = new TreeMap<>();//new HashMap<>();
+	private static final Logger logger=Logger.getLogger(Concesionario.class.getName());
 
 	public static String getPassword(String dni) {
 		String result = null;
@@ -116,7 +119,7 @@ public class Concesionario {
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
-			
+			logger.warning("No se encontro el siguiente fichero: "+nomfich);
 		}
 		
 	}
@@ -203,6 +206,7 @@ public class Concesionario {
 			pw.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			logger.warning("No se encontro el siguiente fichero: "+nomfich);
 		}
 	}
 
