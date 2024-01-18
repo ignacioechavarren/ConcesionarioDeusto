@@ -1,0 +1,52 @@
+﻿* Valoración del resultado final:
+   * ¿El resultado cumple con lo esperado al inicio?
+Si.
+   * ¿Habéis Implementado toda la funcionalidad?
+Si, hemos implementado toda la funcionalidad planificada.
+   * ¿Habéis añadido mejoras respecto a la idea inicial?
+Sí, hemos añadido mejoras, como una interfaz más intuitiva y funciones adicionales que no estaban inicialmente contempladas.
+   * Si no habéis implementado todo lo esperado, ¿qué parte no habéis implementado? ¿Qué motivos han provocado que hayáis podido implementar todo?
+Ninguno, ya que hemos implementado todo lo planificado.
+* Valoración del proceso de realización del proyecto:
+   * ¿Qué tal ha ido la coordinación y reparto de tareas? ¿Todas las personas han colaborado por igual? En caso de que no haya habido un reparto equilibrado de tareas, identifica los principales motivos que han provocado el desequilibrio. ¿Ha habido conflictos en el grupo? ¿Cómo los habéis solucionado?
+La coordinación ha sido buena, aunque ha habido algún desequilibrio en la colaboración. Algunas personas han contribuido más que otras debido a diferencias en la comprensión de determinadas tareas.
+   * ¿Habéis utilizado la hoja de cálculo de planificación para el seguimiento? ¿Habéis hecho un recuento de las horas reales que ha dedicado cada persona al proyecto? ¿Se acercan las horas reales a la estimación inicial de 50 h. por persona? En caso de que hayáis dedicado más de 50 h. por persona, ¿cuál creéis que es el motivo?
+Sí, hemos utilizado una hoja de cálculo para planificar y hacer un seguimiento del progreso. No, no hemos realizado un seguimiento detallado de las horas dedicadas por cada persona por miedo a posibles comparaciones y disputas. No tenemos información detallada sobre las horas reales. Si se excedieron las 50 horas, podría deberse a la complejidad inesperada de algunas tareas o por quedarnos trabados en algún error.
+   * ¿El desarrollo del proyecto ha sido distribuído a lo largo de todo el semestre o ha habido periodos intensos de trabajo y otros periodos en los que el proyecto ha estado parado?
+Hubo periodos intensos de trabajo y algunos momentos en los que el proyecto estuvo parado debido a otras obligaciones académicas o porque no teníamos más ideas que explotar.
+   * ¿Qué tal ha ido la experiencia de uso de GitHub?
+La experiencia ha sido positiva, GitHub nos ha facilitado la colaboración y el control de las versiones del proyecto.
+   * ¿Cómo has resuelto las dudas y problemas que has tenido durante la realización del proyecto?
+Hemos utilizado principalmente la comunicación a través de plataformas como Discord y también hemos recurrido a recursos en línea, la documentación de Java y las presentaciones proporcionadas por el docente.
+   * ¿Habéis utilizado alguna herramienta colaborativa para trabajar o reuniros? (indica cuál has utilizado y por qué)
+Sí, hemos utilizado Discord para reunirnos y trabajar en línea (Obviando GitHub).
+* Identificad las 3 cuestiones más positivas del proceso de realización del proyecto
+El hábito obtenido con la planificación y la gestión de nuestro tiempo.
+La mejora continua del diseño de la interfaz de usuario.
+La experiencia adquirida en la colaboración utilizando GitHub y otras herramientas colaborativas.
+* Identificad las 3 cuestiones más negativas del proceso de realización del proyecto
+        Desigualdad en alguna distribución de carga de trabajo.
+Periodos intensos de trabajo que han afectado la calidad del proyecto y viceversa.
+La creación del proyecto puede darte una falsa confianza ante el examen cuando realmente no hay correlación.
+* Para cada cuestión, ¿podéis encontrar alguna justificación o posible solución?
+Asignar tareas según las fortalezas individuales y fomentar la comunicación abierta para abordar cualquier desequilibrio.
+Planificar mejor el tiempo y distribuir las tareas de manera más uniforme a lo largo del semestre.
+Implementar un sistema de evaluación que proponga en el proyecto la implementación de funcionalidades más afines al examen.
+* Lecciones aprendidas
+   * Si hoy tuviéseis que realizar de nuevo el proyecto, ¿qué cosas hubieseis hecho de otra manera?
+        Mejor planificación y asignación equitativa de tareas desde el principio. Además, un          seguimiento más detallado de las horas dedicadas. Y por último pero no por ello      menos importante obtener inspiración desde un principio para no quedarnos bloqueados.
+   * ¿Hubiésemos necesitado algo adicional por parte del docente: tutorías, trabajo supervisado en aula, algún tipo de material o recurso adicional?
+        Posiblemente, tutorías más frecuentes para entender lo que busca que hagamos las tareas y problemas específicos.
+* Uso de herramientas de Inteligencia Artificial Generativa
+   * ¿Qué herramientas de IAG habéis utilizado?
+        Únicamente hemos recurrido en ocasiones necesarias a Chat GPT.
+   * ¿Para qué tareas os han resultado útiles (generación de código desde cero, depuración, explicación de código, generación de tests, adaptación del código, simplificación, traducción entre lenguajes de programación), y en qué medida?
+        Desde nuestra experiencia hemos concluido que lo mejor sería primero ponerle en contexto de la tarea (código relacionado), tener un código ya hecho y pedir en base a ese código una tarea. Por último el código obtenido se depura y modifica hasta estar satisfecho.
+   * ¿En qué tareas no ha resultado útil o ha generado problemas o confusiones?
+        Muchas veces se ofusca en una idea y a si no lo guías como debe ser no completa la tarea si tiene algo de complejidad.
+   * Principales limitaciones que habéis encontrado.
+        Muchas veces el límite es lo que puedes expresar sin ser confuso y a veces la IA asume que lo que quieres hacer es normalmente lo que más le preguntan y no acaba de interpretar bien lo pedido.
+   * ¿Cómo pueden afectar las IAGs a nuestro aprendizaje como desarrolladores de software?
+        Nos facilita enormemente el trabajo y no acaba de sustituirnos. Es una mano de obra rápida y barata que no es capaz de hacer cosas complejas pero muchas veces te proporciona un esqueleto sobre el que trabajar.
+   * ¿Cómo pueden impactar las IAGs en nuestro futuro profesional?
+Son un aliado indispensable que mejorará inmensamente nuestra productividad y aligerar la carga de trabajo pesada y repetitiva.
