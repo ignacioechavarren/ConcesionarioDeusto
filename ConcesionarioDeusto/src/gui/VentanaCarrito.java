@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Logger;
 
 import domain.Cliente;
 import domain.Coche;
@@ -42,6 +43,7 @@ public class VentanaCarrito extends JFrame {
     private JTextField txtTotal;
     private double totalFactura;
     private static final int ANCHO_MAXIMO = 100;
+    private static final Logger logger=Logger.getLogger(VentanaCarrito.class.getName());
 
     public VentanaCarrito(Concesionario conc, Cliente cliente, List<Coche> reservas) throws IOException {
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,6 +126,7 @@ public class VentanaCarrito extends JFrame {
                     panelFactura.revalidate();
                     panelFactura.repaint();
                     panelFactura.setBackground(Color.GRAY);
+                    logger.info("Se elimino el producto: "+selectedCoche.toString());
                 }
             }
         });
@@ -147,8 +150,10 @@ public class VentanaCarrito extends JFrame {
 				JOptionPane.showMessageDialog(null, "Enhorabuena, ha realizado la"+
 				" reserva correctamente en la base de datos",
 	            "RESERVA FINALIZADA", JOptionPane.INFORMATION_MESSAGE);
+				logger.info("Se realizo la reserva con exito.");
 			} catch (SQLException e1) {				
 				e1.printStackTrace();
+				logger.warning("No se pudo realizar la reserva.");
 			}
             
         });
@@ -219,6 +224,7 @@ public class VentanaCarrito extends JFrame {
         if (Main.carrito.size() == 0) {
             JOptionPane.showMessageDialog(null, "No hay coches seleccionados y por lo" +
                     " tanto no se puede crear la factura", "Error", JOptionPane.ERROR_MESSAGE);
+            logger.info("No hay coches seleccionados y por lo tanto no se puede crear la factura");
         } else {
             String nombreArchivo = cliente.getDni()+"-Factura.txt";
 
@@ -272,6 +278,7 @@ public class VentanaCarrito extends JFrame {
 
                 JOptionPane.showMessageDialog(null, "La factura se ha guardado exitosamente en " + nombreArchivo + "." +
                         " Para más información, consulte la factura en detalle.", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+                logger.info("La factura se ha guardado exitosamente en \" + nombreArchivo"+ "Para más información, consulte la factura en detalle.");
             } catch (IOException e) {
                 e.printStackTrace();
             }

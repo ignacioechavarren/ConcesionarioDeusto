@@ -20,9 +20,10 @@ import java.util.Map;
 //ADAPTADO: La intención era entender un error con relacion a lo group layout en uso, pero ante la imposibilidad de solucionarlo le pedi 
 //a la ia una solución mas simple. En conclusion no se usaron los layout group y se desecho la 
 //idea y fuimos mas conservadores con una interface sencilla.
+import java.util.logging.Logger;
 
 public class VentanaCombinaciones extends JFrame {
-
+	private static final Logger logger=Logger.getLogger(VentanaCombinaciones.class.getName());
     private JTable tabla;
     private JTextField presupuestoField;
     private JButton generarCombinacionesButton, volver;
@@ -84,6 +85,8 @@ public class VentanaCombinaciones extends JFrame {
             actualizarTabla(combinaciones);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico para el presupuesto.", "Error", JOptionPane.ERROR_MESSAGE);
+            logger.warning("Por favor, ingrese un valor numérico para el presupuesto.");
+            
         }
     }
 

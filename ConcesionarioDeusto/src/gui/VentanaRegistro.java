@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,6 +33,7 @@ public class VentanaRegistro extends JFrame{
 	private JPasswordField txtConR= new JPasswordField(20);
 	private JButton btnRegistro, btnVolver;
 	private static final String nomfichClientes = "Clientes.csv";
+	private static final Logger logger=Logger.getLogger(VentanaRegistro.class.getName());
 	private JFrame frame= new JFrame("CONCESIONARIO DEUSTO");	
 	private static Cliente cliente = new Cliente();
 	private static List<Coche> carrito = new ArrayList<>();
@@ -109,9 +111,11 @@ public class VentanaRegistro extends JFrame{
 			Cliente c = new Cliente(dni, nom, fNac, con);
 			if(dni.isEmpty()||nom.isEmpty()||con.isEmpty()){
 				JOptionPane.showMessageDialog(null, "Dni, nombre o password estan vacios","ERROR",JOptionPane.ERROR_MESSAGE);
+				logger.warning("Dni, nombre o password estan vacios");
 			}else {
 			if(Concesionario.buscarCliente(dni)!=null) {
 				JOptionPane.showMessageDialog(null, "Ya existe un cliente con ese dni","ERROR",JOptionPane.ERROR_MESSAGE);
+				logger.warning("Ya existe un cliente con ese dni");
 			}else {
 				Concesionario.aniadirCliente(c);
 				bd bdd=new bd();
@@ -119,9 +123,11 @@ public class VentanaRegistro extends JFrame{
 				try {
 					bdd.insertarCliente(c);
 				} catch (SQLException e1) {
+					logger.warning("No se pudo insertar el cliente el la bdd.");
 					e1.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(null, "Cliente registrado con éxito","REGISTRADO",JOptionPane.INFORMATION_MESSAGE);
+				logger.info("Cliente registrado con éxito");
 				conc.guardarClientesEnFichero(nomfichClientes);
 				
 			}}

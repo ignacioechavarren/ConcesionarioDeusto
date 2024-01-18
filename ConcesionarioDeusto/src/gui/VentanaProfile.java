@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -42,6 +43,7 @@ import java.awt.Font;
 
 public class VentanaProfile extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
+	private static final Logger logger=Logger.getLogger(VentanaProfile.class.getName());
 	private JFrame frame= new JFrame("CONCESIONARIO DEUSTO");
 	private JPanel pTodo=new JPanel(new GridLayout(1,3));
 	private JPanel pTodoLeft=new JPanel(new GridLayout(0,1));
@@ -268,6 +270,7 @@ public class VentanaProfile extends JFrame{
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+					logger.warning("No se pudo guardar los cambios.");
 				}
 		    }			
 		});
@@ -277,6 +280,7 @@ public class VentanaProfile extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				condiciones.removeAll();
 				JOptionPane.showMessageDialog(null, "Usted acepto los términos de uso","CODICIONES ACEPTADAS",JOptionPane.INFORMATION_MESSAGE);
+				logger.info("El usuario acepto los terminos y condiciones.");
 				condiciones.revalidate();
 				condiciones.repaint();
 			}
@@ -304,5 +308,6 @@ public class VentanaProfile extends JFrame{
 		   Concesionario.guardarClientesEnFichero(nomfichClientes);
 		   this.clienteMod=c;
 		   JOptionPane.showMessageDialog(null, "¡Cambios guardados con exito!","MODIFICADO",JOptionPane.INFORMATION_MESSAGE);
+		   logger.info("Se guardaron los cambios con exito");
 	}
 }

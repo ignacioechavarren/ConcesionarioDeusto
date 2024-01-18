@@ -8,7 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +26,7 @@ import java.awt.Font;
 
 public class VentanaLogin extends JFrame{
 	private static final String nomfichClientes = "Clientes.csv";
+	private static final Logger logger=Logger.getLogger(VentanaLogin.class.getName());
 	private JPanel pNorte;
 	private JPanel pCentro;
 	private JPanel pCentro2;
@@ -114,16 +115,19 @@ public class VentanaLogin extends JFrame{
 			Cliente c = Concesionario.buscarCliente(dni);
 			if(c == null) {
 				JOptionPane.showMessageDialog(null, "Para poder iniciar sesión tienes que estar registrado","ERROR",JOptionPane.ERROR_MESSAGE);
+				logger.warning("Se introdujo los campos vacios.");
 			}else {
 				if(c.getContrasenia().equals(con)) {
 					JOptionPane.showMessageDialog(null, "Bienvenido!","SESIÓN INICIADA",JOptionPane.INFORMATION_MESSAGE);
 					cliente = c;
 					carrito = new ArrayList<>();
+					logger.info("Se identifico el siguiente cliente: "+c.toString());
 					new VentanaConcesionario(conc, cliente);
 					frame.dispose();
 					
 				}else {
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta","ERROR",JOptionPane.WARNING_MESSAGE);
+					logger.warning("Datos incorrectos o inexistente en el fichero.");
 				}
 			}
 		});
