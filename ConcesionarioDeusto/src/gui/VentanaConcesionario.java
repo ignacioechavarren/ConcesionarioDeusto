@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -60,6 +61,7 @@ import main.Main;
 
 public class VentanaConcesionario extends JFrame{
 	private JFrame frame=new JFrame("CONCESIONARIO DEUSTO");
+	private static final Logger logger=Logger.getLogger(VentanaConcesionario.class.getName());
 	private JPanel pSur;
 	private JPanel pOeste;
 	private JPanel pEste,pViewProfile,pEsteTop,pEsteTop1,pEsteTop2,pEsteTop3,pBtnVerReservas,pRelleno;
@@ -261,8 +263,8 @@ public class VentanaConcesionario extends JFrame{
 			   							   cocheSel=new Coche(precio,anyo,modelo,marca,matricula);
 			   							   filaAnt=filaSeleccionada;
 			   							   }
-			   						   System.out.println("Fila seleccionada: " + filaSeleccionada);
-			   						   System.out.println(cocheSel);
+			   						   logger.info("Fila seleccionada: " + filaSeleccionada);
+			   						   logger.info(cocheSel.toString());
 			   						   }
 			   					   }
 			   				   }
@@ -299,8 +301,8 @@ public class VentanaConcesionario extends JFrame{
 				   							   cocheSel=new Coche(precio,anyo,modelo,marca,matricula);
 				   							   filaAnt=filaSeleccionada;
 				   							   }
-				   						   System.out.println("Fila seleccionada: " + filaSeleccionada);
-				   						   System.out.println(cocheSel);
+				   						   logger.info("Fila seleccionada: " + filaSeleccionada);
+				   						   logger.info(cocheSel.toString());
 				   						   }
 				   					   }
 				   				   }
@@ -322,6 +324,7 @@ public class VentanaConcesionario extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(!ventanaAbierta) {
 				VentanaCombinaciones vc=new VentanaCombinaciones(Concesionario.getCoches());
+				logger.info("Nuevo simulador de compre en marcha.");
 				vc.setAlwaysOnTop(true);
 				vc.addWindowListener(new WindowListener(){					
 					@Override
@@ -350,6 +353,7 @@ public class VentanaConcesionario extends JFrame{
 				});
 				}else {
 					JOptionPane.showMessageDialog(null, "La ventana ya esta abierta","ERROR",JOptionPane.ERROR_MESSAGE);
+					logger.warning("La ventana ya esta abierta");
 				}
 			}
 		});
@@ -360,6 +364,7 @@ public class VentanaConcesionario extends JFrame{
 		        if (cocheSel != null) {   
 		            if (cocheYaEnCarrito(cocheSel)) {
 		                JOptionPane.showMessageDialog(null, "Este coche ya está en el carrito", "Error", JOptionPane.ERROR_MESSAGE);
+		                logger.warning("Este coche ya está en el carrito");
 		            } else {
 		                Main.carrito.add(cocheSel);
 		                value = Main.carrito.size();
@@ -374,7 +379,7 @@ public class VentanaConcesionario extends JFrame{
 		                areaCarrito.setText(texto);
 		            }
 		        } else {
-		            System.out.println("Por favor, selecciona un coche antes de añadirlo al carrito.");
+		            logger.info("Por favor, selecciona un coche antes de añadirlo al carrito.");
 		        }
 		    }
 		});
@@ -397,6 +402,7 @@ public class VentanaConcesionario extends JFrame{
 					new VentanaCarrito(conc, cliente, Main.carrito);
 				} catch (IOException e1){					
 					e1.printStackTrace();
+					logger.warning("No se pudo iniciar la ventana carrito."+e.toString());
 				}
 				frame.dispose();
 				
@@ -420,8 +426,8 @@ public class VentanaConcesionario extends JFrame{
 		                cocheSel=new Coche(precio,anyo,modelo,marca,matricula);
 		                filaAnt=filaSeleccionada;
 		                }
-		            System.out.println("Fila seleccionada: " + filaSeleccionada);
-		            System.out.println(cocheSel);
+		            logger.info("Fila seleccionada: " + filaSeleccionada);
+		            logger.info(cocheSel.toString());
 		            }
 		    		}
 		    	}
@@ -510,7 +516,6 @@ public class VentanaConcesionario extends JFrame{
 					try {
 						id.setImage (ImageIO.read (new File ("resources/imagenes/Volkswagen_Logo_till_1995.svg.png")));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 						break;

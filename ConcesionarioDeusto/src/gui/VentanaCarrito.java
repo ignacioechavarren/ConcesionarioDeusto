@@ -280,7 +280,7 @@ public class VentanaCarrito extends JFrame {
                         " Para más información, consulte la factura en detalle.", "Notificación", JOptionPane.INFORMATION_MESSAGE);
                 logger.info("La factura se ha guardado exitosamente en \" + nombreArchivo"+ "Para más información, consulte la factura en detalle.");
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.warning("No se pudo guardar la factura. "+e.getMessage());
             }
         }
     }

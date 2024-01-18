@@ -71,6 +71,12 @@ public class VentanaCombinaciones extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 generarCombinaciones();
+                if(!combinaciones.isEmpty()) {
+                	logger.info("Generacion de combinaciones exitosa.");
+                	for (Integer i : combinaciones.keySet()) {
+                		combinaciones.get(i).forEach(t -> logger.info(""+t.toString()));;
+                	}
+                }
             }
         });
       
