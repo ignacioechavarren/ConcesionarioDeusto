@@ -108,28 +108,28 @@ public class TestConcesionario {
 	        assertFalse(Concesionario.getCoches().isEmpty());
 	    }
 
-	    //@Test
-	   // public void testInsertarPedidoConDetalles() throws SQLException {
-	    //Cliente cliente = new Cliente("testDNI", "TestNombre", new Date(), "testPassword");
-	    // Coche coche = new Coche(20000.0, 2022, "Civic", Marca.getPorID("Honda"), "123ABC");
-	        //Pedido pedido = new Pedido(cliente, List.of(coche), LocalDateTime.now(), 20000.0);
-	        //bdd.insertarPedidoConDetalles(pedido);
-	        //List<Pedido>pedidos=bdd.obtenerTodosLosPedidosConCoches();
-	        // boolean res=false;
-	        //for (Pedido p : pedidos) {
-	        	//if(p.getCliente().getDni().equals("testDNI")&&p.getPrecioTotal()==20000.0){
-					//int tam=p.getCoche().size();
-					//for (Coche c : p.getCoche()) {
-						//if(c.getMatricula().equals("123ABC")){
-							//tam--;
-							//}if(tam==0){
-							//res=true;
-							//	}
-						//}
-					//}
-				//}
-	        //assertEquals(true, res);
-	    //}
+	    @Test
+	    public void testInsertarPedidoConDetalles() throws SQLException {
+	    Cliente cliente = new Cliente("testDNI", "TestNombre", new Date(), "testPassword");
+	     Coche coche = new Coche(20000.0, 2022, "Civic", Marca.getPorID("Honda"), "123ABC");
+	        Pedido pedido = new Pedido(cliente, List.of(coche), LocalDateTime.now(), 20000.0);
+	        bdd.insertarPedidoConDetalles(pedido);
+	        List<Pedido>pedidos=bdd.obtenerTodosLosPedidosConCoches();
+	         boolean res=false;
+	        for (Pedido p : pedidos) {
+	        	if(p.getCliente().getDni().equals("testDNI")&&p.getPrecioTotal()==20000.0){
+					int tam=p.getCoche().size();
+					for (Coche c : p.getCoche()) {
+						if(c.getMatricula().equals("123ABC")){
+							tam--;
+							}if(tam==0){
+							res=true;
+								}
+						}
+					}
+				}
+	        assertEquals(true, res);
+	    }
 
 	    @Test
 	    public void testInsertarCliente() throws SQLException {
